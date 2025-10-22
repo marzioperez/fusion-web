@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('slug')->nullable()->default(null);
+            $table->string('address')->nullable()->default(null);
+            $table->string('phone')->nullable()->default(null);
+            $table->json('emails')->nullable()->default(null);
+            $table->string('color')->nullable()->default(null);
+            $table->foreignId('logo_media_id')->nullable()->constrained('media')->nullOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

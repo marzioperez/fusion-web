@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('metas', function (Blueprint $table) {
             $table->id();
+            $table->morphs('metable');
+            $table->longText('title')->nullable();
+            $table->longText('description')->nullable();
+            $table->string('robots')->nullable('follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large');
+            $table->longText('canonical_url')->nullable();
+            $table->foreignId('media_id')->nullable()->constrained('media')->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('locked_dates', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->string('reason')->nullable()->default(null);
+            $table->foreignId('school_id')->nullable()->constrained('schools')->nullOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
