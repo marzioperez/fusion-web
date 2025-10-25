@@ -2,22 +2,25 @@
 
 namespace Database\Factories;
 
+use App\Models\Grade;
+use App\Models\School;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>
  */
-class StudentFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
+class StudentFactory extends Factory {
+
+    public function definition(): array {
+        $school = School::all()->random();
+        $grade = Grade::where('school_id', $school->id)->get()->random();
         return [
-            //
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'school_id' => $school->id,
+            'grade_id' => $grade->id,
+            'allergies' => fake()->words(3, true),
+            'birth_of_date' => fake()->date(),
         ];
     }
 }

@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name')->nullable()->default(null);
             $table->unsignedBigInteger('school_id')->nullable()->default(null);
-            $table->unsignedBigInteger('level_id')->nullable()->default(null);
+            $table->unsignedBigInteger('grade_id')->nullable()->default(null);
             $table->json('allergies')->nullable()->default(null);
             $table->date('birth_of_date')->nullable()->default(null);
+            $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();
         });

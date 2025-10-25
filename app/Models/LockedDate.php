@@ -4,9 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class LockedDate extends Model
-{
-    /** @use HasFactory<\Database\Factories\LockedDateFactory> */
-    use HasFactory;
+class LockedDate extends Model {
+
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'date',
+        'reason',
+        'school_id',
+    ];
+
 }

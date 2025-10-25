@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('order_column')->nullable()->default(0);
+            $table->unsignedBigInteger('school_id');
             $table->softDeletes();
             $table->timestamps();
         });
