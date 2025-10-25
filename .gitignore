@@ -25,3 +25,6 @@ Thumbs.db
 
 composer.lock
 package-lock.json
+/public/js/*
+/public/fonts/*
+/public/css/*
