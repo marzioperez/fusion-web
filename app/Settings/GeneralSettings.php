@@ -20,6 +20,7 @@ class GeneralSettings extends Settings {
     public ?string $email;
     public ?string $phone;
     public ?string $address;
+    public ?array $avatars;
 
     public static function group(): string {
         return 'general';

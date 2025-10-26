@@ -20,6 +20,7 @@ return new class extends Migration
             $table->json('allergies')->nullable()->default(null);
             $table->date('birth_of_date')->nullable()->default(null);
             $table->unsignedBigInteger('user_id')->nullable()->default(null);
+            $table->unsignedBigInteger('avatar_media_id')->nullable()->index();
             $table->softDeletes();
             $table->timestamps();
         });

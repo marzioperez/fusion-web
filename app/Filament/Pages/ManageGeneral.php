@@ -64,6 +64,19 @@ class ManageGeneral extends SettingsPage {
                         TextInput::make('address')->label('Dirección')->columnSpanFull(),
                     ])
                 ])->collapsible()->columnSpanFull(),
+
+                Section::make('Avatares')->schema([
+                    Grid::make([
+                        'default' => 1,
+                        'sm' => 3,
+                        'xl' => 12,
+                        '2xl' => 12
+                    ])->schema([
+                        Repeater::make('avatars')->label('Avatares')->schema([
+                            MediaPicker::make('avatar')->label('Avatar'),
+                        ])->grid(3)->columnSpanFull()
+                    ])
+                ])->collapsible()->columnSpanFull(),
             ]);
     }
 }

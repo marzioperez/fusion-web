@@ -6,12 +6,12 @@ use App\Filament\Resources\Security\Admins\AdminResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListAdmins extends ListRecords
-{
-    protected static string $resource = AdminResource::class;
+class ListAdmins extends ListRecords {
 
-    protected function getHeaderActions(): array
-    {
+    protected static string $resource = AdminResource::class;
+    protected static ?string $title = 'Administradores';
+
+    protected function getHeaderActions(): array {
         return [
             CreateAction::make(),
         ];

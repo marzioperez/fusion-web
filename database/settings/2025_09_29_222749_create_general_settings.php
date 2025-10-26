@@ -5,8 +5,8 @@ use Spatie\LaravelSettings\Migrations\SettingsMigration;
 return new class extends SettingsMigration
 {
     public function up(): void {
-        $this->migrator->add('general.logo', 1);
-        $this->migrator->add('general.logo_mail', 1);
+        $this->migrator->add('general.logo', null);
+        $this->migrator->add('general.logo_mail', null);
         $this->migrator->add('general.favicon', null);
         $this->migrator->add('general.instagram', 'https://www.instagram.com/fusionschoollunches/');
         $this->migrator->add('general.youtube', 'https://www.youtube.com/');
@@ -19,5 +19,6 @@ return new class extends SettingsMigration
         $this->migrator->add('general.address', '458 SE 185th Ave Portland OR 97233');
         $this->migrator->add('general.phone', '(833) 415-8326');
         $this->migrator->add('general.email', 'contact@fusionportland.com');
+        $this->migrator->add('general.avatars', null);
     }
 };

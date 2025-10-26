@@ -30,7 +30,7 @@ class MediaPickerGrid extends Component {
     }
 
     public function updatedPreset($value): void {
-        $this->applyPreset(is_array($value) ? $value : []);
+        $this->applyPreset($value);
     }
 
     public function getItemsProperty() {
