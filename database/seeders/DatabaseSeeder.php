@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder {
             AdminSeeder::class,
             MediaVaultSeeder::class,
             SchoolSeeder::class,
+            AllergySeeder::class,
             UserSeeder::class,
             CategorySeeder::class,
             IngredientSeeder::class,

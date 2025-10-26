@@ -10,7 +10,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaManager extends Page {
 
-    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-photo';
+    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-s-photo';
     protected static string|null|\UnitEnum $navigationGroup = 'Media';
     protected static ?string $title = 'Gestor de Medios';
     protected string $view = 'filament.pages.media-manager';

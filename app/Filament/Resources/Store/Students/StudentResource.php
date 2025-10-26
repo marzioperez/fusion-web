@@ -7,7 +7,7 @@ use App\Filament\Resources\Store\Students\Pages\EditStudent;
 use App\Filament\Resources\Store\Students\Pages\ListStudents;
 use App\Filament\Resources\Store\Students\Schemas\StudentForm;
 use App\Filament\Resources\Store\Students\Tables\StudentsTable;
-use App\Models\Store\Student;
+use App\Models\Student;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -19,8 +19,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class StudentResource extends Resource {
 
     protected static ?string $model = Student::class;
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
     protected static ?string $recordTitleAttribute = 'first_name';
+    protected static string|null|\UnitEnum $navigationGroup = 'Tienda';
+    protected static ?int $navigationSort = 2;
+    protected static ?string $modelLabel = 'estudiante';
+    protected static ?string $breadcrumb = 'Estudiantes';
 
     public static function form(Schema $schema): Schema {
         return StudentForm::configure($schema);

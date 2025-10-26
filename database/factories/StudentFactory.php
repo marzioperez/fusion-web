@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Allergy;
 use App\Models\Grade;
 use App\Models\School;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,7 +20,7 @@ class StudentFactory extends Factory {
             'last_name' => fake()->lastName(),
             'school_id' => $school->id,
             'grade_id' => $grade->id,
-            'allergies' => fake()->words(3, true),
+            'allergies' => Allergy::all()->random(3)->pluck('id')->toArray(),
             'birth_of_date' => fake()->date(),
         ];
     }

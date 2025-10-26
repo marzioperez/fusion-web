@@ -14,7 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 
 class ManageGeneral extends SettingsPage {
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Cog6Tooth;
 
     protected static string $settings = GeneralSettings::class;
     protected static string|null|\UnitEnum $navigationGroup = 'Ajustes';
