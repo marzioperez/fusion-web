@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
+
+class IngredientProduct extends Pivot {
+
+    protected $table = 'ingredient_product';
+    public $incrementing = false;
+    protected $fillable = [
+        'quantity',
+        'unit'
+    ];
+
+}

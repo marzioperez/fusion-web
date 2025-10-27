@@ -18,15 +18,13 @@ class StudentForm {
     public static function configure(Schema $schema): Schema {
         return $schema
             ->components([
-                Section::make()->schema([
-                    Tabs::make('Foto/Avatar')->tabs([
-                        Tabs\Tab::make('Subir foto')->schema([
-                            SpatieMediaLibraryFileUpload::make('photo')->label('Foto')->collection('photo'),
-                        ]),
-                        Tabs\Tab::make('Seleccionar avatar')->schema([
-                            MediaPicker::make('avatar_media_id')->label('Avatar'),
-                        ]),
-                    ])
+                Tabs::make('Foto/Avatar')->tabs([
+                    Tabs\Tab::make('Subir foto')->schema([
+                        SpatieMediaLibraryFileUpload::make('photo')->label('Foto')->collection('photo'),
+                    ]),
+                    Tabs\Tab::make('Seleccionar avatar')->schema([
+                        MediaPicker::make('avatar_media_id')->label('Avatar'),
+                    ]),
                 ])->columnSpan(4),
                 Section::make()->schema([
                     TextInput::make('first_name')->label('Nombre')->required()->columnSpan(6),

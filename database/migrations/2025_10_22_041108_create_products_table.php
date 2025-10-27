@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProductTypes;
 use App\Enums\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,11 +18,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->nullable()->default(null);
             $table->string('description')->nullable()->default(null);
-            $table->foreignId('media_id')->nullable()->constrained('media')->nullOnDelete();
             $table->string('status')->nullable()->default(Status::PUBLISHED->value);
             $table->decimal('price', 15)->nullable()->default(0);
             $table->decimal('offer_price', 15)->nullable()->default(0);
             $table->integer('stock')->nullable()->default(0);
+            $table->string('type')->nullable()->default(ProductTypes::FOOD->value);
+            $table->foreignId('media_id')->nullable()->constrained('media')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

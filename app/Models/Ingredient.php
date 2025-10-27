@@ -11,7 +11,11 @@ class Ingredient extends Model {
     use SoftDeletes;
 
     protected $fillable = [
-        'name',
-        'unit'
+        'name'
     ];
+
+    public function products() {
+        return $this->belongsToMany(Product::class)->withPivot(['quantity', 'unit'])->withTimestamps();
+
+    }
 }

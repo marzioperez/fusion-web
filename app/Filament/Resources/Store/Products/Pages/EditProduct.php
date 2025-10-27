@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\Store\Ingredients\Pages;
+namespace App\Filament\Resources\Store\Products\Pages;
 
-use App\Filament\Resources\Store\Ingredients\IngredientResource;
+use App\Filament\Resources\Store\Products\ProductResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditIngredient extends EditRecord
+class EditProduct extends EditRecord
 {
-    protected static string $resource = IngredientResource::class;
+    protected static string $resource = ProductResource::class;
 
     protected function getHeaderActions(): array
     {

@@ -6,6 +6,7 @@ use App\Filament\Forms\Components\MediaPicker;
 use App\Settings\GeneralSettings;
 use BackedEnum;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\SettingsPage;
 use Filament\Schemas\Components\Grid;
@@ -75,6 +76,17 @@ class ManageGeneral extends SettingsPage {
                         Repeater::make('avatars')->label('Avatares')->schema([
                             MediaPicker::make('avatar')->label('Avatar'),
                         ])->grid(3)->columnSpanFull()
+                    ])
+                ])->collapsible()->columnSpanFull(),
+
+                Section::make('Parámetros de tienda')->schema([
+                    Grid::make([
+                        'default' => 1,
+                        'sm' => 3,
+                        'xl' => 12,
+                        '2xl' => 12
+                    ])->schema([
+                        TagsInput::make('units')->label('Unidades de medida')->columnSpanFull(),
                     ])
                 ])->collapsible()->columnSpanFull(),
             ]);

@@ -23,6 +23,7 @@ class AdminResource extends Resource {
     protected static ?int $navigationSort = 41;
     protected static ?string $modelLabel = 'administrador';
     protected static ?string $breadcrumb = 'Administradores';
+    protected static ?string $navigationLabel = 'Administradores';
 
     public static function form(Schema $schema): Schema {
         return AdminForm::configure($schema);

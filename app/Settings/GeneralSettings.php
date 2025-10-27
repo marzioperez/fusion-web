@@ -21,6 +21,7 @@ class GeneralSettings extends Settings {
     public ?string $phone;
     public ?string $address;
     public ?array $avatars;
+    public ?array $units;
 
     public static function group(): string {
         return 'general';
