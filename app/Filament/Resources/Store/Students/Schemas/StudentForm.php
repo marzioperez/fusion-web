@@ -20,7 +20,11 @@ class StudentForm {
             ->components([
                 Tabs::make('Foto/Avatar')->tabs([
                     Tabs\Tab::make('Subir foto')->schema([
-                        SpatieMediaLibraryFileUpload::make('photo')->label('Foto')->collection('photo'),
+                        SpatieMediaLibraryFileUpload::make('photo')->label('Foto')->preserveFilenames()->collection('photo')->afterStateUpdated(function ($state, callable $set, $context, $record) {
+                            if ($record) {
+                                $record->clearProfileImageCache();
+                            }
+                        }),
                     ]),
                     Tabs\Tab::make('Seleccionar avatar')->schema([
                         MediaPicker::make('avatar_media_id')->label('Avatar'),

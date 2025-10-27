@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 use Monolog\Level;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
@@ -44,31 +45,58 @@ class Student extends Model implements HasMedia {
         $this->addMediaConversion('webp')->format('webp')->quality(82)->queued();
     }
 
+    private function profileImageCacheKey(): string {
+        return "student:{$this->id}:profile_image_url";
+    }
+
     protected function profileImageUrl(): Attribute {
         return Attribute::get(function () {
-            $photoUrl = $this->getFirstMediaUrl('photo');
-            if ($photoUrl) {
-                return $photoUrl;
-            }
+            return Cache::remember($this->profileImageCacheKey(), now()->addMinutes(30), function () {
+                // 1) Foto subida (usa relación precargada para evitar N+1)
+                $mediaItem = $this->relationLoaded('media') ? $this->getMedia('photo')->first() : $this->getFirstMedia('photo');
 
-            if ($this->avatar_media_id) {
-                static $cache = [];
-                if (! array_key_exists($this->avatar_media_id, $cache)) {
-                    $media = Media::query()
-                        ->select('id', 'disk', 'conversions_disk', 'file_name', 'uuid', 'collection_name')
-                        ->find($this->avatar_media_id);
-
-                    $cache[$this->avatar_media_id] = $media?->getFullUrl();
+                if ($mediaItem) {
+                    return $mediaItem->hasGeneratedConversion('webp') ? $mediaItem->getFullUrl('webp') : $mediaItem->getFullUrl();
                 }
 
-                if (! empty($cache[$this->avatar_media_id])) {
-                    return $cache[$this->avatar_media_id];
+                // 2) Avatar elegido por el usuario (relación precargada avatarMedia)
+                if ($this->relationLoaded('avatarMedia') && $this->avatarMedia) {
+                    $m = $this->avatarMedia;
+                    return $m->hasGeneratedConversion('webp') ? $m->getFullUrl('webp') : $m->getFullUrl();
                 }
+
+                // 3) Avatar por defecto desde Settings (primer elemento). Evaluado una sola vez por request.
+                return once(function () {
+                    $settings = app(GeneralSettings::class);
+
+                    $first = $settings->avatars[0] ?? null;
+                    if (! $first || empty($first['avatar'])) {
+                        return asset('images/default-avatar.png');
+                    }
+
+                    $m = Media::query()
+                        ->select('id', 'uuid', 'file_name', 'disk', 'conversions_disk', 'collection_name')
+                        ->find($first['avatar']);
+
+                    if (! $m) {
+                        return asset('images/default-avatar.png');
+                    }
+
+                    return $m->hasGeneratedConversion('webp') ? $m->getFullUrl('webp') : $m->getFullUrl();
+                });
+            });
+        });
+    }
+
+    public function clearProfileImageCache(): void {
+        Cache::forget($this->profileImageCacheKey());
+    }
+
+    protected static function booted(): void {
+        static::updated(function (self $student) {
+            if ($student->wasChanged('avatar_media_id')) {
+                $student->clearProfileImageCache();
             }
-            $settings = new GeneralSettings();
-            $avatar = $settings->avatars[0];
-            $media = Media::find($avatar['avatar']);
-            return ($media->hasGeneratedConversion('webp') ? $media->getFullUrl('webp') : $media->getUrl());
         });
     }
 
@@ -80,5 +108,8 @@ class Student extends Model implements HasMedia {
         return $this->belongsTo(Level::class);
     }
 
+    public function avatarMedia() : BelongsTo {
+        return $this->belongsTo(Media::class, 'avatar_media_id');
+    }
 
 }

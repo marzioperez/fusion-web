@@ -30,20 +30,17 @@ class StudentResource extends Resource {
         return StudentForm::configure($schema);
     }
 
-    public static function table(Table $table): Table
-    {
+    public static function table(Table $table): Table {
         return StudentsTable::configure($table);
     }
 
-    public static function getRelations(): array
-    {
+    public static function getRelations(): array {
         return [
             //
         ];
     }
 
-    public static function getPages(): array
-    {
+    public static function getPages(): array {
         return [
             'index' => ListStudents::route('/'),
             'create' => CreateStudent::route('/create'),
@@ -51,11 +48,14 @@ class StudentResource extends Resource {
         ];
     }
 
-    public static function getRecordRouteBindingEloquentQuery(): Builder
-    {
+    public static function getRecordRouteBindingEloquentQuery(): Builder {
         return parent::getRecordRouteBindingEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder {
+        return parent::getEloquentQuery()->with(['media', 'avatarMedia']);
     }
 }
