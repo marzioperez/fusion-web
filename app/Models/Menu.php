@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Slider extends Model {
+class Menu extends Model {
 
     use SoftDeletes;
 
     protected $fillable = [
         'name',
-        'description',
+        'position'
     ];
 
-    public function slides(): HasMany {
-        return $this->hasMany(Slide::class, 'slider_id', 'id');
+    public function items(): HasMany {
+        return $this->hasMany(MenuItem::class);
     }
 
 }

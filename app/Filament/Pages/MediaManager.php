@@ -14,7 +14,7 @@ class MediaManager extends Page {
     protected static string|null|\UnitEnum $navigationGroup = 'Media';
     protected static ?string $title = 'Gestor de Medios';
     protected string $view = 'filament.pages.media-manager';
-    protected static ?int $navigationSort = 20;
+    protected static ?int $navigationSort = 30;
 
     #[Url(as: 'q', history: true)]
     public string $search = '';

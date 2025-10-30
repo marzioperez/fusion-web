@@ -6,6 +6,7 @@ use App\Models\Ingredient;
 use App\Settings\GeneralSettings;
 use Filament\Actions\AttachAction;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
 use Filament\Actions\DetachAction;
 use Filament\Actions\DetachBulkAction;
 use Filament\Actions\EditAction;
@@ -54,6 +55,15 @@ class IngredientsRelationManager extends RelationManager {
                 //
             ])
             ->headerActions([
+                CreateAction::make()
+                    ->label('Nuevo ingrediente')
+                ->schema(function(CreateAction $action) use ($units) {
+                    return [
+                        TextInput::make('name')->label('Nombre del ingrediente')->required(),
+                        TextInput::make('quantity')->label('Cantidad')->numeric()->required(),
+                        Select::make('unit')->label('Unidad')->options($units)->required(),
+                    ];
+                }),
                 AttachAction::make()
                     ->label('Añadir ingrediente')
                     ->schema(function(AttachAction $action) use ($units) {
