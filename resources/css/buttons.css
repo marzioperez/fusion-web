@@ -1,0 +1,31 @@
+.btn {
+    @apply relative w-fit cursor-pointer items-center transition-all space-x-3 rounded-lg px-2 py-1 text-xs font-semibold shadow-sm focus-visible:outline focus-visible:outline-offset-2 disabled:cursor-not-allowed;
+}
+
+.btn-xs {
+    @apply px-2 py-1 text-xs;
+}
+
+.btn-sm {
+    @apply px-2 py-1 text-sm;
+}
+
+.btn-md {
+    @apply rounded-md px-2.5 py-2 text-sm;
+}
+
+.btn-lg {
+    @apply px-6 py-2.5 text-base;
+}
+
+.btn-xl {
+    @apply px-6 py-3.5 md:text-xl text-lg;
+}
+
+.btn-primary {
+    @apply bg-primary text-white hover:bg-primary/90 disabled:bg-primary/50;
+}
+
+.btn-secondary {
+    @apply bg-secondary text-white hover:bg-secondary/90 disabled:bg-secondary/50;
+}

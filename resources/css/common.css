@@ -1,0 +1,24 @@
+body {
+    @apply antialiased grid min-h-dvh;
+    grid-template-rows: auto 1fr auto;
+}
+
+.container {
+    @apply mx-auto max-w-7xl px-5 sm:px-6 lg:px-12;
+}
+
+.html-content {
+    @apply space-y-3;
+}
+
+.html-content ul {
+    @apply list-disc pl-6;
+}
+
+/* Colores del RichEditor (Tiptap) fuera de Filament */
+.html-content span.color {
+    color: var(--color);
+}
+.dark .html-content span.color {
+    color: var(--dark-color, var(--color));
+}

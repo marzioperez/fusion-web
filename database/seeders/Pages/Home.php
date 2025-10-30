@@ -8,7 +8,6 @@ use App\Models\Meta;
 use App\Models\Page;
 use App\Models\Slide;
 use App\Models\Slider;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class Home extends Seeder {

@@ -15,13 +15,21 @@ class SettingSeeder extends Seeder {
         $settings = new GeneralSettings();
 
         // Logo
-        $logo = $vault->addMediaFromDisk('logo.webp', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
+        $logo = $vault->addMediaFromDisk('logo-horizontal.png', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
         if (is_null($logo->uuid)) {
             $logo->uuid = Str::uuid();
             $logo->saveQuietly();
         }
         $settings->logo = $logo->id;
         $settings->logo_mail = $logo->id;
+
+        // Favicon
+        $favicon = $vault->addMediaFromDisk('favicon.webp', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
+        if (is_null($favicon->uuid)) {
+            $favicon->uuid = Str::uuid();
+            $favicon->saveQuietly();
+        }
+        $settings->favicon = $favicon->id;
 
         // Avatars
         $boy_1 = $vault->addMediaFromDisk('settings/boy-1.png', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');

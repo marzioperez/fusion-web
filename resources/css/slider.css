@@ -1,0 +1,38 @@
+.slider .slide-content {
+    @apply absolute top-0 left-0 w-full h-full z-20 flex md:items-center items-end md:pl-0 md:pt-12 pt-0 md:pb-0 pb-6 opacity-0 -translate-x-5 group-[.is-active]:opacity-100 group-[.is-active]:translate-x-0 transition-all duration-700 ease-in-out;
+}
+
+.slider .slide-content ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.slider .slide-content li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.slider .slide-content li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
+    width: 1.2em;
+    height: 1.2em;
+    @apply bg-third;
+    mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z'/%3E%3C/svg%3E") no-repeat center / contain;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+.slider .splide__pagination {
+    @apply md:bottom-6 bottom-2 bg-white/60 w-fit mx-auto py-1.5 px-6 rounded-full;
+}
+
+.slider .splide__pagination .splide__pagination__page {
+    @apply w-3.5 h-3.5 bg-white rounded-full mx-1 opacity-100;
+}
+
+.slider .splide__pagination .splide__pagination__page.is-active {
+    @apply transform-none w-12 bg-secondary !scale-100;
+}

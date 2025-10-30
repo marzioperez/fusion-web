@@ -29,6 +29,10 @@ class Page extends Model {
         'is_home' => 'boolean',
     ];
 
+    protected static function boot() {
+        parent::boot();
+    }
+
     public function meta(): MorphOne {
         return $this->morphOne(Meta::class, 'metable');
     }

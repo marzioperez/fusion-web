@@ -1,0 +1,15 @@
+header {
+    @apply top-[44px] z-10 w-full transition-all bg-white;
+}
+
+header .content-header {
+    @apply bg-white w-full relative px-6 py-2.5 rounded-md;
+}
+
+header.active-scroll {
+    @apply top-[10px] bg-transparent;
+}
+
+.user-dropdown {
+    @apply absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-gray-200 focus:outline-none;
+}

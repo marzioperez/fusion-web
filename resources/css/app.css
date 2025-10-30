@@ -1,4 +1,17 @@
+@import "../css/variables.css";
+@import "../css/common.css";
+@import "../css/texts.css";
+
+@import "../css/header.css";
+
+@import "../css/buttons.css";
+
+@import "../css/slider.css";
+
+
 @import 'tailwindcss';
+@import '@splidejs/splide/dist/css/splide.min.css';
+@import "flatpickr/dist/flatpickr.css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,6 +19,11 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-primary: var(--primary-color);
+    --color-secondary: var(--secondary-color);
+    --color-third: var(--third-color);
+    --color-text: var(--text-color);
+    --color-footer: var(--footer-color);
 }

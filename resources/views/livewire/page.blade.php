@@ -1,3 +1,7 @@
 <div>
-    {{-- If your happiness depends on money, you will never be happy with yourself. --}}
+    @foreach($blocks as $block)
+        @if($block['type'] === 'slider')
+            <livewire:blocks.slider :data="$block['data']" />
+        @endif
+    @endforeach
 </div>
