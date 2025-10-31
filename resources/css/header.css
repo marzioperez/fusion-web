@@ -6,6 +6,10 @@ header .content-header {
     @apply bg-white w-full relative px-6 py-2.5 rounded-md;
 }
 
+header img.logo {
+    @apply w-auto h-16;
+}
+
 header.active-scroll {
     @apply top-[10px] bg-transparent;
 }

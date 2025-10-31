@@ -8,7 +8,7 @@
             <div class="grid grid-cols-12 items-center gap-6">
                 <div class="md:col-span-3 col-span-5">
                     <a href="{{config('app.url')}}" wire:navigate>
-                        <img src="{{$logo}}" alt="{{config('app.name')}}" class="w-full" />
+                        <img src="{{$logo}}" alt="{{config('app.name')}}" class="logo" />
                     </a>
                 </div>
                 <div class="md:col-span-6 col-span-5">

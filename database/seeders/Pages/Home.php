@@ -83,6 +83,13 @@ class Home extends Seeder {
             'slider_id' => $slider->id
         ]);
 
+        $icon_card_1 = $vault->addMediaFromDisk('home/icon-1-1.png', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
+        $icon_card_2 = $vault->addMediaFromDisk('home/icon-1-2.webp', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
+        $icon_card_3 = $vault->addMediaFromDisk('home/icon-1-3.webp', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
+        $icon_card_4 = $vault->addMediaFromDisk('home/icon-1-4.webp', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
+
+        $bg_section = $vault->addMediaFromDisk('home/background-section.webp', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
+
         $page = Page::create([
             'title' => 'Home',
             'is_home' => true,
@@ -94,6 +101,53 @@ class Home extends Seeder {
                         'pagination' => true
                     ],
                     'type' => 'slider'
+                ],
+                [
+                    'data' => [
+                        'id' => null,
+                        'cards' => [
+                            [
+                                'title' => 'Local Farms',
+                                'sub_title' => 'Sourcing',
+                                'bg_color' => '#8DC65E',
+                                'text_color' => '#FFFFFF',
+                                'icon_id' => $icon_card_1->id,
+                            ],
+                            [
+                                'title' => 'Daily on time',
+                                'sub_title' => 'Delivery',
+                                'bg_color' => '#FFFFFF',
+                                'text_color' => '#000000',
+                                'icon_id' => $icon_card_2->id,
+                            ],
+                            [
+                                'title' => 'Variety',
+                                'sub_title' => '50 Meals +',
+                                'bg_color' => '#FFFFFF',
+                                'text_color' => '#000000',
+                                'icon_id' => $icon_card_3->id,
+                            ],
+                            [
+                                'title' => 'Quality',
+                                'sub_title' => 'Always Fresh',
+                                'bg_color' => '#FFFFFF',
+                                'text_color' => '#000000',
+                                'icon_id' => $icon_card_4->id,
+                            ],
+                        ],
+                        'title' => null,
+                        'sub_title' => null,
+                        'open_in_new_tab' => false,
+                        'visible' => true,
+                        'bg_type' => 'image',
+                        'bg_color' => null,
+                        'bg_image_id' => $bg_section->id,
+                        'padding_top_mobile' => 6,
+                        'padding_top_desktop' => 7,
+                        'padding_bottom_mobile' => 6,
+                        'padding_bottom_desktop' => 7
+                    ],
+                    'type' => 'card-list'
                 ],
             ]
         ]);
