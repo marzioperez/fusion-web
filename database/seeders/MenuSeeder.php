@@ -18,6 +18,7 @@ class MenuSeeder extends Seeder {
             ['name' => 'Home', 'url' => '/', 'slug' => '/', 'type' => MenuItemTypes::PAGE->value, 'item_id' => 1],
             ['name' => 'About Us', 'url' => 'about-us', 'slug' => 'about-us', 'type' => MenuItemTypes::PAGE->value, 'item_id' => 2],
             ['name' => 'Terms and Conditions', 'url' => 'terms-and-conditions', 'slug' => 'terms-and-conditions', 'type' => MenuItemTypes::PAGE->value, 'item_id' => 3],
+            ['name' => 'Contact Us', 'url' => 'contact-us', 'slug' => 'contact-us', 'type' => MenuItemTypes::PAGE->value, 'item_id' => 4],
         ]);
 
     }

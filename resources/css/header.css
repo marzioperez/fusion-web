@@ -11,7 +11,11 @@ header img.logo {
 }
 
 header.active-scroll {
-    @apply top-[10px] bg-transparent;
+    @apply top-[5px] bg-transparent;
+}
+
+header.active-scroll .content-header{
+    @apply shadow-lg;
 }
 
 .user-dropdown {

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Pages\AboutUs;
+use Database\Seeders\Pages\Contact;
 use Database\Seeders\Pages\Home;
 use Database\Seeders\Pages\TermsAndConditions;
 use Illuminate\Database\Seeder;
@@ -28,7 +29,8 @@ class DatabaseSeeder extends Seeder {
         $this->call([
             Home::class,
             AboutUs::class,
-            TermsAndConditions::class
+            TermsAndConditions::class,
+            Contact::class,
         ]);
     }
 }

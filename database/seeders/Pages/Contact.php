@@ -7,12 +7,11 @@ use App\Models\Page;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AboutUs extends Seeder {
+class Contact extends Seeder {
 
     public function run(): void {
         $page = Page::create([
-            'title' => 'About Us',
-            'header_position' => 'sticky',
+            'title' => 'Contact Us',
             'content' => [
 
             ]

@@ -36,3 +36,31 @@
 .slider .splide__pagination .splide__pagination__page.is-active {
     @apply transform-none w-12 bg-secondary !scale-100;
 }
+
+.carousel-schools .splide__pagination {
+    @apply -bottom-5 w-fit mx-auto;
+}
+
+.carousel-schools .splide__pagination button {
+    @apply bg-third opacity-100 w-2 h-2 rounded-full;
+}
+
+.carousel-schools .splide__pagination button.is-active {
+    @apply transform-none w-6 bg-secondary;
+}
+
+.carousel-schools .splide__arrows .splide__arrow.splide__arrow--prev {
+    @apply -left-5;
+}
+
+.carousel-schools .splide__arrows .splide__arrow.splide__arrow--next {
+    @apply -right-5;
+}
+
+.carousel-schools .splide__arrows .splide__arrow {
+    @apply bg-transparent;
+}
+
+.carousel-schools .splide__arrows .splide__arrow svg {
+    @apply fill-primary;
+}
