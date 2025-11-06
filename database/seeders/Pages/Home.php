@@ -184,7 +184,7 @@ class Home extends Seeder {
                             ]
                         ],
                         'button_text' => 'Learn more',
-                        'button_url' => route('page', ['slug' => 'about']),
+                        'button_url' => route('page', ['slug' => 'about-us']),
                         'open_in_new_tab' => false,
                         'visible' => true,
                         'bg_type' => 'image',
