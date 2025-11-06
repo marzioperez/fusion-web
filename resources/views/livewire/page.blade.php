@@ -21,5 +21,14 @@
         @if($block['type'] === 'text-with-bg-image')
             <x-blocks.text-with-bg-image :data="$block['data']" />
         @endif
+        @if($block['type'] === 'section-title')
+            <x-blocks.section-title :data="$block['data']" />
+        @endif
+        @if($block['type'] === 'time-line')
+            <x-blocks.time-line :data="$block['data']" />
+        @endif
+        @if($block['type'] === 'text-content')
+            <x-blocks.text-content :data="$block['data']" />
+        @endif
     @endforeach
 </div>

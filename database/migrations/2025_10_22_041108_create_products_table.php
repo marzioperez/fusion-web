@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->nullable()->default(null);
-            $table->string('description')->nullable()->default(null);
+            $table->longText('description')->nullable()->default(null);
             $table->string('status')->nullable()->default(Status::PUBLISHED->value);
             $table->decimal('price', 15)->nullable()->default(0);
             $table->decimal('offer_price', 15)->nullable()->default(0);

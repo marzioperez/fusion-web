@@ -41,11 +41,13 @@
     @apply -bottom-5 w-fit mx-auto;
 }
 
-.carousel-schools .splide__pagination button {
+.carousel-schools .splide__pagination button,
+.carousel-time-line .splide__pagination button {
     @apply bg-third opacity-100 w-2 h-2 rounded-full;
 }
 
-.carousel-schools .splide__pagination button.is-active {
+.carousel-schools .splide__pagination button.is-active,
+.carousel-time-line .splide__pagination button.is-active {
     @apply transform-none w-6 bg-secondary;
 }
 

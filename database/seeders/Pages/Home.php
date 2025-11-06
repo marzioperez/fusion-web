@@ -248,10 +248,10 @@ class Home extends Seeder {
                         'bg_type' => 'image',
                         'bg_color' => null,
                         'bg_image_id' => $bg_section->id,
-                        'padding_top_mobile' => 8,
-                        'padding_top_desktop' => 11,
-                        'padding_bottom_mobile' => 8,
-                        'padding_bottom_desktop' => 11
+                        'padding_top_mobile' => 12,
+                        'padding_top_desktop' => 16,
+                        'padding_bottom_mobile' => 12,
+                        'padding_bottom_desktop' => 16
                     ],
                     'type' => 'text-and-video'
                 ],
