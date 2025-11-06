@@ -292,14 +292,17 @@ class Home extends Seeder {
                         'sub_title' => null,
                         'content' => 'We are committed to the balanced diet of your children, we work hand in hand with nutrition experts to bring them the best and without stress',
                         'visible' => true,
-                        'bg_image_id' => $slide_mobile_1->id,
-                        'bg_inner_image_id' => $bg_inner_image->id,
+                        'bg_type' => 'image',
+                        'bg_color' => null,
+                        'bg_image_id' => $bg_section->id,
+                        'image_id' => $slide_mobile_1->id,
+                        'inner_image_id' => $bg_inner_image->id,
                         'button_text' => 'Create account',
                         'button_url' => route('page', ['slug' => 'register']),
-                        'padding_top_mobile' => 8,
-                        'padding_top_desktop' => 11,
-                        'padding_bottom_mobile' => 8,
-                        'padding_bottom_desktop' => 11
+                        'padding_top_mobile' => 12,
+                        'padding_top_desktop' => 16,
+                        'padding_bottom_mobile' => 12,
+                        'padding_bottom_desktop' => 16
                     ],
                     'type' => 'text-with-bg-image'
                 ],

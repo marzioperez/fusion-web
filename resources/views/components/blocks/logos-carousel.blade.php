@@ -49,7 +49,7 @@
                                     rewind: true
                                 },
                                 640: {
-                                    perPage: 1,
+                                    perPage: 2,
                                     drag: true,
                                     pagination: true,
                                     rewind: true

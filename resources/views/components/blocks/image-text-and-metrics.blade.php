@@ -27,7 +27,7 @@
             @if($data['image_id'])
                 @php $block_image = Media::find($data['image_id']); @endphp
                 @if($block_image)
-                    <div>
+                    <div class="md:block hidden">
                         <img class="w-full" src="{{($block_image->hasGeneratedConversion('webp') ? $block_image->getFullUrl('webp') : $block_image->getUrl())}}" alt="" />
                     </div>
                 @endif

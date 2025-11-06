@@ -18,5 +18,8 @@
         @if($block['type'] === 'logos-carousel')
             <x-blocks.logos-carousel :data="$block['data']" />
         @endif
+        @if($block['type'] === 'text-with-bg-image')
+            <x-blocks.text-with-bg-image :data="$block['data']" />
+        @endif
     @endforeach
 </div>
