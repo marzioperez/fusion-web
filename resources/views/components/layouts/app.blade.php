@@ -40,6 +40,7 @@
             {{ $slot }}
         </main>
         <livewire:common.footer />
+        <x-common.bot-bar />
 
         <x-common.toast />
 

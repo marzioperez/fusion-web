@@ -1,0 +1,3 @@
+footer {
+    @apply bg-primary md:py-10 py-5;
+}

@@ -8,6 +8,7 @@ class GeneralSettings extends Settings {
 
     public ?string $logo;
     public ?string $logo_mail;
+    public ?string $logo_footer;
     public ?string $favicon;
     public ?string $instagram;
     public ?string $youtube;

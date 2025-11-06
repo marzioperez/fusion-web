@@ -1,5 +1,5 @@
 header {
-    @apply top-[44px] z-10 w-full transition-all bg-white;
+    @apply top-[44px] z-40 w-full transition-all bg-white;
 }
 
 header .content-header {

@@ -23,6 +23,14 @@ class SettingSeeder extends Seeder {
         $settings->logo = $logo->id;
         $settings->logo_mail = $logo->id;
 
+        // Logo Footer
+        $logo_footer = $vault->addMediaFromDisk('logo.webp', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
+        if (is_null($logo_footer->uuid)) {
+            $logo_footer->uuid = Str::uuid();
+            $logo_footer->saveQuietly();
+        }
+        $settings->logo_footer = $logo_footer->id;
+
         // Favicon
         $favicon = $vault->addMediaFromDisk('favicon.webp', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
         if (is_null($favicon->uuid)) {
