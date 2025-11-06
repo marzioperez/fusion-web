@@ -1,0 +1,103 @@
+::-webkit-input-placeholder {
+    text-transform: none;
+}
+
+::-moz-placeholder {
+    text-transform: none;
+}
+
+:-ms-input-placeholder {
+    text-transform: none;
+}
+
+:-moz-placeholder {
+    text-transform: none;
+}
+
+label {
+    @apply text-sm;
+}
+
+form input[type=text],
+form input[type=number],
+form input[type=email],
+form input[type=date],
+form input[type=password],
+form select {
+    @apply bg-transparent pr-4 w-full py-3 border-b-1 focus:outline-none appearance-none;
+}
+
+.select-filter {
+    @apply space-x-2;
+}
+
+.select-filter select {
+    @apply placeholder:text-secondary/60 bg-transparent text-third pl-4 pr-12 py-3 border-third rounded-xl border-1 focus:outline-none appearance-none;
+}
+
+textarea {
+    @apply rounded-lg border bg-white px-4 w-full py-3 border-gray-400 focus:border-gray-500 focus:outline-none text-sm text-gray-600 appearance-none;
+}
+
+input[type=date] {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' /%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.25rem;
+    padding-right: 2.5rem;
+}
+
+input[type=date]::placeholder {
+    color: #6b7280;
+}
+
+select {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEzIDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNNS43Nzc4OSA3LjY4MTkyTC02LjcxNDhlLTA4IDEuNTM2MTdMMS40NDQyMiAtNS4wNTExOWUtMDdMNi41IDUuMzc3NjdMMTEuNTU1OCAtNi4zMTI4N2UtMDhMMTMgMS41MzYxN0w3LjIyMjExIDcuNjgxOTJDNy4wMzA1NyA3Ljg4NTU5IDYuNzcwODMgOCA2LjUgOEM2LjIyOTE3IDggNS45Njk0MyA3Ljg4NTU5IDUuNzc3ODkgNy42ODE5MloiIGZpbGw9IiM2M0M4MDAiLz4KPC9zdmc+Cg==");
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    background-position: right .75rem center;
+    padding-right: 2.5rem;
+}
+
+.select-white {
+    @apply text-white border-white;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3e%3cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.19l3.71-3.96a.75.75 0 111.08 1.04l-4.25 4.54a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-size: 1.5rem;
+    background-position: right .75rem center;
+    padding-right: 2.5rem;
+}
+
+input[type=text].invalid,
+input[type=number].invalid,
+input[type=email].invalid,
+input[type=date].invalid,
+select.invalid {
+    @apply border-primary;
+}
+
+.invalid-check label {
+    @apply text-primary;
+}
+
+select.select-primary {
+    @apply text-primary;
+}
+
+input.datepicker {
+    @apply relative w-full;
+}
+
+input.datepicker:after {
+    color: #CCC;
+    content: attr(placeholder) !important;
+    position: absolute;
+    top: 13px;
+    left: 15px;
+}
+
+input.datepicker:focus:after,
+input.datepicker.has-value::after {
+    content: '' !important;
+}

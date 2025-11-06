@@ -1,5 +1,5 @@
 body {
-    @apply antialiased grid min-h-dvh;
+    @apply antialiased grid min-h-dvh text-text;
     grid-template-rows: auto 1fr auto;
 }
 

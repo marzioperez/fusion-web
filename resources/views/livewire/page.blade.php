@@ -30,5 +30,8 @@
         @if($block['type'] === 'text-content')
             <x-blocks.text-content :data="$block['data']" />
         @endif
+        @if($block['type'] === 'form-with-map')
+            <x-blocks.form-with-map :data="$block['data']" />
+        @endif
     @endforeach
 </div>
