@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Database\Seeders\Pages\AboutUs;
 use Database\Seeders\Pages\Contact;
 use Database\Seeders\Pages\Home;
+use Database\Seeders\Pages\Login;
+use Database\Seeders\Pages\Register;
 use Database\Seeders\Pages\TermsAndConditions;
 use Illuminate\Database\Seeder;
 
@@ -31,6 +33,8 @@ class DatabaseSeeder extends Seeder {
             AboutUs::class,
             TermsAndConditions::class,
             Contact::class,
+            Register::class,
+            Login::class,
         ]);
     }
 }

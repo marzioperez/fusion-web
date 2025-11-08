@@ -46,7 +46,7 @@
                                     <label for="{{$field['slug']}}">{{$field['name']}}</label>
                                 @endif
                                 <div>
-                                    <input wire:key="{{$field['slug']}}" autocomplete="new-password" type="text" placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" name="{{$field['slug']}}" id="{{$field['slug']}}" wire:model.defer="{{'form_data.' . $field['slug']}}" class="form-input" />
+                                    <input wire:key="{{$field['slug']}}" autocomplete="new-password" type="text" @if(!$show_labels) placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" @endif name="{{$field['slug']}}" id="{{$field['slug']}}" wire:model.defer="{{'form_data.' . $field['slug']}}" class="form-input" />
                                 </div>
                             @endif
                             @if($field['type'] === \App\Enums\FormFields::EMAIL->value)
@@ -54,7 +54,7 @@
                                     <label for="{{$field['slug']}}">{{$field['name']}}</label>
                                 @endif
                                 <div>
-                                    <input autocomplete="new-password" type="text" placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" name="{{$field['slug']}}" id="{{$field['slug']}}" wire:model.defer="{{'form_data.' . $field['slug']}}" class="form-input" />
+                                    <input autocomplete="new-password" type="text" @if(!$show_labels) placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" @endif name="{{$field['slug']}}" id="{{$field['slug']}}" wire:model.defer="{{'form_data.' . $field['slug']}}" class="form-input" />
                                 </div>
                             @endif
                             @if($field['type'] === \App\Enums\FormFields::CELLPHONE->value)
@@ -62,7 +62,7 @@
                                     <label for="{{$field['slug']}}">{{$field['name']}}</label>
                                 @endif
                                 <div>
-                                    <input autocomplete="new-password" type="text" placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" name="{{$field['slug']}}" id="{{$field['slug']}}" wire:model.defer="{{'form_data.' . $field['slug']}}" class="form-input" />
+                                    <input autocomplete="new-password" type="text" @if(!$show_labels) placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" @endif name="{{$field['slug']}}" id="{{$field['slug']}}" wire:model.defer="{{'form_data.' . $field['slug']}}" class="form-input" />
                                 </div>
                             @endif
                             @if($field['type'] === \App\Enums\FormFields::DNI->value)
@@ -70,7 +70,7 @@
                                     <label for="{{$field['slug']}}">{{$field['name']}}</label>
                                 @endif
                                 <div>
-                                    <input autocomplete="new-password" type="text" placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" name="{{$field['slug']}}" id="{{$field['slug']}}" wire:model.defer="{{'form_data.' . $field['slug']}}" class="form-input" />
+                                    <input autocomplete="new-password" type="text" @if(!$show_labels) placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" @endif name="{{$field['slug']}}" id="{{$field['slug']}}" wire:model.defer="{{'form_data.' . $field['slug']}}" class="form-input" />
                                 </div>
                             @endif
                             @if($field['type'] === \App\Enums\FormFields::RUC->value)
@@ -78,7 +78,7 @@
                                     <label for="{{$field['slug']}}">{{$field['name']}}</label>
                                 @endif
                                 <div>
-                                    <input autocomplete="new-password" type="text" placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" name="{{$field['slug']}}" id="{{$field['slug']}}" wire:model.defer="{{'form_data.' . $field['slug']}}" class="form-input" />
+                                    <input autocomplete="new-password" type="text" @if(!$show_labels) placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" @endif name="{{$field['slug']}}" id="{{$field['slug']}}" wire:model.defer="{{'form_data.' . $field['slug']}}" class="form-input" />
                                 </div>
                             @endif
                             @if($field['type'] === \App\Enums\FormFields::DATE->value)
@@ -86,7 +86,7 @@
                                     <label for="{{$field['slug']}}">{{$field['name']}}</label>
                                 @endif
                                 <div>
-                                    <x-inputs.date wire:model.defer="{{'form_data.' . $field['slug']}}" id="{{$field['slug']}}" name="{{$field['slug']}}" autocomplete="off" placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" />
+                                    <x-inputs.date wire:model.defer="{{'form_data.' . $field['slug']}}" id="{{$field['slug']}}" name="{{$field['slug']}}" autocomplete="off" @if(!$show_labels) placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" @endif />
                                 </div>
                             @endif
                             @if($field['type'] === \App\Enums\FormFields::TEXTAREA->value)
@@ -94,7 +94,7 @@
                                     <label for="{{$field['slug']}}">{{$field['name']}}</label>
                                 @endif
                                 <div>
-                                    <textarea class="form-textarea" wire:model.defer="{{'form_data.' . $field['slug']}}" id="{{$field['slug']}}" name="{{$field['slug']}}" placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}"></textarea>
+                                    <textarea class="form-textarea" wire:model.defer="{{'form_data.' . $field['slug']}}" id="{{$field['slug']}}" name="{{$field['slug']}}" @if(!$show_labels) placeholder="{{$field['name']}}{{($field['required'] ? '*' : '')}}" @endif ></textarea>
                                 </div>
                             @endif
                             @if($field['type'] === \App\Enums\FormFields::CHECKBOX->value)

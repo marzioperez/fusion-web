@@ -24,7 +24,7 @@ form input[type=email],
 form input[type=date],
 form input[type=password],
 form select {
-    @apply bg-transparent pr-4 w-full py-3 border-b-1 focus:outline-none appearance-none;
+    @apply block border border-gray-400 w-full rounded-md bg-white px-3 py-2.5 appearance-none;
 }
 
 .select-filter {

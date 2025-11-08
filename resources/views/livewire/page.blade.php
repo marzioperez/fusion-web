@@ -33,5 +33,8 @@
         @if($block['type'] === 'form-with-map')
             <x-blocks.form-with-map :data="$block['data']" />
         @endif
+        @if($block['type'] === 'register')
+            <x-blocks.register :data="$block['data']" />
+        @endif
     @endforeach
 </div>

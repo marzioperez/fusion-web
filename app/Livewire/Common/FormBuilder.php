@@ -14,7 +14,7 @@ class FormBuilder extends Component {
     public array $fields = [];
     public array $form_data = [];
     public array $form_rules = [];
-    public bool $show_labels = false;
+    public bool $show_labels = true;
 
     protected $messages = [
         '*.*.required' => 'Campo obligatorio',

@@ -1,5 +1,5 @@
 .btn {
-    @apply relative w-fit cursor-pointer items-center transition-all space-x-3 rounded-lg px-2 py-1 text-xs font-semibold shadow-sm focus-visible:outline focus-visible:outline-offset-2 disabled:cursor-not-allowed;
+    @apply relative w-fit cursor-pointer flex justify-center items-center transition-all space-x-3 rounded-lg px-2 py-1 text-xs font-semibold shadow-sm focus-visible:outline focus-visible:outline-offset-2 disabled:cursor-not-allowed;
 }
 
 .btn-xs {

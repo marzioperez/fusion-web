@@ -1,6 +1,6 @@
 @props(['name', 'type' => 'default', 'bg' => 'white', 'classes' => '', 'body_classes' => ''])
 <div class="relative z-50"
-    x-data="{show : false, name : '{{$name}}'}"
+    x-data="{show : true, name : '{{$name}}'}"
     x-show="show"
     x-on:open-modal.window="show = ($event.detail.name === name); $dispatch('disable-scroll');"
     x-on:close-modal.window="show = false; $dispatch('enable-scroll');"
