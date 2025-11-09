@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <livewire:auth.register.index />
+                    <livewire:auth.login />
                 </div>
             </div>
         </div>

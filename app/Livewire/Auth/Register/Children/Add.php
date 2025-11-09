@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Auth\Register\Children;
 
+use App\Models\Grade;
 use App\Models\School;
+use App\Settings\GeneralSettings;
 use Livewire\Component;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Add extends Component {
 
@@ -38,14 +41,39 @@ class Add extends Component {
 
     public function mount() {
         $this->schools = School::query()->select(['id', 'name'])->orderBy('name')->get()->toArray();
+        $general_settings = new GeneralSettings();
+        foreach ($general_settings->avatars as $avatar) {
+            $media = Media::find($avatar['avatar']);
+            if ($media) {
+                $this->avatars[] = [
+                    'id' => $avatar['avatar'],
+                    'url' => ($media->hasGeneratedConversion('webp') ? $media->getFullUrl('webp') : $media->getUrl()),
+                ];
+            }
+        }
     }
 
     public function updated($property): void {
         $this->validateOnly($property);
     }
 
+    public function updatedDataSchoolId($value):void {
+        $this->grades = Grade::where('school_id', $value)->get()->toArray();
+        $this->data['grade_id'] = '';
+    }
+
     public function process() {
         $this->validate();
+        $data = $this->data;
+        $school = School::find($data['school_id']);
+        $grade = Grade::find($data['grade_id']);
+        $data['school_name'] = $school->name;
+        $data['grade_name'] = $grade->name;
+
+        $this->dispatch('student-added', data: $data);
+        $this->reset('data');
+        $this->resetValidation();
+        $this->dispatch('close-modal');
     }
 
     public function render() {

@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Auth\Register;
 
+use App\Enums\Status;
 use App\Models\RequestRegister;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -29,6 +29,11 @@ class Index extends Component {
         $this->step = $step;
     }
 
+    #[On('set-token-url')]
+    public function setTokenUrl($token): void {
+        $this->token = $token;
+    }
+
     #[On('finished')]
     public function finished(): void {
         if ($this->token) {
@@ -37,14 +42,22 @@ class Index extends Component {
             if ($exists) {
                 $this->toast('El correo electrónico ingresado ya existe. Intente con otro.', 'Error', 'error');
             } else {
-                $token = Str::uuid();
-                $data = $request_register['data'];
-                $user = User::create($data);
+                if (empty($request_register['students'])) {
+                    $this->toast('Debes agregar al menos un alumno.', 'Error', 'error');
+                } else {
 
-
-                // Mail::to($user->email)->send(new \App\Mail\Register\Finished($user, $data['password']));
-
-                $this->redirect($this->data['finished_url'] . '?token=' . $token, navigate: true);
+                    $data = $request_register['data'];
+                    $user = User::create($data);
+                    foreach ($request_register['students'] as $student) {
+                        $user->students()->create($student);
+                    }
+                    $request_register->update([
+                        'status' => Status::FINISHED->value,
+                        'step' => 3
+                    ]);
+                    // Mail::to($user->email)->send(new \App\Mail\Register\Finished($user, $data['password']));
+                    $this->step = 3;
+                }
             }
         }
     }

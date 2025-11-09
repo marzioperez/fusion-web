@@ -15,14 +15,14 @@ class Login extends Seeder {
 
 
         $page = Page::create([
-            'title' => 'Register',
+            'title' => 'Login',
             'layout' => 'components.layouts.full',
             'content' => [
                 [
                     'data' => [
                         'bg_image_id' => $bg_section->id,
                     ],
-                    'type' => 'register'
+                    'type' => 'login'
                 ],
             ]
         ]);

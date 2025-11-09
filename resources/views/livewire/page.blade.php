@@ -36,5 +36,8 @@
         @if($block['type'] === 'register')
             <x-blocks.register :data="$block['data']" />
         @endif
+        @if($block['type'] === 'login')
+            <x-blocks.login :data="$block['data']" />
+        @endif
     @endforeach
 </div>

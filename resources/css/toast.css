@@ -1,0 +1,7 @@
+.toast {
+    @apply fixed z-50 bottom-3 left-3 flex w-full max-w-xs flex-col space-y-4 pr-4 pb-4 sm:justify-start;
+}
+
+.toast .body {
+    @apply pointer-events-auto relative w-full max-w-sm rounded-md border border-gray-200 bg-white py-4 pl-6 pr-4 shadow-lg;
+}

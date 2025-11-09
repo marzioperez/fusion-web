@@ -29,3 +29,11 @@
 .btn-secondary {
     @apply bg-secondary text-white hover:bg-secondary/90 disabled:bg-secondary/50;
 }
+
+.btn-red {
+    @apply bg-red-500 text-white hover:bg-red-500/90 disabled:bg-red-500/50;
+}
+
+.btn-white-outline {
+    @apply bg-white text-gray-500 border border-gray-500 hover:bg-gray-50 disabled:bg-white/50;
+}

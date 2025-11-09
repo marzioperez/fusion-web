@@ -8,5 +8,6 @@ enum Status: string {
     case DRAFT = 'Borrador';
     case PENDING = 'Pendiente';
     case SCHEDULED = 'Programado';
+    case FINISHED = 'Finalizado';
 
 }
