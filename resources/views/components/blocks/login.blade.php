@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <livewire:auth.login />
+                    <livewire:auth.login :data="$data" />
                 </div>
             </div>
         </div>

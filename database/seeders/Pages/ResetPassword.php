@@ -8,28 +8,27 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Login extends Seeder {
+class ResetPassword extends Seeder {
 
     public function run(): void {
         $bg_section = Media::where('file_name', 'register-bg.jpg')->first();
 
         $page = Page::create([
-            'title' => 'Login',
+            'title' => 'Reset password',
             'layout' => 'components.layouts.full',
             'content' => [
                 [
                     'data' => [
                         'bg_image_id' => $bg_section->id,
-                        'reset_password_url' => app('url')->to('/reset-password'),
-                        'register_url' => app('url')->to('/register'),
+                        'login_url' => app('url')->to('/login'),
                     ],
-                    'type' => 'login'
+                    'type' => 'reset-password'
                 ],
             ]
         ]);
 
         $meta = new Meta([
-            'title' => 'Login',
+            'title' => 'Reset password',
             'description' => config('app.name', 'Laravel'),
             'robots' => 'follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large',
         ]);

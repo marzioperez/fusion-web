@@ -35,8 +35,13 @@
         </ol>
     </nav>
 
-    <div :class="(current_step == 1 ? 'block' : 'hidden')">
+    <div :class="(current_step == 1 ? 'block space-y-3' : 'hidden')">
         <livewire:auth.register.form />
+        @if($data['login_url'])
+            <div class="col-span-full flex justify-center">
+                <a href="{{$data['login_url']}}" class="text-primary" wire:navigate>Login</a>
+            </div>
+        @endif
     </div>
 
     <div :class="(current_step == 2 ? 'block' : 'hidden')">

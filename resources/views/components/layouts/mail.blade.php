@@ -130,15 +130,6 @@
                                     <!-- END Logo -->
                                 </table>
                                 <!-- END Header -->
-
-{{--                                <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ebebeb">--}}
-{{--                                    <tr>--}}
-{{--                                        <td bgcolor="#ffffff">--}}
-{{--                                            <img src="{{asset('img/bg-mail.png')}}" style="width: 100%;" alt="{{config('app.name')}}"/>--}}
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
-{{--                                </table>--}}
-
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ebebeb">
                                     <tr>
                                         <td class="p0-15-30" style="padding: 15px 30px 30px 30px;" bgcolor="#ffffff">
@@ -150,7 +141,7 @@
                                 <!-- Footer -->
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
-                                        <td class="p30-15-0" bgcolor="#2B3CA2" style="border-radius: 0 0 20px 20px; padding: 30px 30px 0 30px;">
+                                        <td class="p30-15-0" bgcolor="#518f2b" style="border-radius: 0 0 20px 20px; padding: 30px 30px 0 30px;">
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td class="m-padder2 pb30" align="center" style="padding-bottom:30px;">
@@ -186,7 +177,7 @@
                                 </table>
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
-                                        <td class="text-footer2 p30-15" style="padding: 30px 15px 10px 15px; color:#2B3CA2; font-family:'Raleway', Arial,sans-serif; font-size:12px; line-height:22px; text-align:center;">
+                                        <td class="text-footer2 p30-15" style="padding: 30px 15px 10px 15px; color:#518f2b; font-family:'Raleway', Arial,sans-serif; font-size:12px; line-height:22px; text-align:center;">
                                             <multiline>© {{date('Y')}} <strong>{{config('app.name')}}</strong>. Todos los derechos reservados</multiline>
                                         </td>
                                     </tr>

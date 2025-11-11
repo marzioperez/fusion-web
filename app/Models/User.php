@@ -19,6 +19,8 @@ class User extends Authenticatable {
         'credits',
         'email',
         'password',
+        'reset_password_code',
+        'reset_password_token',
     ];
 
     protected $hidden = [

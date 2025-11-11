@@ -36,7 +36,7 @@
         <div class="col-span-full">
             <label for="password">Password</label>
             <div>
-                <input id="password" type="password" name="password" wire:model.live="data.password" />
+                <x-inputs.password name="password" id="password" wire:model.live="data.password" />
                 @error('data.password') <span class="validation-error">{{ $message }}</span> @enderror
             </div>
         </div>

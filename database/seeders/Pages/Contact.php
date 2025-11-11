@@ -18,7 +18,7 @@ class Contact extends Seeder {
         $bg_inner_title = Media::where('file_name', 'bg-inner-title.png')->first();
 
         $form = Form::create([
-            'name' => 'Contacto',
+            'name' => 'Contact form',
             'text_button' => 'Send'
         ]);
 
@@ -118,7 +118,7 @@ class Contact extends Seeder {
         ]);
 
         $meta = new Meta([
-            'title' => config('app.name', 'Laravel'),
+            'title' => 'Contact',
             'description' => config('app.name', 'Laravel'),
             'robots' => 'follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large',
         ]);

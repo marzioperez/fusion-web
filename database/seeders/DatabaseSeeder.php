@@ -7,7 +7,9 @@ use Database\Seeders\Pages\Contact;
 use Database\Seeders\Pages\Home;
 use Database\Seeders\Pages\Login;
 use Database\Seeders\Pages\Register;
+use Database\Seeders\Pages\ResetPassword;
 use Database\Seeders\Pages\TermsAndConditions;
+use Database\Seeders\Pages\UpdatePassword;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
@@ -35,6 +37,8 @@ class DatabaseSeeder extends Seeder {
             Contact::class,
             Register::class,
             Login::class,
+            ResetPassword::class,
+            UpdatePassword::class
         ]);
     }
 }

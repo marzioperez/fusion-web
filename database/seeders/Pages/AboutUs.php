@@ -131,7 +131,7 @@ class AboutUs extends Seeder {
         ]);
 
         $meta = new Meta([
-            'title' => config('app.name', 'Laravel'),
+            'title' => 'About Us',
             'description' => config('app.name', 'Laravel'),
             'robots' => 'follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large',
         ]);

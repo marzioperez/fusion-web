@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <livewire:auth.register.index :data="$data" />
+                    <livewire:auth.reset-password.validate-code :data="$data" />
                 </div>
             </div>
         </div>

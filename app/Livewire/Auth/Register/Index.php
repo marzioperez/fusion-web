@@ -12,6 +12,8 @@ use Livewire\Component;
 
 class Index extends Component {
 
+    public $data;
+
     public $step = 1;
 
     #[Url]

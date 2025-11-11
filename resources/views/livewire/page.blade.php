@@ -39,5 +39,11 @@
         @if($block['type'] === 'login')
             <x-blocks.login :data="$block['data']" />
         @endif
+        @if($block['type'] === 'reset-password')
+            <x-blocks.reset-password :data="$block['data']" />
+        @endif
+        @if($block['type'] === 'update-password')
+            <x-blocks.update-password :data="$block['data']" />
+        @endif
     @endforeach
 </div>

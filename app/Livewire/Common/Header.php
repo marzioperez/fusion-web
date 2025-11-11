@@ -58,6 +58,11 @@ class Header extends Component {
         $this->refresh_header();
     }
 
+    public function storeIntendedUrl($origin, $destination): void {
+        session(['url.intended' => $origin]);
+        $this->redirect(url($destination), navigate: true);
+    }
+
     public function render() {
         return view('livewire.common.header');
     }

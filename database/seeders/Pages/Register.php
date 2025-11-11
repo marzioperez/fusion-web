@@ -22,6 +22,7 @@ class Register extends Seeder {
                     'data' => [
                         'title' => 'Register',
                         'bg_image_id' => $bg_section->id,
+                        'login_url' => app('url')->to('/login'),
                     ],
                     'type' => 'register'
                 ],
@@ -29,7 +30,7 @@ class Register extends Seeder {
         ]);
 
         $meta = new Meta([
-            'title' => config('app.name', 'Laravel'),
+            'title' => 'Register',
             'description' => config('app.name', 'Laravel'),
             'robots' => 'follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large',
         ]);
