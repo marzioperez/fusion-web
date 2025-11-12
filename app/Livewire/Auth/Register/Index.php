@@ -6,6 +6,7 @@ use App\Enums\Status;
 use App\Models\RequestRegister;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -51,6 +52,7 @@ class Index extends Component {
                     $data = $request_register['data'];
                     $user = User::create($data);
                     foreach ($request_register['students'] as $student) {
+                        $student['code'] = Str::uuid();
                         $user->students()->create($student);
                     }
                     $request_register->update([

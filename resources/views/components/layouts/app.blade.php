@@ -44,6 +44,17 @@
 
         <x-common.toast />
 
+        <x-common.modal name="modal-student-selector">
+            <x-slot:body>
+                <button x-on:click="$dispatch('close-modal')" class="absolute top-3 right-3">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" class="stroke-gray-400" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <livewire:order.student-selector lazy />
+            </x-slot:body>
+        </x-common.modal>
+
         @livewireScripts
         @vite('resources/js/app.js')
         @stack('scripts')

@@ -24,7 +24,7 @@
                     <div class="flex justify-end items-center space-x-3">
                         @if($logged_in)
                             <div class="space-x-3 flex items-center justify-end">
-                                <a href="#" class="btn btn-md btn-secondary">¡Start shopping!</a>
+                                <button type="button" class="btn btn-md btn-secondary" x-on:click.prevent="$dispatch('open-modal', {name: 'modal-student-selector'})">¡Start shopping!</button>
 
                                 <div x-data="Components.menu({ open: false })" x-init="init()" @keydown.escape.stop="open = false; focusButton()" @click.away="onClickAway($event)" class="relative cursor-pointer">
                                     <div x-on:click.prevent="onButtonClick()" @keyup.space.prevent="onButtonEnter()" @keydown.enter.prevent="onButtonEnter()" aria-expanded="false" aria-haspopup="true" x-bind:aria-expanded="open.toString()" @keydown.arrow-up.prevent="onArrowUp()" @keydown.arrow-down.prevent="onArrowDown()">
@@ -44,7 +44,8 @@
                                          x-description="Dropdown menu, show/hide based on menu state."
                                          x-bind:aria-activedescendant="activeDescendant" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" @keydown.arrow-up.prevent="onArrowUp()" @keydown.arrow-down.prevent="onArrowDown()" @keydown.tab="open = false" @keydown.enter.prevent="open = false; focusButton()" @keyup.space.prevent="open = false; focusButton()" style="display: none;">
                                         <a href="{{route('customer.account')}}" wire:navigate class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">My account</a>
-                                        <a href="#" wire:navigate class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Students</a>
+                                        <a href="{{route('customer.account', ['item' => 'students'])}}" wire:navigate class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Students</a>
+                                        <a href="{{route('customer.account', ['item' => 'orders'])}}" wire:navigate class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Orders</a>
                                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" wire:click.prevent="logout">Log out</a>
                                     </div>
                                 </div>

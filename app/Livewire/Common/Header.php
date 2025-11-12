@@ -55,6 +55,7 @@ class Header extends Component {
 
     public function logout(): void {
         auth()->logout();
+        $this->dispatch('user-logged-out');
         $this->refresh_header();
     }
 

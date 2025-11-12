@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             $table->boolean('is_active')->default(true);
             $table->index(['school_id', 'grade_id', 'date', 'is_active']);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

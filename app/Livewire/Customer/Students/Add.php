@@ -6,6 +6,7 @@ use App\Models\Allergy;
 use App\Models\Grade;
 use App\Models\School;
 use App\Settings\GeneralSettings;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -68,7 +69,9 @@ class Add extends Component {
         $this->validate();
 
         $user = auth()->user();
-        $user->students()->create($this->data);
+        $data = $this->data;
+        $data['code'] = Str::uuid();
+        $user->students()->create($data);
 
         $this->reset('data');
         $this->resetValidation();

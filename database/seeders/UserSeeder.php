@@ -13,5 +13,15 @@ class UserSeeder extends Seeder {
         User::factory(10)->create()->each(function ($user) {
             Student::factory(2)->create(['user_id' => $user->id]);
         });
+
+        User::factory()->create([
+            'first_name' => 'Marzio',
+            'last_name' => 'Perez',
+            'email' => 'marzioperez@gmail.com',
+            'phone' => '981277116',
+            'password' => '47804233',
+        ])->each(function ($user) {
+            Student::factory(1)->create(['user_id' => $user->id]);
+        });
     }
 }
