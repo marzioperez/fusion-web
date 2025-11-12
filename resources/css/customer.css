@@ -1,0 +1,11 @@
+.user-menu {
+    @apply md:border-r border-gray-300 md:pr-4;
+}
+
+.user-menu .btn-option {
+    @apply flex gap-x-3 rounded-md bg-secondary py-2 pr-3 pl-2 text-sm/6 text-white hover:bg-secondary/80;
+}
+
+.user-menu .btn-option.active {
+    @apply flex gap-x-3 rounded-md py-2 pr-3 pl-2 text-sm/6 font-semibold;
+}

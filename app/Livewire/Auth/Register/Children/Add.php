@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Auth\Register\Children;
 
+use App\Models\Allergy;
 use App\Models\Grade;
 use App\Models\School;
 use App\Settings\GeneralSettings;
@@ -15,7 +16,7 @@ class Add extends Component {
         'last_name' => '',
         'school_id' => '',
         'grade_id' => '',
-        'allergies' => '',
+        'allergies' => [],
         'birth_of_date' => '',
         'avatar_media_id' => ''
     ];
@@ -37,7 +38,7 @@ class Add extends Component {
         '*.*.numeric' => 'This field must be a number.',
     ];
 
-    public array $schools, $grades, $avatars;
+    public array $schools, $grades, $avatars, $allergies;
 
     public function mount() {
         $this->schools = School::query()->select(['id', 'name'])->orderBy('name')->get()->toArray();
@@ -51,6 +52,8 @@ class Add extends Component {
                 ];
             }
         }
+
+        $this->allergies = Allergy::all()->toArray();
     }
 
     public function updated($property): void {

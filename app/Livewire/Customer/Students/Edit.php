@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Livewire\Auth\Register\Children;
+namespace App\Livewire\Customer\Students;
 
 use App\Models\Allergy;
 use App\Models\Grade;
 use App\Models\School;
+use App\Models\Student;
 use App\Settings\GeneralSettings;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Edit extends Component {
-
-    public $index;
 
     public $data = [
         'first_name' => '',
@@ -64,12 +63,11 @@ class Edit extends Component {
     }
 
     #[On('student-edited')]
-    public function onStudentEdited(array $student, $index): void {
+    public function onStudentEdited($student): void {
         $this->prefilling = true;
         $this->grades = Grade::where('school_id', $student['school_id'])->get()->toArray();
         $this->data = $student;
         $this->prefilling = false;
-        $this->index = $index;
         $this->dispatch('open-modal', name: 'modal-edit-student');
     }
 
@@ -80,19 +78,16 @@ class Edit extends Component {
 
     public function process() {
         $this->validate();
-        $data = $this->data;
-        $school = School::find($data['school_id']);
-        $grade = Grade::find($data['grade_id']);
-        $data['school_name'] = $school->name;
-        $data['grade_name'] = $grade->name;
+        $student = Student::find($this->data['id']);
+        $student->update($this->data);
 
-        $this->dispatch('student-updated', data: $data, index: $this->index);
         $this->reset('data');
         $this->resetValidation();
         $this->dispatch('close-modal');
+        $this->dispatch('refresh-students');
     }
 
     public function render() {
-        return view('livewire.auth.register.children.edit');
+        return view('livewire.customer.students.edit');
     }
 }

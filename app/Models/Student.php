@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
-use Monolog\Level;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -104,8 +103,8 @@ class Student extends Model implements HasMedia {
         return $this->belongsTo(School::class);
     }
 
-    public function level(): BelongsTo {
-        return $this->belongsTo(Level::class);
+    public function grade(): BelongsTo {
+        return $this->belongsTo(Grade::class);
     }
 
     public function avatarMedia() : BelongsTo {

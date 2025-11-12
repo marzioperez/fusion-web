@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Livewire\Auth\Register\Children;
+namespace App\Livewire\Customer\Students;
 
 use App\Models\Allergy;
 use App\Models\Grade;
 use App\Models\School;
 use App\Settings\GeneralSettings;
-use Livewire\Attributes\On;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Edit extends Component {
-
-    public $index;
+class Add extends Component {
 
     public $data = [
         'first_name' => '',
@@ -21,7 +18,7 @@ class Edit extends Component {
         'grade_id' => '',
         'allergies' => [],
         'birth_of_date' => '',
-        'avatar_media_id' => ''
+        'avatar_media_id' => null
     ];
 
     protected $rules = [
@@ -42,7 +39,6 @@ class Edit extends Component {
     ];
 
     public array $schools, $grades, $avatars, $allergies;
-    public bool $prefilling = false;
 
     public function mount() {
         $this->schools = School::query()->select(['id', 'name'])->orderBy('name')->get()->toArray();
@@ -63,16 +59,6 @@ class Edit extends Component {
         $this->validateOnly($property);
     }
 
-    #[On('student-edited')]
-    public function onStudentEdited(array $student, $index): void {
-        $this->prefilling = true;
-        $this->grades = Grade::where('school_id', $student['school_id'])->get()->toArray();
-        $this->data = $student;
-        $this->prefilling = false;
-        $this->index = $index;
-        $this->dispatch('open-modal', name: 'modal-edit-student');
-    }
-
     public function updatedDataSchoolId($value):void {
         $this->grades = Grade::where('school_id', $value)->get()->toArray();
         $this->data['grade_id'] = '';
@@ -80,19 +66,17 @@ class Edit extends Component {
 
     public function process() {
         $this->validate();
-        $data = $this->data;
-        $school = School::find($data['school_id']);
-        $grade = Grade::find($data['grade_id']);
-        $data['school_name'] = $school->name;
-        $data['grade_name'] = $grade->name;
 
-        $this->dispatch('student-updated', data: $data, index: $this->index);
+        $user = auth()->user();
+        $user->students()->create($this->data);
+
         $this->reset('data');
         $this->resetValidation();
         $this->dispatch('close-modal');
+        $this->dispatch('refresh-students');
     }
 
     public function render() {
-        return view('livewire.auth.register.children.edit');
+        return view('livewire.customer.students.add');
     }
 }
