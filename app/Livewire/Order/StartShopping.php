@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Order;
 
+use App\Models\Media;
 use App\Models\Student;
 use App\Models\MenuEntry;
+use App\Settings\GeneralSettings;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Url;
@@ -65,7 +67,7 @@ class StartShopping extends Component {
             ->when(!empty($lockedDates), function ($q) use ($lockedDates) {
                 $q->whereNotIn('date', $lockedDates);
             })
-            ->with(['product:id,name,price'])
+            ->with('product')
             ->orderBy('date')
             ->get();
 
@@ -74,31 +76,46 @@ class StartShopping extends Component {
             return Carbon::parse($entry->date)->format('Y-m');
         })->map(function ($items, $ym) {
             $first = Carbon::createFromFormat('Y-m', $ym)->startOfMonth();
-            $label = $first->translatedFormat('F Y');
+            $month = $first->translatedFormat('M.');
+            $label = $month . ' - The whole month!';
+
+            $group_label = $first->translatedFormat('F Y');
 
             // Calcular precio total del mes (suma de todos los productos de todos los MenuEntries del mes)
             $totalPrice = $items->sum(function ($entry) {
                 return (float) ($entry->product->price ?? 0);
             });
 
+            $image_url = null;
+            $settings = new GeneralSettings();
+            if ($settings->default_product_image) {
+                $media = Media::find($settings->default_product_image);
+                if ($media) {
+                    $image_url = ($media->hasGeneratedConversion('webp') ? $media->getFullUrl('webp') : $media->getUrl());
+                }
+            }
+
             // Producto sintético "The whole month!" al inicio
             $bundle = [
                 'type' => 'bundle',
                 'id' => 'bundle-' . $ym,
-                'name' => 'The whole month!',
-                'total_price' => $totalPrice,
+                'name' => 'All days!',
+                'price' => $totalPrice,
                 'entries_count' => $items->count(),
                 'products_count' => $items->filter(fn ($e) => !is_null($e->product))->count(),
                 'month_key' => $ym,
                 'label' => $label,
+                'student_id' => $this->student['id'],
+                'items' => $items,
+                'image_url' => $image_url
             ];
 
-            $parsedItems = $items->map(fn ($e) => $this->parseMenuEntry($e))->values();
+            $parsedItems = $items->map(fn ($e) => $this->parseMenuEntry($e, $month))->values();
             $itemsWithBundle = collect([$bundle])->merge($parsedItems)->values();
 
             return [
                 'key' => $ym,
-                'label' => $label,
+                'label' => $group_label,
                 'items' => $itemsWithBundle,
             ];
         })->values();
@@ -106,16 +123,37 @@ class StartShopping extends Component {
         $this->menu_entries = collect($grouped);
     }
 
-    public function parseMenuEntry(MenuEntry $entry): array {
+    public function parseMenuEntry(MenuEntry $entry, $month): array {
         $dt = Carbon::parse($entry->date);
+        $image_url = null;
+        if ($entry->product['media_id']) {
+            $media = Media::find($entry->product['media_id']);
+            if ($media) {
+                $image_url = ($media->hasGeneratedConversion('webp') ? $media->getFullUrl('webp') : $media->getUrl());
+            }
+        }
+
+        $settings = new GeneralSettings();
+        if ($settings->default_product_image) {
+            $media = Media::find($settings->default_product_image);
+            if ($media) {
+                $image_url = ($media->hasGeneratedConversion('webp') ? $media->getFullUrl('webp') : $media->getUrl());
+            }
+        }
+
         return [
             'type' => 'entry',
             'id' => $entry->id,
             'date' => $dt->toDateString(),
-            'display_date' => $dt->translatedFormat('D d'),
-            'weekday' => $dt->translatedFormat('l'),
+            'label' => $month . ' - ' . $dt->translatedFormat('l d'),
+            'product_id' => $entry->product_id,
+            'name' => $entry->product['name'],
+            'price' => $entry->price,
+            'offer_price' => $entry->offer_price,
             'school_id' => $entry->school_id,
             'grade_id' => $entry->grade_id,
+            'student_id' => $this->student['id'],
+            'image_url' => $image_url,
         ];
     }
 

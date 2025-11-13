@@ -31,6 +31,11 @@ class MenuEntrySeeder extends Seeder {
         // 3) Recorrer días y crear MenuEntry por colegio y grado (idempotente)
         $created = 0;
         foreach ($period as $date) {
+            // ❗ Saltar sábados (6) y domingos (0)
+            if ($date->isWeekend()) {
+                continue;
+            }
+
             foreach ($schools as $school) {
                 if ($school->grades->isEmpty()) {
                     // Si un colegio no tiene grados, se omite
@@ -38,10 +43,13 @@ class MenuEntrySeeder extends Seeder {
                 }
 
                 foreach ($school->grades as $grade) {
+                    $product = Product::all()->random();
                     $attributes = [
                         'school_id' => $school->id,
                         'grade_id'  => $grade->id,
-                        'product_id' => Product::all()->random()->id,
+                        'price' => $product->price,
+                        'offer_price' => $product->offer_price,
+                        'product_id' => $product->id,
                         self::DATE_FIELD => $date->toDateString(),
                     ];
 

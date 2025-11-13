@@ -9,6 +9,7 @@ return new class extends SettingsMigration
         $this->migrator->add('general.logo_mail', null);
         $this->migrator->add('general.logo_footer', null);
         $this->migrator->add('general.favicon', null);
+        $this->migrator->add('general.default_product_image', null);
         $this->migrator->add('general.instagram', 'https://www.instagram.com/fusionschoollunches/');
         $this->migrator->add('general.youtube', 'https://www.youtube.com/');
         $this->migrator->add('general.linkedin', 'https://www.linkedin.com/');

@@ -22,7 +22,7 @@ class StudentFactory extends Factory {
             'last_name' => fake()->lastName(),
             'school_id' => $school->id,
             'grade_id' => $grade->id,
-            'allergies' => Allergy::all()->random(3)->pluck('id')->toArray(),
+            'allergies' => Allergy::all()->random(2)->pluck('name')->toArray(),
             'birth_of_date' => fake()->date(),
         ];
     }

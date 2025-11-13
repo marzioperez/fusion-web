@@ -1,0 +1,24 @@
+.product-item {
+    @apply shadow-lg rounded-2xl relative;
+}
+
+.product-item .header {
+    @apply bg-[#7dd956] text-white rounded-t-2xl text-center pb-4 pt-6 px-3 text-lg font-semibold;
+}
+
+.product-item .body .content {
+    @apply px-3 md:py-6 py-4 space-y-3;
+}
+
+.product-item .calendar-first-detail {
+    @apply flex space-x-1 absolute -top-3 left-10;
+}
+
+.product-item .calendar-second-detail {
+    @apply flex space-x-1 absolute -top-3 right-10;
+}
+
+.product-item .calendar-first-detail .item,
+.product-item .calendar-second-detail .item {
+    @apply h-6 w-2.5 bg-gray-600 rounded;
+}

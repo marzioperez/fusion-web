@@ -16,6 +16,8 @@ class MenuEntry extends Model {
         'date',
         'product_id',
         'stock',
+        'price',
+        'offer_price',
         'is_active'
     ];
 

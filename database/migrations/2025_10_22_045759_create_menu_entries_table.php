@@ -18,6 +18,8 @@ return new class extends Migration
             $table->date('date');
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->integer('stock')->default(0);
+            $table->decimal('price', 15)->nullable()->default(0);
+            $table->decimal('offer_price', 15)->nullable()->default(0);
             $table->boolean('is_active')->default(true);
             $table->index(['school_id', 'grade_id', 'date', 'is_active']);
             $table->softDeletes();

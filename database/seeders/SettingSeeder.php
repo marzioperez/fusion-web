@@ -39,6 +39,14 @@ class SettingSeeder extends Seeder {
         }
         $settings->favicon = $favicon->id;
 
+        // Product image
+        $product_image = $vault->addMediaFromDisk('default-product-image.jpg', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
+        if (is_null($product_image->uuid)) {
+            $product_image->uuid = Str::uuid();
+            $product_image->saveQuietly();
+        }
+        $settings->default_product_image = $product_image->id;
+
         // Avatars
         $boy_1 = $vault->addMediaFromDisk('settings/boy-1.png', 'seed-assets')->preservingOriginal()->toMediaCollection('assets', 'media-manager');
         if (is_null($boy_1->uuid)) {

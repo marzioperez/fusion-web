@@ -10,6 +10,7 @@ class GeneralSettings extends Settings {
     public ?string $logo_mail;
     public ?string $logo_footer;
     public ?string $favicon;
+    public ?string $default_product_image;
     public ?string $instagram;
     public ?string $youtube;
     public ?string $linkedin;

@@ -19,6 +19,7 @@ class Student extends Model implements HasMedia {
     use HasFactory, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [
+        'code',
         'first_name',
         'last_name',
         'school_id',
