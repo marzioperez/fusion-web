@@ -46,7 +46,7 @@
         </div>
 
         <div class="footer">
-            <a href="#" wire:navigate class="!w-full btn btn-lg btn-primary">Checkout</a>
+            <a href="{{route('order.check-out')}}" wire:navigate class="!w-full btn btn-lg btn-primary">Checkout</a>
         </div>
     </aside>
 

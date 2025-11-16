@@ -14,9 +14,10 @@ class Cart extends Model {
         'items',
         'total_items',
         'coupon_code',
-        'subtotal',
+        'sub_total',
         'discount',
         'delivery',
+        'processing_fee',
         'total',
         'weight',
     ];

@@ -23,6 +23,8 @@ return new class extends SettingsMigration
         $this->migrator->add('general.email', 'contact@fusionportland.com');
         $this->migrator->add('general.avatars', null);
 
+        $this->migrator->add('general.processing_fee', 4.8);
+
         $this->migrator->add('general.units', [
             'miligramos', 'gramos', 'kilogramos', 'mililitros', 'litros', 'libras', 'onzas', 'unidades', 'docenas'
         ]);

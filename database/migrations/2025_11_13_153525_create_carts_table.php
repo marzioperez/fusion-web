@@ -20,9 +20,10 @@ return new class extends Migration
             $table->json('items')->nullable()->default(null);
             $table->integer('total_items')->nullable()->default(0);
             $table->string('coupon_code')->nullable()->default(null);
-            $table->decimal('subtotal', 15)->nullable()->default(0);
+            $table->decimal('sub_total', 15)->nullable()->default(0);
             $table->decimal('discount', 15)->nullable()->default(0);
             $table->decimal('delivery', 15)->nullable()->default(0);
+            $table->decimal('processing_fee', 15)->nullable()->default(0);
             $table->decimal('total', 15)->nullable()->default(0);
             $table->decimal('weight', 15)->nullable()->default(0);
             $table->timestamps();

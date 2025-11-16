@@ -66,6 +66,8 @@ class AddToCart {
             ]);
         }
 
+        CalculateTotals::run($cart);
+
         return [
             'items' => $items,
             'status' => $status,
