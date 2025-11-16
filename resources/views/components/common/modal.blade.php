@@ -2,9 +2,9 @@
 <div class="relative z-50"
     x-data="{show : false, name : '{{$name}}'}"
     x-show="show"
-    x-on:open-modal.window="show = ($event.detail.name === name); $dispatch('disable-scroll');"
-    x-on:close-modal.window="show = false; $dispatch('enable-scroll');"
-    x-on:keydown.escape.window="show = false; $dispatch('enable-scroll');"
+    x-on:open-modal.window="show = ($event.detail.name === name); $dispatch('toggle-scroll');"
+    x-on:close-modal.window="show = false; $dispatch('toggle-scroll');"
+    x-on:keydown.escape.window="show = false; $dispatch('toggle-scroll');"
     style="display:none;">
 
     <div class="modal-overlay"

@@ -1,0 +1,31 @@
+.cart-counter {
+    @apply cursor-pointer fixed z-50 bottom-6 right-6 bg-white shadow-2xl rounded-full p-4 transform transition-transform duration-300 translate-x-0;
+}
+
+.cart-counter.active {
+    @apply -translate-x-[400px];
+}
+
+.cart-counter svg {
+    @apply h-12;
+}
+
+.cart-counter .count {
+    @apply absolute -top-2 -left-2 bg-primary-dark text-white rounded-full w-6 h-6 flex items-center justify-center text-xs;
+}
+
+.mini-cart {
+    @apply fixed inset-y-0 right-0 z-50 h-full w-[400px] bg-white flex flex-col;
+}
+
+.mini-cart .header {
+    @apply flex items-center justify-between px-4 py-3 border-b border-gray-300;
+}
+
+.mini-cart .footer {
+    @apply border-t px-4 py-3 border-gray-300;
+}
+
+.mini-cart .body {
+    @apply flex-1 overflow-y-auto p-4;
+}

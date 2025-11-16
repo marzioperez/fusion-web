@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Order;
 
+use App\Enums\ProductTypes;
 use App\Models\Media;
 use App\Models\Student;
 use App\Models\MenuEntry;
@@ -97,7 +98,7 @@ class StartShopping extends Component {
 
             // Producto sintético "The whole month!" al inicio
             $bundle = [
-                'type' => 'bundle',
+                'type' => ProductTypes::ALL_DAYS->value,
                 'id' => 'bundle-' . $ym,
                 'name' => 'All days!',
                 'price' => $totalPrice,
@@ -105,7 +106,6 @@ class StartShopping extends Component {
                 'products_count' => $items->filter(fn ($e) => !is_null($e->product))->count(),
                 'month_key' => $ym,
                 'label' => $label,
-                'student_id' => $this->student['id'],
                 'items' => $items,
                 'image_url' => $image_url
             ];
@@ -142,7 +142,7 @@ class StartShopping extends Component {
         }
 
         return [
-            'type' => 'entry',
+            'type' => ProductTypes::FOOD->value,
             'id' => $entry->id,
             'date' => $dt->toDateString(),
             'label' => $month . ' - ' . $dt->translatedFormat('l d'),
@@ -152,7 +152,6 @@ class StartShopping extends Component {
             'offer_price' => $entry->offer_price,
             'school_id' => $entry->school_id,
             'grade_id' => $entry->grade_id,
-            'student_id' => $this->student['id'],
             'image_url' => $image_url,
         ];
     }

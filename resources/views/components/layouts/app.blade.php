@@ -36,13 +36,13 @@
     <body x-data="{scroll: true}" x-on:toggle-scroll.window="scroll = !scroll;" :class="scroll ? '' : 'overflow-hidden'">
         <x-common.top-bar />
         <livewire:common.header :header_position="$header_position" />
+
         <main>
             {{ $slot }}
         </main>
+
         <livewire:common.footer />
         <x-common.bot-bar />
-
-        <x-common.toast />
 
         <x-common.modal name="modal-student-selector">
             <x-slot:body>
@@ -54,6 +54,10 @@
                 <livewire:order.student-selector lazy />
             </x-slot:body>
         </x-common.modal>
+
+        <livewire:order.mini-cart />
+
+        <x-common.toast />
 
         @livewireScripts
         @vite('resources/js/app.js')

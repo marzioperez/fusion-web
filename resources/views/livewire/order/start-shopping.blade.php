@@ -14,7 +14,7 @@
             <div x-show="activeTab === '{{ $g }}'">
                 <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-6 gap-y-10">
                     @foreach($group['items'] as $item)
-                        <livewire:product.item :product="$item" lazy />
+                        <livewire:product.item :product="$item" :student="$student" lazy />
                     @endforeach
                 </div>
             </div>

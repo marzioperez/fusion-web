@@ -16,6 +16,7 @@
 
 @import "../css/customer.css";
 @import "../css/product.css";
+@import "../css/cart.css";
 
 @import 'tailwindcss';
 @import '@splidejs/splide/dist/css/splide.min.css';
@@ -31,6 +32,7 @@
     --font-castoro: 'Castoro', serif;
 
     --color-primary: var(--primary-color);
+    --color-primary-dark: var(--primary-color-dark);
     --color-secondary: var(--secondary-color);
     --color-third: var(--third-color);
     --color-text: var(--text-color);
