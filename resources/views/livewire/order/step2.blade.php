@@ -35,7 +35,7 @@
 
         <div class="mt-6 flex justify-between">
             <button type="button" x-on:click.prevent="$dispatch('update-step', { step: 1 })" class="btn btn-md btn-white-outline">Back to resume</button>
-            <button type="button" class="btn btn-md btn-primary">
+            <button type="button" class="btn btn-md btn-primary" x-on:click.prevent="$dispatch('process-cart');">
                 Finish order
             </button>
         </div>

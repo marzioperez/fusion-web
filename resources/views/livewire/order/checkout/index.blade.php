@@ -30,8 +30,17 @@
             <div :class="current_step == 1 ? 'block' : 'hidden'">
                 @livewire('order.step1')
             </div>
-            <div :class="current_step == 2 ? 'block' : 'hidden'">
+            <div :class="current_step == 2 ? 'block space-y-3' : 'hidden'">
                 @livewire('order.step2')
+                @if ($use_credits && $credits_applied == $sub_total && $credits_remaining > 0)
+                    <div class="p-3 bg-amber-100 rounded-2xl">
+                        <p class="text-amber-900 text-sm">
+                            De tus créditos disponibles <b>(${{ number_format($credits, 2) }})</b>,
+                            solo se descontarán <b>${{ number_format($credits_applied, 2) }}</b> para cubrir este pedido.
+                            El saldo restante de <b>${{ number_format($credits_remaining, 2) }}</b> permanecerá en tu cuenta.
+                        </p>
+                    </div>
+                @endif
             </div>
         </div>
         <div class="col-span-4">
@@ -64,5 +73,34 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div x-data="stripeCheckoutModal('{{ config('services.stripe.key') }}')"
+        x-on:open-stripe-modal.window="open($event.detail)"
+    >
+        <template x-if="isOpen">
+            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+                <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6" @click.stop>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold">Pay with card</h3>
+                        <button type="button" class="text-gray-500 hover:text-gray-700" @click="close()" x-bind:disabled="loading">✕</button>
+                    </div>
+
+                    {{-- Mensaje de error --}}
+                    <template x-if="error">
+                        <div class="mb-3 text-sm text-red-600" x-text="error"></div>
+                    </template>
+
+                    {{-- Elemento de tarjeta de Stripe --}}
+                    <div id="card-element" class="border rounded-md p-3 mb-4"></div>
+
+                    {{-- Botón de pagar --}}
+                    <button type="button" class="w-full py-2 rounded-md bg-primary text-white font-semibold disabled:opacity-60" @click="submit()" x-bind:disabled="loading">
+                        <span x-show="!loading">Confirm payment</span>
+                        <span x-show="loading">Processing...</span>
+                    </button>
+                </div>
+            </div>
+        </template>
     </div>
 </div>

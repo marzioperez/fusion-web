@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@splidejs/splide": "^4.1.4",
+        "@stripe/stripe-js": "^8.5.2",
         "flatpickr": "^4.6.13"
     }
 }
