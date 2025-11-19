@@ -1,45 +1,34 @@
 <div class="space-y-4">
-    <h5 class="text-xl font-semibold">Resumen de tu pedido</h5>
-
-    <div class="bg-white shadow rounded-lg p-4 space-y-3">
-        @forelse ($items as $item)
-            <div class="flex justify-between text-sm border-b border-b-gray-300 last:border-0 pb-2">
-                <div>
-                    <div class="font-medium">{{ $item['name'] ?? 'Producto' }}</div>
-                    <div class="text-gray-500">x{{ $item['quantity'] ?? 1 }}</div>
-                </div>
-                <div class="font-semibold">
-                    ${{ number_format(($item['price'] ?? 0), 2) }}
-                </div>
+    <h5>Verify your products</h5>
+    <div class="space-y-3">
+        <div class="grid grid-cols-12 border-b-2 border-gray-200 pb-2 px-2 gap-6">
+            <div class="col-span-2">
+                <p class="font-bold text-primary text-sm">Product</p>
             </div>
+            <div class="sm:col-span-10 col-span-8 grid grid-cols-12 gap-6">
+                <div class="col-span-5 sm:block hidden"></div>
+                <div class="col-span-2 sm:block hidden text-center">
+                    <p class="font-bold text-primary text-sm">Price</p>
+                </div>
+                <div class="col-span-2 sm:block hidden text-center">
+                    <p class="font-bold text-primary text-sm">Quantity</p>
+                </div>
+                <div class="sm:col-span-2 col-span-10 text-end">
+                    <p class="font-bold text-primary text-sm">Subtotal</p>
+                </div>
+                <div class="sm:hidden block"></div>
+            </div>
+        </div>
+
+        @forelse ($items as $i => $item)
+            <livewire:order.checkout.item :item="$item" :index="$i" :token="$token" wire:key="{{$i . time()}}" />
         @empty
-            <p class="text-gray-500">Tu carrito está vacío.</p>
+            <p class="text-gray-500 text-center">Your cart is empty.</p>
         @endforelse
     </div>
 
-    <div class="space-y-2">
-        <div class="flex justify-between items-center">
-            <span>Subtotal:</span>
-            <span class="text-lg">${{ number_format($sub_total, 2) }}</span>
-        </div>
-
-        <div class="flex justify-between items-center">
-            <span>Fee:</span>
-            <span class="text-lg">${{ number_format($processing_fee, 2) }}</span>
-        </div>
-
-        <div class="flex justify-between items-center">
-            <span class="text-lg font-semibold">Total:</span>
-            <span class="text-2xl font-bold">${{ number_format($total, 2) }}</span>
-        </div>
-    </div>
-
     <div class="mt-6 flex justify-end">
-        <button
-            type="button"
-            wire:click="goToStep2"
-            class="px-6 py-2 rounded-md bg-green-600 text-white font-semibold hover:bg-green-700"
-        >
+        <button type="button" wire:click="goToStep2" class="btn btn-lg btn-primary">
             Continuar con el pago
         </button>
     </div>
