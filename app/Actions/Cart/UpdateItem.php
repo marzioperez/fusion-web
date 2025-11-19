@@ -5,20 +5,23 @@ namespace App\Actions\Cart;
 use App\Enums\Status;
 use App\Models\Cart;
 
-class RemoveItem {
+class UpdateItem {
 
-    public function __invoke($token, $index) {
+    public function __invoke($token, $index, $quantity) {
         $cart = Cart::where('token', $token)
             ->where('status', Status::PENDING->value)
             ->latest()
             ->first();
 
-        $items = [];
-        if (count($cart->items) > 0) {
-            foreach ($cart->items as $key => $item) {
-                if ($key != $index) {
-                    $items[] = $item;
+        $items = $cart->items;
+
+        if (count($items) > 0) {
+            foreach ($items as $key => $item) {
+                if ($key == $index) {
+                    $item['quantity'] = $quantity;
+                    $item['sub_total'] = round($item['price'] * $quantity, 2);
                 }
+                $items[$key] = $item;
             }
         }
 

@@ -5,19 +5,20 @@ namespace App\Actions\Cart;
 use App\Enums\ProductTypes;
 use App\Enums\Status;
 use App\Models\Cart;
+use App\Settings\GeneralSettings;
 use Illuminate\Support\Str;
 
 class AddToCart {
 
     public function __invoke($token, $product, $quantity = 1) {
-        // 2. Buscar carrito con ese token
+        // 1. Buscar carrito con ese token
         $cart = Cart::where('token', $token)
             ->where('status', Status::PENDING->value)
             ->latest()
             ->first();
 
-        // 3. Si no existe, crearlo
-        if (! $cart) {
+        // 2. Si no existe, crearlo
+        if (!$cart) {
             $cart = Cart::create([
                 'user_id' => auth()->id(),
                 'token'   => $token,
@@ -26,12 +27,14 @@ class AddToCart {
             ]);
         }
 
-        // 4. Trabajar siempre sobre el array de items
+        // 3. Trabajar siempre sobre el array de items
         $items = $cart->items ?? [];
 
         $status = 'success';
-        foreach($items as $item) {
-            // Regla para FOOD: mismo producto, mismo alumno, misma fecha
+        $existingFoodIndex = null;
+
+        foreach ($items as $index => $item) {
+            // Para FOOD sólo identificamos si ya existe el mismo plato para el mismo alumno y fecha
             if ($product['type'] === ProductTypes::FOOD->value) {
                 if (
                     ($item['type'] ?? null) === ProductTypes::FOOD->value &&
@@ -39,8 +42,7 @@ class AddToCart {
                     $item['student']['id'] == $product['student']['id'] &&
                     $item['date'] == $product['date']
                 ) {
-                    $status = 'error';
-                    break;
+                    $existingFoodIndex = $index;
                 }
             }
 
@@ -57,12 +59,51 @@ class AddToCart {
             }
         }
 
-        // 5. Si no hay duplicado, agregar el producto
-        if ($status === 'success') {
+        // Lógica de cantidad para FOOD (máximo 6 unidades del mismo plato por alumno y fecha)
+        $settings = new GeneralSettings();
+        $limit = $settings->limit_product_per_student;
+
+        if ($status === 'success' && $product['type'] === ProductTypes::FOOD->value) {
+            if (!is_null($existingFoodIndex)) {
+                $currentQty = $items[$existingFoodIndex]['quantity'] ?? 1;
+                $newQty = $currentQty + $quantity;
+
+                if ($newQty > $limit) {
+                    $status = 'error';
+                } else {
+                    $items[$existingFoodIndex]['quantity'] = $newQty;
+                    $items[$existingFoodIndex]['sub_total'] = round($items[$existingFoodIndex]['price'] * $newQty, 2);
+                }
+            } else {
+                $product['quantity'] = min($quantity, $limit);
+
+                if ($product['quantity'] < 1) {
+                    $status = 'error';
+                } else {
+                    $product['sub_total'] = $product['price'] * $quantity;
+                    $items[] = $product;
+                }
+            }
+        }
+
+        // Para ALL_DAYS solo se agrega si no entró en error por duplicado
+        if ($status === 'success' && $product['type'] === ProductTypes::ALL_DAYS->value) {
+            $product['quantity'] = $quantity;
+            $product['sub_total'] = $product['price'];
             $items[] = $product;
+        }
+
+        // Calculamos el total de ítems
+        $total_items = 0;
+        foreach ($items as $item) {
+            $total_items += $item['quantity'] ?? 1;
+        }
+
+        // 5. Si no hay error, actualizar el carrito
+        if ($status === 'success') {
             $cart->update([
-                'items' => $items,
-                'total_items' => count($items)
+                'items'       => $items,
+                'total_items' => $total_items,
             ]);
         }
 

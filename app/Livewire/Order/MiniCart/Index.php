@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Livewire\Order;
+namespace App\Livewire\Order\MiniCart;
 
-use App\Actions\Cart\RemoveItem;
 use App\Enums\Status;
 use App\Models\Cart;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class MiniCart extends Component {
+class Index extends Component {
 
     public $cart_count = 0;
     public array $items = [];
@@ -31,12 +30,7 @@ class MiniCart extends Component {
         }
     }
 
-    public function removeItem($id) {
-        RemoveItem::run($this->token, $id);
-        $this->load_cart();
-    }
-
     public function render() {
-        return view('livewire.order.mini-cart');
+        return view('livewire.order.mini-cart.index');
     }
 }

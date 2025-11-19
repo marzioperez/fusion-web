@@ -11,12 +11,11 @@ class CalculateTotals {
         $sub_total = 0;
         $discount = 0;
         $processing_fee = 0;
-        $total = 0;
 
         $items = $cart['items'] ?? [];
         if (count($items) > 0) {
             foreach ($items as $item) {
-                $sub_total += $item['price'];
+                $sub_total += $item['sub_total'];
             }
         }
 

@@ -101,7 +101,7 @@ class StartShopping extends Component {
                 'type' => ProductTypes::ALL_DAYS->value,
                 'id' => 'bundle-' . $ym,
                 'name' => 'All days!',
-                'price' => $totalPrice,
+                'price' => round($totalPrice, 2),
                 'entries_count' => $items->count(),
                 'products_count' => $items->filter(fn ($e) => !is_null($e->product))->count(),
                 'month_key' => $ym,

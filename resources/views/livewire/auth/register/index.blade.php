@@ -50,7 +50,7 @@
 
     <div :class="(current_step == 3 ? 'block' : 'hidden')">
         <div class="space-y-4">
-            <h4 class="text-center">¡Register Successfully!</h4>
+            <h4 class="text-center">¡Registered Successfully!</h4>
             <p class="text-center text-gray-500">Your registration has been successful. Log in to your account using the button below.</p>
             <div class="flex justify-center">
                 <a href="{{route('page', ['slug' => 'login'])}}" class="btn btn-md btn-primary !px-12" wire:navigate>Log in</a>

@@ -24,6 +24,7 @@ class GeneralSettings extends Settings {
     public ?string $address;
     public ?array $avatars;
     public ?float $processing_fee;
+    public ?int $limit_product_per_student;
     public ?array $units;
 
     public static function group(): string {

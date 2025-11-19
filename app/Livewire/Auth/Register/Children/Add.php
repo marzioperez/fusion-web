@@ -18,7 +18,7 @@ class Add extends Component {
         'grade_id' => '',
         'allergies' => [],
         'birth_of_date' => '',
-        'avatar_media_id' => ''
+        'avatar_media_id' => null
     ];
 
     protected $rules = [

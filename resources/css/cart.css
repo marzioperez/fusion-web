@@ -27,5 +27,5 @@
 }
 
 .mini-cart .body {
-    @apply flex-1 overflow-y-auto p-4;
+    @apply flex-1 overflow-y-auto p-4 divide-y divide-gray-300 divide-dashed;
 }

@@ -55,7 +55,7 @@
             </x-slot:body>
         </x-common.modal>
 
-        <livewire:order.mini-cart />
+        <livewire:order.mini-cart.index />
 
         <x-common.toast />
 
