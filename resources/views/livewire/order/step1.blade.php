@@ -3,18 +3,18 @@
     <div class="space-y-3">
         <div class="grid grid-cols-12 border-b-2 border-gray-200 pb-2 px-2 gap-6">
             <div class="col-span-2">
-                <p class="font-bold text-primary text-sm">Product</p>
+                <p class="font-bold text-primary">Product</p>
             </div>
             <div class="sm:col-span-10 col-span-8 grid grid-cols-12 gap-6">
                 <div class="col-span-5 sm:block hidden"></div>
                 <div class="col-span-2 sm:block hidden text-center">
-                    <p class="font-bold text-primary text-sm">Price</p>
+                    <p class="font-bold text-primary">Price</p>
                 </div>
                 <div class="col-span-2 sm:block hidden text-center">
-                    <p class="font-bold text-primary text-sm">Quantity</p>
+                    <p class="font-bold text-primary">Quantity</p>
                 </div>
                 <div class="sm:col-span-2 col-span-10 text-end">
-                    <p class="font-bold text-primary text-sm">Subtotal</p>
+                    <p class="font-bold text-primary">Subtotal</p>
                 </div>
                 <div class="sm:hidden block"></div>
             </div>
