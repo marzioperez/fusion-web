@@ -3,69 +3,40 @@
 
     <div class="bg-white shadow rounded-lg p-4 space-y-4">
         <div class="flex items-center justify-between">
-            <div>
-                <div class="font-medium">Créditos disponibles</div>
-                <div class="text-gray-500 text-sm">
-                    Puedes usarlos para reducir el total de tu compra.
-                </div>
-            </div>
-            <div class="text-right">
-                <div class="font-semibold">
-                    ${{ number_format($useCredits, 2) }}
-                </div>
-                <label class="inline-flex items-center mt-1 gap-2 text-sm">
-                    <input type="checkbox" wire:model.live="useCredits" class="rounded">
-                    <span>Usar mis créditos</span>
-                </label>
-            </div>
-        </div>
-
-        <div class="space-y-2 text-sm">
-            <div class="flex justify-between">
-                <span>Subtotal carrito</span>
-                <span>${{ number_format($sub_total, 2) }}</span>
+            <div class="space-y-2">
+                <div class="font-medium">Available credits</div>
+                <div class="text-gray-500">You can use them to reduce the total amount of your purchase.</div>
             </div>
 
-            <div class="flex justify-between">
-                <span>Créditos aplicados</span>
-                <span class="text-green-600">
-                    - ${{ number_format($credits_to_apply, 2) }}
-                </span>
+            <div x-data="{
+                enabled: @js($use_credits ?? false),
+                user_credits: @js($user_credits ?? 0),
+                init() {
+                    this.$watch('enabled', value => {
+                        $dispatch('toggle-use-credits', { enabled: value })
+                    })
+                }
+            }" class="text-right">
+                <div class="font-semibold mb-1">
+                    ${{ number_format($user_credits, 2) }}
+                </div>
+
+                <div class="inline-flex items-center gap-2 text-sm">
+                    <span class="text-gray-700">Use my credits</span>
+
+                    <button :disabled="user_credits == 0" type="button" @click="enabled = !enabled"
+                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-primary-500"
+                        :class="enabled ? 'bg-primary' : 'bg-gray-200'">
+                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
+                    </button>
+                </div>
             </div>
-
-            <div class="flex justify-between">
-                <span>Subtotal después de créditos</span>
-                <span>S/ {{ number_format(max($subtotal_after_credits, 0), 2) }}</span>
-            </div>
-
-            @if ($amount_to_charge > 0)
-                <div class="flex justify-between">
-                    <span>Fee (4.8%)</span>
-                    <span>${{ number_format($fee / 100, 2) }}</span>
-                </div>
-
-                <div class="flex justify-between font-semibold text-lg pt-2 border-t">
-                    <span>Total a pagar con tarjeta (Stripe)</span>
-                    <span>${{ number_format($amount_to_charge / 100, 2) }}</span>
-                </div>
-            @else
-                <div class="mt-2 text-green-700 font-semibold">
-                    El total se cubre completamente con tus créditos. No se realizará pago con tarjeta.
-                </div>
-            @endif
         </div>
 
         <div class="mt-6 flex justify-between">
-            <button type="button" wire:click="$dispatch('checkout-go-to-step', { step: 1 })" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 text-sm">
-                Volver al resumen
-            </button>
-
-            <button type="button" wire:click="pay" class="px-6 py-2 rounded-md bg-green-600 text-white font-semibold hover:bg-green-700">
-                @if ($amount_to_charge > 0)
-                    Pagar ahora con Stripe
-                @else
-                    Confirmar pago con créditos
-                @endif
+            <button type="button" x-on:click.prevent="$dispatch('update-step', { step: 1 })" class="btn btn-md btn-white-outline">Back to resume</button>
+            <button type="button" class="btn btn-md btn-primary">
+                Finish order
             </button>
         </div>
     </div>

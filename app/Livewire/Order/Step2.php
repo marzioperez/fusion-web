@@ -12,30 +12,12 @@ class Step2 extends Component {
     public $sub_total = 23.56;
     public $total = 24.69;
     public $fee = 1.13;
-    public int $userCredits = 0;
-    public int $useCredits = 0;
+    public int $user_credits = 0;
+    public bool $use_credits = false;
 
-    public function updatedUseCredits() {
-        $this->recalculate();
-    }
-
-    protected function recalculate(): void {
-        $this->credits_to_apply = 0;
-
-        if ($this->useCredits && $this->userCredits > 0) {
-            $this->credits_to_apply = min($this->userCredits, $this->total);
-        }
-
-        $this->subtotal_after_credits = $this->total - $this->credits_to_apply;
-
-        if ($this->subtotal_after_credits <= 0) {
-            $this->fee = 0;
-            $this->amount_to_charge = 0;
-        } else {
-            // 4.8% fee, redondeado hacia arriba
-            $this->fee = (int) ceil($this->subtotal_after_credits * 0.048);
-            $this->amount_to_charge = $this->subtotal_after_credits + $this->fee;
-        }
+    public function mount() {
+        $user = auth()->user();
+        $this->user_credits = $user['credits'] ?? 0;
     }
 
     public function render() {

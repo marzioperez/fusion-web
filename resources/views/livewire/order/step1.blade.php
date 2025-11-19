@@ -28,8 +28,6 @@
     </div>
 
     <div class="mt-6 flex justify-end">
-        <button type="button" wire:click="goToStep2" class="btn btn-lg btn-primary">
-            Continuar con el pago
-        </button>
+        <button type="button" x-on:click.prevent="$dispatch('update-step', { step: 2 })" class="btn btn-lg btn-primary">Next to payment</button>
     </div>
 </div>

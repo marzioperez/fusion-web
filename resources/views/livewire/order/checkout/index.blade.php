@@ -45,6 +45,13 @@
                         <span class="text-lg">${{ number_format($sub_total, 2) }}</span>
                     </div>
 
+                    @if($credits > 0)
+                        <div class="flex justify-between items-center">
+                            <span>Apply credits:</span>
+                            <span class="text-lg text-primary-dark">-${{ number_format($credits, 2) }}</span>
+                        </div>
+                    @endif
+
                     <div class="flex justify-between items-center">
                         <span>Fee:</span>
                         <span class="text-lg">${{ number_format($processing_fee, 2) }}</span>
