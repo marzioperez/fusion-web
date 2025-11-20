@@ -133,13 +133,15 @@ class Index extends Component {
                     $student_name = $item['student']['first_name'] . ' ' . $item['student']['last_name'];
                 }
                 $order->items()->create([
-                    'product_id' => $item['product_id'],
+                    'product_id' => $item['product_id'] ?? null,
                     'name' => $item['name'],
                     'label' => $item['label'] ?? null,
                     'student_id' => (isset($item['student']) ? $item['student']['id'] : null),
                     'student_name' => $student_name,
                     'image_url' => $item['image_url'] ?? null,
                     'type' => $item['type'],
+                    'menu_entry_id' => $item['id'] ?? null,
+                    'date' => $item['date'] ?? null,
                     'price' => $item['price'],
                     'quantity' => $item['quantity'],
                     'total' => $item['sub_total'],

@@ -11,12 +11,15 @@ class OrderItem extends Model {
 
     protected $fillable = [
         'order_id',
+        'product_id',
         'name',
         'label',
         'student_id',
         'student_name',
         'image_url',
         'type',
+        'menu_entry_id',
+        'date',
         'price',
         'quantity',
         'total',

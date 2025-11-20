@@ -134,6 +134,13 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'processing-order' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/processing-order.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ],
+
     ],
 
 ];

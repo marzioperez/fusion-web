@@ -20,6 +20,7 @@ class UserSeeder extends Seeder {
             'email' => 'marzioperez@gmail.com',
             'phone' => '981277116',
             'password' => '47804233',
+            'credits' => 10,
         ])->each(function ($user) {
             Student::factory(1)->create(['user_id' => $user->id]);
         });

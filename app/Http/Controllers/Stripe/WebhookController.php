@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Stripe;
 
+use App\Enums\ProductTypes;
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
+use App\Jobs\ProcessOrder;
 use App\Mail\Order\OrderPaid;
+use App\Models\MenuEntry;
 use App\Models\Order;
+use App\Models\ScheduleEntryMenu;
+use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -31,30 +37,7 @@ class WebhookController extends Controller {
             $payment_intent_id = $intent->id;
             $order_id = $intent->metadata->order_id ?? null;
 
-            DB::transaction(function () use ($order_id, $payment_intent_id) {
-                $order = Order::lockForUpdate()
-                    ->where('code', $order_id)
-                    ->orWhere('stripe_payment_intent_id', $payment_intent_id)
-                    ->first();
-
-                if (!$order || $order->payment_status === Status::FINISHED->value) {
-                    return;
-                }
-
-                $order->update([
-                    'status' => Status::FINISHED->value,
-                    'payment_status' => Status::FINISHED->value,
-                ]);
-
-                $detail = $order->items;
-                foreach ($detail as $item) {
-                    
-                }
-
-                $user = $order->user;
-                Mail::to($user['email'])->send(new OrderPaid($order, $user));
-
-            });
+            ProcessOrder::dispatch($order_id, $payment_intent_id);
         }
         return response('OK', 200);
     }

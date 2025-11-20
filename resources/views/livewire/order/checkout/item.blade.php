@@ -1,9 +1,9 @@
 <div class="grid grid-cols-12 border-b border-gray-200 py-5 sm:px-2 sm:gap-6 gap-2">
-
     <div class="col-span-2">
         <img src="{{$item['image_url']}}" class="sm:rounded-xl rounded w-full" alt="{{$item['name']}}" />
     </div>
     <div class="sm:col-span-10 col-span-8">
+
         <div class="w-full grid grid-cols-12 gap-x-6 h-full">
             <div class="sm:col-span-5 col-span-full flex items-center">
                 <div>
