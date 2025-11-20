@@ -6,6 +6,7 @@ use App\Enums\Status;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Settings\GeneralSettings;
+use App\Jobs\ProcessOrder;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -91,11 +92,67 @@ class Index extends Component {
 
     #[On('process-cart')]
     public function process(): void {
-        if ($this->total <= 0) {
+        $user = auth()->user();
+
+        // Monto mínimo que acepta Stripe
+        $minStripeAmount = 0.50;
+
+        if ($this->total < $minStripeAmount) {
+            $orderCode = null;
+            DB::transaction(function () use ($user, &$orderCode) {
+                // Obtenemos el número de la última orden creada
+                $number = 1;
+                $last_order = Order::select(["number"])->orderBy("id", "DESC")->first();
+                if ($last_order) {
+                    $number = $last_order->number + 1;
+                }
+
+                // Creamos el pedido por defecto como pendiente, sin fee ni total porque es solo créditos
+                $order = Order::create([
+                    'cart_id' => $this->cart['id'],
+                    'code' => 'FSL-' . $number,
+                    'number' => $number,
+
+                    'user_id' => $user['id'],
+                    'phone' => $user['phone'],
+                    'email' => $user['email'],
+                    'first_name' => $user['first_name'],
+                    'last_name' => $user['last_name'],
+
+                    'sub_total' => $this->sub_total,
+                    'credits' => $this->credits_applied,
+                    'processing_fee' => 0,
+                    'total' => 0,
+                ]);
+
+                foreach ($this->cart['items'] as $item) {
+                    $student_name = null;
+                    if (isset($item['student'])) {
+                        $student_name = $item['student']['first_name'] . ' ' . $item['student']['last_name'];
+                    }
+                    $order->items()->create([
+                        'product_id' => $item['product_id'] ?? null,
+                        'name' => $item['name'],
+                        'label' => $item['label'] ?? null,
+                        'student_id' => (isset($item['student']) ? $item['student']['id'] : null),
+                        'student_name' => $student_name,
+                        'image_url' => $item['image_url'] ?? null,
+                        'type' => $item['type'],
+                        'menu_entry_id' => $item['id'] ?? null,
+                        'date' => $item['date'] ?? null,
+                        'price' => $item['price'],
+                        'quantity' => $item['quantity'],
+                        'total' => $item['sub_total'],
+                        'data' => ($item['items'] ?? null)
+                    ]);
+                }
+
+                $orderCode = $order['code'];
+            });
+            ProcessOrder::dispatch($orderCode);
+            $this->redirect(route('order.thank-you', ['order' => $orderCode]));
             return;
         }
-
-        $user = auth()->user();
 
         DB::transaction(function () use ($user) {
             // Obtenemos el número de la última orden creada

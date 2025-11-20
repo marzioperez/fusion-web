@@ -12,7 +12,7 @@ class Step2 extends Component {
     public $sub_total = 23.56;
     public $total = 24.69;
     public $fee = 1.13;
-    public int $user_credits = 0;
+    public $user_credits = 0;
     public bool $use_credits = false;
 
     public function mount() {
