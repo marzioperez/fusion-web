@@ -18,25 +18,48 @@ use Illuminate\Support\Facades\Mail;
 
 class ProcessOrder implements ShouldQueue {
     use Queueable;
-    public $order_id = null;
-    public $payment_intent_id;
-    public function __construct($order_id, $payment_intent_id) {
-        $this->order_id = $order_id;
-        $this->payment_intent_id = $payment_intent_id;
+    public $order_code;
+
+    public function __construct($order_code) {
+        $this->order_code = $order_code;
     }
 
     public function handle(): void {
-        $order_id = $this->order_id;
-        $payment_intent_id = $this->payment_intent_id;
-
-        DB::transaction(function () use ($order_id, $payment_intent_id) {
-            $order = Order::lockForUpdate()
-                ->where('code', $order_id)
-                ->orWhere('stripe_payment_intent_id', $payment_intent_id)
-                ->first();
+        DB::transaction(function () {
+            $order = Order::lockForUpdate()->where('code', $this->order_code)->first();
 
             if (!$order || $order->payment_status === Status::FINISHED->value) {
                 return;
+            }
+
+            // Descontar créditos del usuario (si aplica)
+            if ($order->credits > 0) {
+                // Bloqueamos también al usuario para evitar condiciones de carrera
+                $user = $order->user()->lockForUpdate()->first();
+
+                if ($user) {
+                    // Si por alguna razón el usuario tiene menos créditos de los usados en la orden,
+                    // descontamos solo lo que tenga disponible y registramos el evento en logs.
+                    $creditsToDeduct = $order->credits;
+
+                    if ($user->credits < $creditsToDeduct) {
+                        Log::channel('processing-order')->warning(
+                            sprintf(
+                                'User %d has insufficient credits. Expected to deduct %.2f, available %.2f. Deducting available amount.',
+                                $user->id,
+                                $creditsToDeduct,
+                                $user->credits
+                            )
+                        );
+
+                        $creditsToDeduct = $user->credits;
+                    }
+
+                    if ($creditsToDeduct > 0) {
+                        // Usamos decrement para que el cambio quede dentro del lock y la transacción
+                        $user->decrement('credits', $creditsToDeduct);
+                    }
+                }
             }
 
             $order->update([

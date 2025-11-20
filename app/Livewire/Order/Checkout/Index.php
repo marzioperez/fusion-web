@@ -91,10 +91,6 @@ class Index extends Component {
 
     #[On('process-cart')]
     public function process(): void {
-        if ($this->use_credits) {
-            return;
-        }
-
         if ($this->total <= 0) {
             return;
         }

@@ -2,22 +2,12 @@
 
 namespace App\Http\Controllers\Stripe;
 
-use App\Enums\ProductTypes;
-use App\Enums\Status;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessOrder;
-use App\Mail\Order\OrderPaid;
-use App\Models\MenuEntry;
 use App\Models\Order;
-use App\Models\ScheduleEntryMenu;
-use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Stripe\Webhook;
-use function Termwind\render;
 
 class WebhookController extends Controller {
 
@@ -35,9 +25,16 @@ class WebhookController extends Controller {
         if ($event->type == 'payment_intent.succeeded') {
             $intent = $event->data->object;
             $payment_intent_id = $intent->id;
-            $order_id = $intent->metadata->order_id ?? null;
+            $order_code = $intent->metadata->order_id ?? null;
 
-            ProcessOrder::dispatch($order_id, $payment_intent_id);
+            $order = Order::lockForUpdate()
+                ->where('code', $order_code)
+                ->orWhere('stripe_payment_intent_id', $payment_intent_id)
+                ->first();
+
+            if ($order) {
+                ProcessOrder::dispatch($order['code']);
+            }
         }
         return response('OK', 200);
     }
