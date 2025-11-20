@@ -4,7 +4,9 @@ namespace App\Livewire\Order\Checkout;
 
 use App\Enums\Status;
 use App\Models\Cart;
+use App\Models\Order;
 use App\Settings\GeneralSettings;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Stripe\PaymentIntent;
@@ -24,7 +26,7 @@ class Index extends Component {
     public $credits_applied = 0;
     public $credits_remaining = 0;
 
-    public $current_step = 2;
+    public $current_step = 1;
 
     public function mount() {
         $token = session()->get('cart-token');
@@ -44,6 +46,7 @@ class Index extends Component {
     public function load_cart():void {
         $cart = Cart::where('token', $this->token)->where('status', Status::PENDING->value)->get()->last();
         if ($cart) {
+            $this->cart = $cart;
             if ($this->use_credits) {
                 $user = auth()->user();
                 $settings = new GeneralSettings();
@@ -97,19 +100,69 @@ class Index extends Component {
         }
 
         $user = auth()->user();
-        $amount = $this->total;
 
-        Stripe::setApiKey(config('services.stripe.secret'));
-        $intent = PaymentIntent::create([
-            'amount' => (int) $amount * 100,
-            'currency' => 'usd',
-            'metadata' => [
-                'order_id' => '123456789',
-                'user_id' => $user['id']
-            ]
-        ]);
+        DB::transaction(function () use ($user) {
+            // Obtenemos el número de la última orden creada
+            $number = 1;
+            $last_order = Order::select(["number"])->orderBy("id", "DESC")->first();
+            if ($last_order) {
+                $number = $last_order->number + 1;
+            }
 
-        $this->dispatch('open-stripe-modal', clientSecret: $intent->client_secret, orderId: '123456789');
+            // Creamos el pedido por defecto como pendiente
+            $order = Order::create([
+                'cart_id' => $this->cart['id'],
+                'code' => 'FSL-' . $number,
+                'number' => $number,
+
+                'user_id' => $user['id'],
+                'phone' => $user['phone'],
+                'email' => $user['email'],
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
+
+                'sub_total' => $this->sub_total,
+                'credits' => $this->credits_applied,
+                'processing_fee' => $this->processing_fee,
+                'total' => $this->total,
+            ]);
+
+            foreach ($this->cart['items'] as $item) {
+                $student_name = null;
+                if (isset($item['student'])) {
+                    $student_name = $item['student']['first_name'] . ' ' . $item['student']['last_name'];
+                }
+                $order->items()->create([
+                    'product_id' => $item['product_id'],
+                    'name' => $item['name'],
+                    'label' => $item['label'] ?? null,
+                    'student_id' => (isset($item['student']) ? $item['student']['id'] : null),
+                    'student_name' => $student_name,
+                    'image_url' => $item['image_url'] ?? null,
+                    'type' => $item['type'],
+                    'price' => $item['price'],
+                    'quantity' => $item['quantity'],
+                    'total' => $item['sub_total'],
+                    'data' => ($item['items'] ?? null)
+                ]);
+            }
+
+            // 2) Crear PaymentIntent en Stripe
+            Stripe::setApiKey(config('services.stripe.secret'));
+            $intent = PaymentIntent::create([
+                'amount' => (int) round($this->total * 100),
+                'currency' => 'usd',
+                'metadata' => [
+                    'order_id' => $order['code'],
+                    'user_id' => $user['id']
+                ]
+            ]);
+
+            $order->update(['stripe_payment_intent_id' => $intent->id]);
+
+            // 3) Abrir modal en el front con el client_secret
+            $this->dispatch('open-stripe-modal', clientSecret: $intent->client_secret, orderId: $order['code']);
+        });
     }
 
     public function render() {

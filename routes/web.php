@@ -1,6 +1,12 @@
 <?php
 
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
+
+
+Route::post('stripe/webhook', [\App\Http\Controllers\Stripe\WebhookController::class, 'handle'])
+    ->withoutMiddleware([VerifyCsrfToken::class])
+    ->name('stripe.webhook');
 
 Route::middleware('web')->group(function () {
     Route::middleware('auth')->group(function () {

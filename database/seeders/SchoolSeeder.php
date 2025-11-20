@@ -10,13 +10,13 @@ use Illuminate\Database\Seeder;
 class SchoolSeeder extends Seeder {
 
     public function run(): void {
-        School::create(['name' => 'Holy Family Catholic School']);
-        School::create(['name' => 'Saint Agatha Catholic School']);
-        School::create(['name' => 'Saint Rose Catholic School']);
-        School::create(['name' => 'St. John The Baptist School']);
-        School::create(['name' => 'International School Of Portland']);
-        School::create(['name' => 'Cedarwood Waldorf School']);
-        School::create(['name' => 'French International School of Oregon'])->each(function ($school) {
+        School::create(['name' => 'Holy Family Catholic School', 'color' => fake()->hexColor()]);
+        School::create(['name' => 'Saint Agatha Catholic School', 'color' => fake()->hexColor()]);
+        School::create(['name' => 'Saint Rose Catholic School', 'color' => fake()->hexColor()]);
+        School::create(['name' => 'St. John The Baptist School', 'color' => fake()->hexColor()]);
+        School::create(['name' => 'International School Of Portland', 'color' => fake()->hexColor()]);
+        School::create(['name' => 'Cedarwood Waldorf School', 'color' => fake()->hexColor()]);
+        School::create(['name' => 'French International School of Oregon', 'color' => fake()->hexColor()])->each(function ($school) {
             $school->grades()->createMany([
                 ['name' => '1st Grade', 'school_id' => $school->id],
                 ['name' => '2nd Grade', 'school_id' => $school->id],

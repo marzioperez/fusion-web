@@ -82,7 +82,7 @@
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
                 <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6" @click.stop>
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold">Pay with card</h3>
+                        <h4>Pay with card</h4>
                         <button type="button" class="text-gray-500 hover:text-gray-700" @click="close()" x-bind:disabled="loading">✕</button>
                     </div>
 
@@ -91,8 +91,24 @@
                         <div class="mb-3 text-sm text-red-600" x-text="error"></div>
                     </template>
 
-                    {{-- Elemento de tarjeta de Stripe --}}
-                    <div id="card-element" class="border rounded-md p-3 mb-4"></div>
+                    {{-- Elementos de tarjeta de Stripe --}}
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Card number</label>
+                            <div id="card-number-element" class="border rounded-md p-3"></div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Expiry date</label>
+                                <div id="card-expiry-element" class="border rounded-md p-3"></div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1">CVC</label>
+                                <div id="card-cvc-element" class="border rounded-md p-3"></div>
+                            </div>
+                        </div>
+                    </div>
 
                     {{-- Botón de pagar --}}
                     <button type="button" class="w-full py-2 rounded-md bg-primary text-white font-semibold disabled:opacity-60" @click="submit()" x-bind:disabled="loading">

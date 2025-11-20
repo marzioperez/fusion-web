@@ -7,7 +7,9 @@ export default function stripeCheckoutModal(publishableKey) {
         error: null,
         stripe: null,
         elements: null,
-        card: null,
+        cardNumber: null,
+        cardExpiry: null,
+        cardCvc: null,
         clientSecret: null,
         orderId: null,
 
@@ -19,15 +21,60 @@ export default function stripeCheckoutModal(publishableKey) {
 
             if (!this.stripe) {
                 this.stripe = await loadStripe(publishableKey);
-                this.elements = this.stripe.elements();
-                this.card = this.elements.create('card');
-                this.card.mount('#card-element');
             }
+
+            this.$nextTick(() => {
+
+                this.elements = this.stripe.elements();
+
+                if (this.cardNumber) {
+                    this.cardNumber.unmount();
+                    this.cardNumber = null;
+                }
+                if (this.cardExpiry) {
+                    this.cardExpiry.unmount();
+                    this.cardExpiry = null;
+                }
+                if (this.cardCvc) {
+                    this.cardCvc.unmount();
+                    this.cardCvc = null;
+                }
+
+                const style = {
+                    base: {
+                        fontSize: '16px',
+                        color: '#2B2B2B',
+                        '::placeholder': {
+                            color: '#a0aec0',
+                        },
+                    },
+                };
+
+                this.cardNumber = this.elements.create('cardNumber', { style });
+                this.cardExpiry = this.elements.create('cardExpiry', { style });
+                this.cardCvc    = this.elements.create('cardCvc', { style });
+
+                this.cardNumber.mount('#card-number-element');
+                this.cardExpiry.mount('#card-expiry-element');
+                this.cardCvc.mount('#card-cvc-element');
+            });
         },
 
         close() {
             if (this.loading) return;
             this.isOpen = false;
+            if (this.cardNumber) {
+                this.cardNumber.unmount();
+                this.cardNumber = null;
+            }
+            if (this.cardExpiry) {
+                this.cardExpiry.unmount();
+                this.cardExpiry = null;
+            }
+            if (this.cardCvc) {
+                this.cardCvc.unmount();
+                this.cardCvc = null;
+            }
         },
 
         async submit() {
@@ -38,7 +85,7 @@ export default function stripeCheckoutModal(publishableKey) {
                 this.clientSecret,
                 {
                     payment_method: {
-                        card: this.card,
+                        card: this.cardNumber,
                     },
                 }
             );

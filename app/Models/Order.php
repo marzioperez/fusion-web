@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model {
@@ -11,14 +12,15 @@ class Order extends Model {
     use SoftDeletes;
 
     protected $fillable = [
+        'cart_id',
         'code',
         'number',
 
         'user_id',
         'phone',
         'email',
-        'last_name',
         'first_name',
+        'last_name',
 
         'status',
         'payment_status',
@@ -33,14 +35,16 @@ class Order extends Model {
 
         'coupon_code',
 
-        'wp_id',
-
         'stripe_session_id',
         'stripe_payment_intent_id'
     ];
 
     public function items(): HasMany {
         return $this->hasMany(OrderItem::class, 'order_id', 'id');
+    }
+
+    public function user(): HasOne {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
 }

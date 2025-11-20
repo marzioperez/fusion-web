@@ -16,6 +16,12 @@ return new class extends Migration
             $table->foreignId('order_id')->nullable()->constrained('orders')->cascadeOnDelete();
 
             $table->string('name');
+            $table->string('label')->nullable()->default(null);
+            $table->unsignedInteger('student_id')->nullable()->default(null);
+            $table->string('student_name')->nullable()->default(null);
+            $table->string('image_url')->nullable()->default(null);
+            $table->string('type')->nullable()->default(null);
+
             $table->decimal('price', 15)->nullable()->default(0);
             $table->integer('quantity')->nullable()->default(0);
             $table->decimal('total', 15)->nullable()->default(0);

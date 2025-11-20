@@ -1,4 +1,5 @@
 <div class="grid grid-cols-12 border-b border-gray-200 py-5 sm:px-2 sm:gap-6 gap-2">
+
     <div class="col-span-2">
         <img src="{{$item['image_url']}}" class="sm:rounded-xl rounded w-full" alt="{{$item['name']}}" />
     </div>
