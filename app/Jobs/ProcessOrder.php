@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Enums\ProductTypes;
 use App\Enums\Status;
 use App\Mail\Order\OrderPaid;
+use App\Models\Cart;
 use App\Models\MenuEntry;
 use App\Models\Order;
 use App\Models\ScheduleEntryMenu;
@@ -108,6 +109,13 @@ class ProcessOrder implements ShouldQueue {
                 }
             } catch (\Exception $e) {
                 Log::channel('processing-order')->error('Stripe webhook error: ' . $e->getMessage());
+            }
+
+            if ($order['cart_id']) {
+                $cart = Cart::find($order['cart_id']);
+                if ($cart) {
+                    $cart->update(['status' => Status::FINISHED->value]);
+                }
             }
 
 

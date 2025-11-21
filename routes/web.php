@@ -9,6 +9,14 @@ Route::post('stripe/webhook', [\App\Http\Controllers\Stripe\WebhookController::c
     ->name('stripe.webhook');
 
 Route::middleware('web')->group(function () {
+
+    Route::get('text-email-2', function () {
+        $user = \App\Models\User::where('email', 'marzioperez@gmail.com')->first();
+        $order = \App\Models\Order::where('user_id', $user->id)->get()->last();
+        return view('mail.order.order-paid', ['user' => $user, 'order' => $order]);
+    });
+
+
     Route::middleware('auth')->group(function () {
         Route::get('/my-account', \App\Livewire\Customer\Index::class)->name('customer.account');
         Route::get('/start-shopping/{code}', \App\Livewire\Order\StartShopping::class)->name('order.start-shopping');

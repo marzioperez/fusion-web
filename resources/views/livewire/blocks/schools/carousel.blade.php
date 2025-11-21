@@ -58,8 +58,8 @@
                     <div class="splide__track">
                         <div class="splide__list">
                             @foreach ($schools as $school)
-                                <div class="splide__slide px-3 flex justify-center">
-                                    <img src="{{ $school['logo'] }}" class="max-h-full max-w-full object-contain" alt="{{$school['name']}}" />
+                                <div class="splide__slide px-3">
+                                    <img src="{{ $school['logo'] }}" class="md:h-44 md:w-44 object-contain" alt="{{$school['name']}}" />
                                 </div>
                             @endforeach
                         </div>

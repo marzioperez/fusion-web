@@ -123,7 +123,7 @@
                                                         }
                                                     }
                                                 @endphp
-                                                <img src="{{$logo}}" style="height: 100px;" border="0" alt="{{config('app.name')}}" />
+                                                <img src="{{$logo}}" style="height: 80px;" border="0" alt="{{config('app.name')}}" />
                                             </a>
                                         </td>
                                     </tr>
@@ -147,26 +147,48 @@
                                                     <td class="m-padder2 pb30" align="center" style="padding-bottom:30px;">
                                                         <table class="center" border="0" cellspacing="0" cellpadding="0"style="text-align:center;">
                                                             <tr>
-                                                                <td class="img" width="40" style="font-size:0pt; line-height:0pt; text-align:left;">
-                                                                    <a href="https://www.facebook.com" target="_blank">
-                                                                        <img src="https://montanaweb-bucket.s3.amazonaws.com/web/facebook.png" width="26" height="26" border="0" alt="" />
-                                                                    </a>
-                                                                </td>
-                                                                <td class="img" width="40" style="font-size:0pt; line-height:0pt; text-align:left;">
-                                                                    <a href="https://www.instagram.com" target="_blank">
-                                                                        <img src="https://montanaweb-bucket.s3.amazonaws.com/web/instagram.png" width="26" height="26" border="0" alt="" />
-                                                                    </a>
-                                                                </td>
-                                                                <td class="img" width="40" style="font-size:0pt; line-height:0pt; text-align:left;">
-                                                                    <a href="https://www.youtube.com/" target="_blank">
-                                                                        <img src="https://montanaweb-bucket.s3.amazonaws.com/web/youtube.png" width="26" height="26" border="0" alt="" />
-                                                                    </a>
-                                                                </td>
-                                                                <td class="img" width="40" style="font-size:0pt; line-height:0pt; text-align:left;">
-                                                                    <a href="https://www.linkedin.com" target="_blank">
-                                                                        <img src="https://montanaweb-bucket.s3.amazonaws.com/web/linkedin.png" width="26" height="26" border="0" alt="" />
-                                                                    </a>
-                                                                </td>
+                                                                @php
+                                                                    $facebook = $general_setting->facebook;
+                                                                    $instagram = $general_setting->instagram;
+                                                                    $youtube = $general_setting->youtube;
+                                                                    $linkedin = $general_setting->linkedin;
+                                                                    $x = $general_setting->twitter_x;
+                                                                @endphp
+                                                                @if($facebook)
+                                                                    <td class="img" width="40" style="font-size:0pt; line-height:0pt; text-align:left;">
+                                                                        <a href="{{$facebook}}" target="_blank">
+                                                                            <img src="{{asset('img/facebook.png')}}" width="26" height="26" border="0" alt="" />
+                                                                        </a>
+                                                                    </td>
+                                                                @endif
+                                                                @if($instagram)
+                                                                    <td class="img" width="40" style="font-size:0pt; line-height:0pt; text-align:left;">
+                                                                        <a href="{{$instagram}}" target="_blank">
+                                                                            <img src="{{asset('img/instagram.png')}}" width="26" height="26" border="0" alt="" />
+                                                                        </a>
+                                                                    </td>
+                                                                @endif
+                                                                @if($youtube)
+                                                                    <td class="img" width="40" style="font-size:0pt; line-height:0pt; text-align:left;">
+                                                                        <a href="{{$youtube}}" target="_blank">
+                                                                            <img src="{{asset('img/youtube.png')}}" width="26" height="26" border="0" alt="" />
+                                                                        </a>
+                                                                    </td>
+                                                                @endif
+                                                                @if($linkedin)
+                                                                    <td class="img" width="40" style="font-size:0pt; line-height:0pt; text-align:left;">
+                                                                        <a href="{{$linkedin}}" target="_blank">
+                                                                            <img src="{{asset('img/linkedin.png')}}" width="26" height="26" border="0" alt="" />
+                                                                        </a>
+                                                                    </td>
+                                                                @endif
+                                                                @if($x)
+                                                                    <td class="img" width="40" style="font-size:0pt; line-height:0pt; text-align:left;">
+                                                                        <a href="{{$x}}" target="_blank">
+                                                                            <img src="{{asset('img/twitter-x.png')}}" width="26" height="26" border="0" alt="" />
+                                                                        </a>
+                                                                    </td>
+                                                                @endif
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -178,7 +200,7 @@
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td class="text-footer2 p30-15" style="padding: 30px 15px 10px 15px; color:#518f2b; font-family:'Raleway', Arial,sans-serif; font-size:12px; line-height:22px; text-align:center;">
-                                            <multiline>© {{date('Y')}} <strong>{{config('app.name')}}</strong>. Todos los derechos reservados</multiline>
+                                            <multiline><strong>{{config('app.name')}}</strong> © {{date('Y')}} All rights reserved</multiline>
                                         </td>
                                     </tr>
                                 </table>
