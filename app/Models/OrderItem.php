@@ -28,7 +28,8 @@ class OrderItem extends Model {
     ];
 
     protected $casts = [
-        'data' => 'json'
+        'data' => 'json',
+        'date' => 'date'
     ];
 
 }

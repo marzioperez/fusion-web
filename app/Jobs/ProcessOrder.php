@@ -10,12 +10,14 @@ use App\Models\MenuEntry;
 use App\Models\Order;
 use App\Models\ScheduleEntryMenu;
 use App\Models\Student;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class ProcessOrder implements ShouldQueue {
     use Queueable;
@@ -109,6 +111,36 @@ class ProcessOrder implements ShouldQueue {
                 }
             } catch (\Exception $e) {
                 Log::channel('processing-order')->error('Stripe webhook error: ' . $e->getMessage());
+            }
+
+            // Generar PDFs por estudiante y adjuntarlos a la orden
+            $studentItemGroups = $order->items()->whereNotNull('student_id')->get()->groupBy('student_id');
+
+            foreach ($studentItemGroups as $studentId => $items) {
+                // Intentamos obtener el modelo Student desde la relación o por ID
+                $student = $items->first()->student ?? Student::find($studentId);
+
+                if (!$student) {
+                    continue;
+                }
+
+                // Renderizar el PDF para este estudiante
+                // IMPORTANTE: crea la vista resources/views/pdf/order-student-summary.blade.php
+                // y estructura allí el contenido que desees mostrar.
+                $pdf = Pdf::loadView('pdf.order-student-summary', [
+                    'order'   => $order,
+                    'student' => $student,
+                    'items'   => $items,
+                ]);
+
+                $fileName = sprintf(
+                    'order-%s-%s.pdf',
+                    $order->code,
+                    Str::slug($student->first_name ?: 'student')
+                );
+
+                // Guardar el PDF en la colección de media del Order
+                $order->addMediaFromString($pdf->output())->usingFileName($fileName)->toMediaCollection('documents');
             }
 
             if ($order['cart_id']) {

@@ -35,7 +35,7 @@
                     <livewire:customer.students.index />
                 @endif
                 @if($item === 'orders')
-                    <livewire:customer.orders />
+                    <livewire:customer.orders.index />
                 @endif
                 @if($item === 'update-password')
                     <livewire:customer.update-password />

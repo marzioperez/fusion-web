@@ -7,9 +7,12 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class OrderPaid extends Mailable {
     use Queueable, SerializesModels;
@@ -30,13 +33,13 @@ class OrderPaid extends Mailable {
         );
     }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+    public function attachments(): array {
+        $media_items = $this->order->getMedia('documents');
+        return $media_items->map(function (Media $media) {
+            return Attachment::fromData(
+                fn () => Storage::disk($media->disk)->get($media->getPathRelativeToRoot()),
+                $media->file_name
+            )->withMime($media->mime_type);
+        })->all();
     }
 }

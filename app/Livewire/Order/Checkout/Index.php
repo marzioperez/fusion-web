@@ -148,8 +148,8 @@ class Index extends Component {
                 }
 
                 $orderCode = $order['code'];
+                ProcessOrder::dispatch($orderCode);
             });
-            ProcessOrder::dispatch($orderCode);
             $this->redirect(route('order.thank-you', ['order' => $orderCode]));
             return;
         }

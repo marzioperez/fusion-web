@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Order extends Model {
+class Order extends Model implements HasMedia {
 
-    use SoftDeletes;
+    use SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [
         'cart_id',
@@ -45,6 +47,10 @@ class Order extends Model {
 
     public function user(): HasOne {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function registerMediaCollections(): void {
+        $this->addMediaCollection('documents')->useDisk('orders');
     }
 
 }
