@@ -55,7 +55,7 @@
     </div>
 
     <!-- Suggestions dropdown -->
-    <div x-cloak x-show="open && filtered.length" class="absolute top-full z-20 w-full overflow-auto rounded-md border border-gray-200 bg-white shadow-lg">
+    <div x-cloak x-show="open && filtered.length" class="absolute top-full z-20 w-full h-[100px] overflow-y-scroll rounded-md border border-gray-200 bg-white shadow-lg">
         <template x-for="opt in filtered" :key="opt.id ?? opt.name">
             <button type="button" class="block w-full text-left px-3 py-2 hover:bg-gray-50 text-sm" x-on:click.prevent="add(opt)">
                 <span x-text="opt.name"></span>
