@@ -8,6 +8,7 @@ use App\Models\Grade;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
@@ -42,7 +43,7 @@ class StudentForm {
                         }
                         return Grade::where('school_id', $school)->pluck('name', 'id')->toArray();
                     })->columnSpan(4),
-                    Select::make('allergies')->label('Alergias')->options(Allergy::all()->pluck('name', 'id')->toArray())->multiple()->columnSpanFull(),
+                    TagsInput::make('allergies')->label('Alergias')->suggestions(Allergy::all()->pluck('name')->toArray())->columnSpanFull(),
                 ])->columns([
                     'default' => 1,
                     'sm' => 3,

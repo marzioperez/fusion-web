@@ -53,7 +53,7 @@
                         <li class="flex space-x-6 py-6">
                             <img src="{{$item['image_url']}}" alt="{{$item['name']}}" class="size-24 flex-none rounded-md bg-gray-100 object-cover" />
                             <div class="flex-auto space-y-1">
-                                <h4>{{$item['name']}}</h4>
+                                <h5>{{$item['name']}}</h5>
                                 <p class="text-red-600">{{$item['label']}}</p>
                                 <p>{{$item['student_name']}}</p>
                                 <p class="text-sm">Qty: {{$item['quantity']}}</p>

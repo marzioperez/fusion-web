@@ -29,7 +29,7 @@ class OrderResource extends Resource {
     }
 
     public static function table(Table $table): Table {
-        return OrdersTable::configure($table);
+        return OrdersTable::configure($table)->modifyQueryUsing(fn(Builder $query) => $query->orderBy('created_at', 'desc'));
     }
 
     public static function getRelations(): array

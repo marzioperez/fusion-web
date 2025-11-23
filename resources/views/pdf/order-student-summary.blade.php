@@ -48,9 +48,7 @@
                     <tr>
                         <td>
                             @if($item->image_url)
-                                <img src="https://fusion-web-2025-bucket.s3.us-east-2.amazonaws.com/media-manager/4/default-product-image.jpg" alt="" style="width: 100px; height: auto;">
-                            @else
-                                —
+                                <img src="{{$item->image_url}}" alt="" style="width: 100px; height: auto;">
                             @endif
                         </td>
                         <td>{{ $item->name }}</td>

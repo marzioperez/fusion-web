@@ -14,5 +14,17 @@ class AdminSeeder extends Seeder {
             'email' => 'marzioperez@gmail.com',
             'password' => '47804233'
         ]);
+
+        Admin::create([
+            'name' => 'Jaime',
+            'email' => 'jaime@soyhumano.pe',
+            'password' => 'Jaime2025'
+        ]);
+
+        Admin::create([
+            'name' => 'Maribel Castaman',
+            'email' => 'contact@fusionportland.com',
+            'password' => 'Maribel2025'
+        ]);
     }
 }
