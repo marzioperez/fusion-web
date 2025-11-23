@@ -1,7 +1,9 @@
 <?php
 
+use App\Mail\Order\OrderPaid;
 use App\Models\Student;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +16,7 @@ Route::middleware('web')->group(function () {
     Route::get('test-email-2', function () {
         $user = \App\Models\User::where('email', 'marzioperez@gmail.com')->first();
         $order = \App\Models\Order::where('user_id', $user->id)->get()->last();
+        Mail::to($user['email'])->send(new OrderPaid($order, $user));
         return view('mail.order.order-paid', ['user' => $user, 'order' => $order]);
     });
 
