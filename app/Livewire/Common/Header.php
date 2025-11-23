@@ -16,6 +16,7 @@ class Header extends Component {
     public $header_position = 'fixed';
     public $logged_in = false;
     public array $menu = [];
+    public $credits = 0;
 
     public function mount() {
         $general_settings = new GeneralSettings();
@@ -26,6 +27,10 @@ class Header extends Component {
             }
         }
         $this->logged_in = auth()->check();
+        if (auth()->check()) {
+            $user = auth()->user();
+            $this->credits = $user['credits'] ?? 0;
+        }
         $this->loadMenu();
     }
 
@@ -51,6 +56,10 @@ class Header extends Component {
     #[On('refresh-header')]
     public function refresh_header() {
         $this->logged_in = auth()->check();
+        if (auth()->check()) {
+            $user = auth()->user();
+            $this->credits = $user['credits'] ?? 0;
+        }
     }
 
     public function logout(): void {

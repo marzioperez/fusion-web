@@ -18,8 +18,8 @@ class ManageGeneral extends SettingsPage {
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Cog6Tooth;
 
     protected static string $settings = GeneralSettings::class;
-    protected static string|null|\UnitEnum $navigationGroup = 'Ajustes';
-    protected static ?string $title = 'Ajustes generales';
+    protected static string|null|\UnitEnum $navigationGroup = 'Settings';
+    protected static ?string $title = 'General settings';
     protected static ?int $navigationSort = 51;
 
     public function form(Schema $schema): Schema {

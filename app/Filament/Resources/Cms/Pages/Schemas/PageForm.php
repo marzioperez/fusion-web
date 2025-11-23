@@ -27,27 +27,27 @@ class PageForm {
                     '2xl' => 12
                 ])->schema([
                     Group::make()->schema([
-                        Section::make('Bloques')->schema([
-                            Builder::make('content')->label('Bloques')->blockPickerColumns(4)->blocks(
+                        Section::make('Blocks')->schema([
+                            Builder::make('content')->label('Blocks')->blockPickerColumns(4)->blocks(
                                 (new Blocks('Page'))->init()
                             )->collapsible()->cloneable()->collapsed()
                         ]),
                         Section::make('SEO')->schema([
                             Group::make()->schema([
-                                TextInput::make('title')->label('Título'),
+                                TextInput::make('title')->label('Title'),
                                 TextInput::make('robots')->label('Robots')->default('follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large'),
-                                Textarea::make('description')->label('Descripción'),
+                                Textarea::make('description')->label('Description'),
                                 MediaPicker::make('media_id')->label('Imagen SEO')
                             ])->relationship('meta')
                         ])->collapsed()
                     ])->columnSpan(8),
                     Section::make('Ajustes')->schema([
-                        TextInput::make('title')->label('Título')->columnSpanFull()->required(),
-                        Select::make('status')->label('Estado')->options([
+                        TextInput::make('title')->label('Title')->columnSpanFull()->required(),
+                        Select::make('status')->label('Status')->options([
                             Status::PUBLISHED->value => Status::PUBLISHED->value,
                             Status::DRAFT->value => Status::DRAFT->value
                         ])->columnSpanFull()->required()->default(Status::PUBLISHED->value),
-                        Toggle::make('is_home')->label('¿Página de inicio?')->columnSpanFull()->required(),
+                        Toggle::make('is_home')->label('¿Home page?')->columnSpanFull()->required(),
                     ])->columnSpan(4),
                 ])->columnSpanFull()
             ]);

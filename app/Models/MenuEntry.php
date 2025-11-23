@@ -28,6 +28,13 @@ class MenuEntry extends Model {
 
     public function product() {
         return $this->hasOne(Product::class, 'id', 'product_id');
+    }
 
+    public function school() {
+        return $this->hasOne(School::class, 'id', 'school_id');
+    }
+
+    public function grade() {
+        return $this->hasOne(Grade::class, 'id', 'grade_id');
     }
 }

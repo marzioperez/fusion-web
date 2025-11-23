@@ -21,8 +21,8 @@ class StudentsTable {
         return $table
             ->columns([
                 ImageColumn::make('profile_image_url')->label('Foto/Avatar')->circular()->width(48),
-                TextColumn::make('first_name')->label('Nombre')->searchable()->sortable(),
-                TextColumn::make('last_name')->label('Apellidos')->searchable()->sortable(),
+                TextColumn::make('first_name')->label('Firstname')->searchable()->sortable(),
+                TextColumn::make('last_name')->label('Lastname')->searchable()->sortable(),
             ])
             ->filters([
                 TrashedFilter::make(),

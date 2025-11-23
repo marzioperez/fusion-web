@@ -26,8 +26,6 @@ class SchoolResource extends Resource {
     protected static ?string $recordTitleAttribute = 'name';
     protected static string | UnitEnum | null $navigationGroup = 'Tienda';
     protected static ?int $navigationSort = 3;
-    protected static ?string $modelLabel = 'colegio';
-    protected static ?string $breadcrumb = 'Colegios';
 
     public static function form(Schema $schema): Schema {
         return SchoolForm::configure($schema);

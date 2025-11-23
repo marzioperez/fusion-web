@@ -23,18 +23,18 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AllergyResource extends Resource
-{
+class AllergyResource extends Resource {
+
     protected static ?string $model = Allergy::class;
-
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
     protected static ?string $recordTitleAttribute = 'name';
+    protected static string|null|\UnitEnum $navigationGroup = 'Tienda';
+    protected static ?int $navigationSort = 7;
 
     public static function form(Schema $schema): Schema {
         return $schema
             ->components([
-                TextInput::make('name')->label('Nombre de alergia')->required()->maxLength(255)->columnSpanFull(),
+                TextInput::make('name')->label('Name')->required()->maxLength(255)->columnSpanFull(),
             ]);
     }
 
@@ -42,7 +42,7 @@ class AllergyResource extends Resource
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                TextColumn::make('name')->label('Nombre de alergia')->searchable(),
+                TextColumn::make('name')->label('Name')->searchable(),
             ])
             ->filters([
                 TrashedFilter::make(),

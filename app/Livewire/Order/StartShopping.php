@@ -126,16 +126,16 @@ class StartShopping extends Component {
     public function parseMenuEntry(MenuEntry $entry, $month): array {
         $dt = Carbon::parse($entry->date);
         $image_url = null;
-        if ($entry->product['media_id']) {
-            $media = Media::find($entry->product['media_id']);
+        $settings = new GeneralSettings();
+        if ($settings->default_product_image) {
+            $media = Media::find($settings->default_product_image);
             if ($media) {
                 $image_url = ($media->hasGeneratedConversion('webp') ? $media->getFullUrl('webp') : $media->getUrl());
             }
         }
 
-        $settings = new GeneralSettings();
-        if ($settings->default_product_image) {
-            $media = Media::find($settings->default_product_image);
+        if ($entry->product['media_id']) {
+            $media = Media::find($entry->product['media_id']);
             if ($media) {
                 $image_url = ($media->hasGeneratedConversion('webp') ? $media->getFullUrl('webp') : $media->getUrl());
             }

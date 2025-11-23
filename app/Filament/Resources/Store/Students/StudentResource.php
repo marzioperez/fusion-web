@@ -23,8 +23,6 @@ class StudentResource extends Resource {
     protected static ?string $recordTitleAttribute = 'first_name';
     protected static string|null|\UnitEnum $navigationGroup = 'Tienda';
     protected static ?int $navigationSort = 2;
-    protected static ?string $modelLabel = 'estudiante';
-    protected static ?string $breadcrumb = 'Estudiantes';
 
     public static function form(Schema $schema): Schema {
         return StudentForm::configure($schema);

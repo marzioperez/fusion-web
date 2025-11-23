@@ -19,11 +19,11 @@ class AdminResource extends Resource {
     protected static ?string $model = Admin::class;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserCircle;
     protected static ?string $recordTitleAttribute = 'name';
-    protected static string|null|\UnitEnum $navigationGroup = 'Seguridad';
+    protected static string|null|\UnitEnum $navigationGroup = 'Security';
     protected static ?int $navigationSort = 41;
-    protected static ?string $modelLabel = 'administrador';
-    protected static ?string $breadcrumb = 'Administradores';
-    protected static ?string $navigationLabel = 'Administradores';
+    protected static ?string $modelLabel = 'administrator';
+    protected static ?string $breadcrumb = 'Administrators';
+    protected static ?string $navigationLabel = 'Administrators';
 
     public static function form(Schema $schema): Schema {
         return AdminForm::configure($schema);

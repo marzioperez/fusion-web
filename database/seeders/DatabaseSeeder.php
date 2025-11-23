@@ -24,9 +24,9 @@ class DatabaseSeeder extends Seeder {
             AllergySeeder::class,
             UserSeeder::class,
             CategorySeeder::class,
-            IngredientSeeder::class,
-            ProductSeeder::class,
-            MenuEntrySeeder::class,
+            // IngredientSeeder::class,
+            // ProductSeeder::class,
+            // MenuEntrySeeder::class,
             MenuSeeder::class,
         ]);
 

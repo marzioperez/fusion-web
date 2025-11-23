@@ -17,7 +17,7 @@ class SchoolsTable {
     public static function configure(Table $table): Table {
         return $table
             ->columns([
-                TextColumn::make('name')->label('Colegio')->searchable()->sortable(),
+                TextColumn::make('name')->label('School')->searchable()->sortable(),
             ])
             ->filters([
                 TrashedFilter::make(),

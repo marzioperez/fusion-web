@@ -17,8 +17,8 @@ class ProductsTable {
     public static function configure(Table $table): Table {
         return $table
             ->columns([
-                TextColumn::make('name')->label('Nombre')->searchable()->sortable(),
-                TextColumn::make('type')->label('Tipo de producto')->searchable()->badge()->sortable(),
+                TextColumn::make('name')->label('Name')->searchable()->sortable(),
+                TextColumn::make('type')->label('Type')->searchable()->badge()->sortable(),
             ])
             ->filters([
                 TrashedFilter::make(),

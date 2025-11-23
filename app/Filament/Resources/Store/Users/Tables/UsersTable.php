@@ -17,8 +17,8 @@ class UsersTable {
     public static function configure(Table $table): Table {
         return $table
             ->columns([
-                TextColumn::make('first_name')->label('Nombre')->searchable()->sortable(),
-                TextColumn::make('last_name')->label('Apellidos')->searchable()->sortable(),
+                TextColumn::make('first_name')->label('Firstname')->searchable()->sortable(),
+                TextColumn::make('last_name')->label('Lastname')->searchable()->sortable(),
                 TextColumn::make('email')->label('Email')->searchable()->sortable(),
             ])
             ->filters([

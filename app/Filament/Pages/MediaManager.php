@@ -12,7 +12,7 @@ class MediaManager extends Page {
 
     protected static string|null|\BackedEnum $navigationIcon = 'heroicon-s-photo';
     protected static string|null|\UnitEnum $navigationGroup = 'Media';
-    protected static ?string $title = 'Gestor de Medios';
+    protected static ?string $title = 'Media manager';
     protected string $view = 'filament.pages.media-manager';
     protected static ?int $navigationSort = 30;
 

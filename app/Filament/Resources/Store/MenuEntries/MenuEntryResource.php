@@ -23,27 +23,24 @@ class MenuEntryResource extends Resource {
     protected static ?string $recordTitleAttribute = 'date';
     protected static string|null|\UnitEnum $navigationGroup = 'Tienda';
     protected static ?int $navigationSort = 6;
-    protected static ?string $modelLabel = 'menú del mes';
-    protected static ?string $breadcrumb = 'Menú del mes';
+    protected static ?string $modelLabel = 'menú';
+    protected static ?string $breadcrumb = 'Menú';
 
     public static function form(Schema $schema): Schema {
         return MenuEntryForm::configure($schema);
     }
 
-    public static function table(Table $table): Table
-    {
+    public static function table(Table $table): Table {
         return MenuEntriesTable::configure($table);
     }
 
-    public static function getRelations(): array
-    {
+    public static function getRelations(): array{
         return [
             //
         ];
     }
 
-    public static function getPages(): array
-    {
+    public static function getPages(): array {
         return [
             'index' => ListMenuEntries::route('/'),
             'create' => CreateMenuEntry::route('/create'),

@@ -24,8 +24,6 @@ class ProductResource extends Resource {
     protected static ?string $recordTitleAttribute = 'name';
     protected static string|null|\UnitEnum $navigationGroup = 'Tienda';
     protected static ?int $navigationSort = 4;
-    protected static ?string $modelLabel = 'producto';
-    protected static ?string $breadcrumb = 'Productos';
 
     public static function form(Schema $schema): Schema {
         return ProductForm::configure($schema);

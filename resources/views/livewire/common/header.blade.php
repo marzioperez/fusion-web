@@ -43,6 +43,11 @@
                                          x-ref="menu-items"
                                          x-description="Dropdown menu, show/hide based on menu state."
                                          x-bind:aria-activedescendant="activeDescendant" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" @keydown.arrow-up.prevent="onArrowUp()" @keydown.arrow-down.prevent="onArrowDown()" @keydown.tab="open = false" @keydown.enter.prevent="open = false; focusButton()" @keyup.space.prevent="open = false; focusButton()" style="display: none;">
+                                        <div class="p-3">
+                                            <div class="p-3 rounded-lg border-dashed border border-gray-300 text-sm">
+                                                <div>You have <b>${{$credits}}</b> in credits.</div>
+                                            </div>
+                                        </div>
                                         <a href="{{route('customer.account')}}" wire:navigate class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">My account</a>
                                         <a href="{{route('customer.account', ['item' => 'students'])}}" wire:navigate class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Students</a>
                                         <a href="{{route('customer.account', ['item' => 'orders'])}}" wire:navigate class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">Orders</a>

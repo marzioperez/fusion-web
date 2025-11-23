@@ -19,13 +19,13 @@ class PagesTable {
     public static function configure(Table $table): Table {
         return $table
             ->columns([
-                TextColumn::make('title')->label('Nombre')->searchable()->sortable()
+                TextColumn::make('title')->label('Name')->searchable()->sortable()
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                Action::make('preview')->label('Vista previa')
+                Action::make('preview')->label('Preview')
                     ->icon('heroicon-o-eye')->color('success')
                     ->url(fn (Page $page) => route('page', ['slug' => $page->slug]))
                     ->openUrlInNewTab(),

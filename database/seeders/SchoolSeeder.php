@@ -81,9 +81,6 @@ class SchoolSeeder extends Seeder {
                 ['name' => '7th Grade', 'school_id' => $school->id],
                 ['name' => '8th Grade', 'school_id' => $school->id],
             ]);
-
-            LockedDate::factory(3)->create(['school_id' => $school->id]);
-
         });
     }
 }
