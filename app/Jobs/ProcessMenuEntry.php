@@ -2,26 +2,62 @@
 
 namespace App\Jobs;
 
+use App\Models\MenuEntry;
+use App\Models\Product;
+use App\Models\School;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
-class ProcessMenuEntry implements ShouldQueue
-{
+class ProcessMenuEntry implements ShouldQueue{
     use Queueable;
 
-    /**
-     * Create a new job instance.
-     */
-    public function __construct()
-    {
-        //
+    public function __construct(public $data) {
     }
 
-    /**
-     * Execute the job.
-     */
-    public function handle(): void
-    {
-        //
+    public function handle(): void {
+        $product = Product::where('sku', $this->data['sku_del_plato'])->first();
+        if ($product) {
+            $school_model = School::query();
+            $exclude_school_names = [];
+            if ($this->data['no_considerar_1']) {
+                $exclude_school_names[] = $this->data['no_considerar_1'];
+            }
+            if ($this->data['no_considerar_2']) {
+                $exclude_school_names[] = $this->data['no_considerar_2'];
+            }
+            if ($this->data['no_considerar_3']) {
+                $exclude_school_names[] = $this->data['no_considerar_3'];
+            }
+            if ($this->data['no_considerar_4']) {
+                $exclude_school_names[] = $this->data['no_considerar_4'];
+            }
+
+            if ($this->data['colegio'] !== 'Todos') {
+                $school_model->where('name', $this->data['colegio']);
+            }
+
+            if (count($exclude_school_names) > 0) {
+                $exclude_schools = $school_model->clone()->whereIn('name', $exclude_school_names)->get()->pluck('id');
+                $school_model->whereNotIn('id', $exclude_schools);
+            }
+
+            $schools = $school_model->get();
+            if (!$schools->isEmpty()) {
+                foreach ($schools as $school) {
+                    $grades = $school->grades;
+                    if ($grades->isNotEmpty()) {
+                        foreach ($grades as $grade) {
+                            MenuEntry::create([
+                                'school_id' => $school->id,
+                                'grade_id' => $grade->id,
+                                'date' => $this->data['fecha_yyyy_mm_dd'],
+                                'product_id' => $product->id,
+                                'price' => $product->price
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
