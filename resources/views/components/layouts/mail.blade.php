@@ -123,7 +123,7 @@
                                                         }
                                                     }
                                                 @endphp
-                                                <img src="https://fusion-web-2025-bucket.s3.us-east-2.amazonaws.com/media-manager/1/logo-horizontal.png" style="height: 80px;" border="0" alt="{{config('app.name')}}" />
+                                                <img src="{{$logo}}" style="height: 80px;" border="0" alt="{{config('app.name')}}" />
                                             </a>
                                         </td>
                                     </tr>
