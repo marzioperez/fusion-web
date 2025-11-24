@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Stripe;
 
+use App\Enums\Status;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessOrder;
 use App\Models\Order;
@@ -22,19 +23,51 @@ class WebhookController extends Controller {
             return response('Invalid payload', 400);
         }
 
-        if ($event->type == 'payment_intent.succeeded') {
-            $intent = $event->data->object;
-            $payment_intent_id = $intent->id;
-            $order_code = $intent->metadata->order_id ?? null;
+        switch ($event->type) {
+            case 'payment_intent.succeeded':
+                $intent = $event->data->object;
+                $payment_intent_id = $intent->id;
+                $order_code = $intent->metadata->order_id ?? null;
 
-            $order = Order::lockForUpdate()
-                ->where('code', $order_code)
-                ->orWhere('stripe_payment_intent_id', $payment_intent_id)
-                ->first();
+                $order = Order::lockForUpdate()
+                    ->where('code', $order_code)
+                    ->orWhere('stripe_payment_intent_id', $payment_intent_id)
+                    ->first();
 
-            if ($order) {
-                ProcessOrder::dispatch($order['code']);
-            }
+                if ($order) {
+                    ProcessOrder::dispatch($order['code']);
+                }
+                break;
+
+            case 'payment_intent.payment_failed':
+                $intent = $event->data->object;
+                $payment_intent_id = $intent->id;
+                $order_code = $intent->metadata->order_id ?? null;
+
+                $order = Order::lockForUpdate()
+                    ->where('code', $order_code)
+                    ->orWhere('stripe_payment_intent_id', $payment_intent_id)
+                    ->first();
+
+                if ($order) {
+                    // Opcional: guardar el motivo del fallo en la orden
+                    $lastPaymentError = $intent->last_payment_error;
+                    $failureMessage = $lastPaymentError->message ?? 'Unknown error';
+
+                    $order->update([
+                        'status' => Status::ERROR->value,
+                        'payment_status' => Status::ERROR->value,
+                        'payment_error_message' => $failureMessage,
+                    ]);
+
+                    Log::channel('stripe-webhook')->warning(sprintf(
+                        'Payment failed for order %s (PI: %s): %s',
+                        $order->code,
+                        $payment_intent_id,
+                        $failureMessage
+                    ));
+                }
+                break;
         }
         return response('OK', 200);
     }

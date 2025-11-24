@@ -38,7 +38,8 @@ class Order extends Model implements HasMedia {
         'coupon_code',
 
         'stripe_session_id',
-        'stripe_payment_intent_id'
+        'stripe_payment_intent_id',
+        'payment_error_message'
     ];
 
     public function items(): HasMany {

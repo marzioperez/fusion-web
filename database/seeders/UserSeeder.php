@@ -10,10 +10,6 @@ use Illuminate\Database\Seeder;
 class UserSeeder extends Seeder {
 
     public function run(): void {
-        User::factory(10)->create()->each(function ($user) {
-            Student::factory(2)->create(['user_id' => $user->id]);
-        });
-
         User::factory()->create([
             'first_name' => 'Marzio',
             'last_name' => 'Perez',

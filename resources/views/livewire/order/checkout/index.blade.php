@@ -84,9 +84,7 @@
         </div>
     </div>
 
-    <div x-data="stripeCheckoutModal('{{ config('services.stripe.key') }}')"
-        x-on:open-stripe-modal.window="open($event.detail)"
-    >
+    <div x-data="stripeCheckoutModal('{{ config('services.stripe.key') }}')" x-on:open-stripe-modal.window="open($event.detail)">
         <template x-if="isOpen">
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
                 <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6" @click.stop>
@@ -120,7 +118,7 @@
                     </div>
 
                     {{-- Botón de pagar --}}
-                    <button type="button" class="w-full py-2 rounded-md bg-primary text-white font-semibold disabled:opacity-60" @click="submit()" x-bind:disabled="loading">
+                    <button type="button" class="btn btn-lg btn-primary !w-full" @click="submit()" x-bind:disabled="loading">
                         <span x-show="!loading">Confirm payment</span>
                         <span x-show="loading">Processing...</span>
                     </button>

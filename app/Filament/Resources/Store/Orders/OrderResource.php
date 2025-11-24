@@ -5,6 +5,8 @@ namespace App\Filament\Resources\Store\Orders;
 use App\Filament\Resources\Store\Orders\Pages\CreateOrder;
 use App\Filament\Resources\Store\Orders\Pages\EditOrder;
 use App\Filament\Resources\Store\Orders\Pages\ListOrders;
+use App\Filament\Resources\Store\Orders\Pages\ViewOrder;
+use App\Filament\Resources\Store\Orders\RelationManagers\ItemsRelationManager;
 use App\Filament\Resources\Store\Orders\Schemas\OrderForm;
 use App\Filament\Resources\Store\Orders\Tables\OrdersTable;
 use App\Models\Order;
@@ -32,24 +34,22 @@ class OrderResource extends Resource {
         return OrdersTable::configure($table)->modifyQueryUsing(fn(Builder $query) => $query->orderBy('created_at', 'desc'));
     }
 
-    public static function getRelations(): array
-    {
+    public static function getRelations(): array {
         return [
-            //
+            ItemsRelationManager::class
         ];
     }
 
-    public static function getPages(): array
-    {
+    public static function getPages(): array {
         return [
             'index' => ListOrders::route('/'),
             'create' => CreateOrder::route('/create'),
             'edit' => EditOrder::route('/{record}/edit'),
+            'view' => ViewOrder::route('/{record}/view'),
         ];
     }
 
-    public static function getRecordRouteBindingEloquentQuery(): Builder
-    {
+    public static function getRecordRouteBindingEloquentQuery(): Builder {
         return parent::getRecordRouteBindingEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,

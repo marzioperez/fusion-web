@@ -39,6 +39,7 @@ return new class extends Migration
 
             $table->string('stripe_session_id')->nullable();
             $table->string('stripe_payment_intent_id')->nullable();
+            $table->longText('payment_error_message')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

@@ -4,10 +4,13 @@ namespace App\Enums;
 
 enum Status: string {
 
-    case PUBLISHED = 'Publicado';
-    case DRAFT = 'Borrador';
-    case PENDING = 'Pendiente';
-    case SCHEDULED = 'Programado';
-    case FINISHED = 'Finalizado';
+    case PUBLISHED = 'Published';
+    case DRAFT = 'Draft';
+    case PENDING = 'Pending';
+    case SCHEDULED = 'Scheduled';
+    case FINISHED = 'Finished';
+    case ERROR = 'Error';
+    case CONFIRMED = 'Confirmed';
+    case CANCELED = 'Canceled';
 
 }

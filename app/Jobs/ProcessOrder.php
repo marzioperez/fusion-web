@@ -108,6 +108,7 @@ class ProcessOrder implements ShouldQueue {
                             }
                         }
                     }
+                    $item->update(['status' => Status::CONFIRMED->value]);
                 }
             } catch (\Exception $e) {
                 Log::channel('processing-order')->error('Stripe webhook error: ' . $e->getMessage());
