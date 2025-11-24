@@ -26,10 +26,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AllergyResource extends Resource {
 
     protected static ?string $model = Allergy::class;
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::BugAnt;
     protected static ?string $recordTitleAttribute = 'name';
-    protected static string|null|\UnitEnum $navigationGroup = 'Tienda';
-    protected static ?int $navigationSort = 7;
+    protected static string|null|\UnitEnum $navigationGroup = 'Store';
+    protected static ?int $navigationSort = 8;
 
     public static function form(Schema $schema): Schema {
         return $schema

@@ -97,6 +97,7 @@ class ProcessOrder implements ShouldQueue {
                                     'order_item_id' => $item['id'],
                                     'school_id' => $student['school_id'],
                                     'grade_id' => $student['grade_id'],
+                                    'student_id' => $student['id'],
                                     'date' => $date,
                                     'first_name' => $student['first_name'],
                                     'last_name' => $student['last_name'],
@@ -104,6 +105,7 @@ class ProcessOrder implements ShouldQueue {
                                     'school' => ($student['school'] ? $student['school']['name'] : null),
                                     'grade' => ($student['grade'] ? $student['grade']['name'] : null),
                                     'color' => ($student['school'] ? $student['school']['color'] : null),
+                                    'allergies' => $student['allergies'],
                                 ]);
                             }
                         }

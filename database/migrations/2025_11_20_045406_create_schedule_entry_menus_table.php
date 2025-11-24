@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('order_item_id');
             $table->unsignedInteger('school_id');
             $table->unsignedInteger('grade_id');
+            $table->unsignedInteger('student_id');
             $table->date('date');
             $table->string('first_name');
             $table->string('last_name');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('school');
             $table->string('grade');
             $table->string('color');
+            $table->json('allergies')->nullable()->default(null);
             $table->timestamps();
         });
     }

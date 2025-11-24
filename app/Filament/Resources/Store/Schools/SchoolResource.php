@@ -24,7 +24,7 @@ class SchoolResource extends Resource {
     protected static ?string $model = School::class;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::BuildingLibrary;
     protected static ?string $recordTitleAttribute = 'name';
-    protected static string | UnitEnum | null $navigationGroup = 'Tienda';
+    protected static string | UnitEnum | null $navigationGroup = 'Store';
     protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema {

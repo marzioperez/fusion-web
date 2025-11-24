@@ -19,9 +19,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class MenuEntryResource extends Resource {
 
     protected static ?string $model = MenuEntry::class;
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::CalendarDateRange;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::CheckBadge;
     protected static ?string $recordTitleAttribute = 'date';
-    protected static string|null|\UnitEnum $navigationGroup = 'Tienda';
+    protected static string|null|\UnitEnum $navigationGroup = 'Store';
     protected static ?int $navigationSort = 6;
     protected static ?string $modelLabel = 'menú';
     protected static ?string $breadcrumb = 'Menú';

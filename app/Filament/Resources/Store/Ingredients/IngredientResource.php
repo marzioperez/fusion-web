@@ -28,10 +28,10 @@ class IngredientResource extends Resource {
     protected static ?string $model = Ingredient::class;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
     protected static ?string $recordTitleAttribute = 'name';
-    protected static string|null|\UnitEnum $navigationGroup = 'Tienda';
-    protected static ?string $modelLabel = 'ingrediente';
-    protected static ?string $breadcrumb = 'Ingredientes';
-    protected static ?string $navigationParentItem = 'Productos';
+    protected static string|null|\UnitEnum $navigationGroup = 'Store';
+    protected static ?string $modelLabel = 'ingredient';
+    protected static ?string $breadcrumb = 'Ingredients';
+    protected static ?string $navigationParentItem = 'Products';
 
     public static function form(Schema $schema): Schema {
         return $schema

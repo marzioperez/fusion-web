@@ -22,7 +22,7 @@ class UserResource extends Resource {
     protected static ?string $model = User::class;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
     protected static ?string $recordTitleAttribute = 'first_name';
-    protected static string|null|\UnitEnum $navigationGroup = 'Tienda';
+    protected static string|null|\UnitEnum $navigationGroup = 'Store';
     protected static ?int $navigationSort = 1;
     protected static ?string $modelLabel = 'customer';
     protected static ?string $breadcrumb = 'Customers';

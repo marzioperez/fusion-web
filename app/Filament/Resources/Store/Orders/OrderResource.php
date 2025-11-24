@@ -23,7 +23,7 @@ class OrderResource extends Resource {
     protected static ?string $model = Order::class;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::ShoppingCart;
     protected static ?string $recordTitleAttribute = 'code';
-    protected static string|null|\UnitEnum $navigationGroup = 'Tienda';
+    protected static string|null|\UnitEnum $navigationGroup = 'Store';
     protected static ?int $navigationSort = 5;
 
     public static function form(Schema $schema): Schema {
