@@ -79,6 +79,7 @@ class Index extends Component {
             } else {
                 $this->sub_total = $cart->sub_total;
                 $this->credits = 0;
+                $this->credits_applied = 0;
                 $this->processing_fee = $cart->processing_fee;
                 $this->total = $cart->total;
             }
