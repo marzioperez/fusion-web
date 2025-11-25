@@ -54,7 +54,7 @@
         </div>
 
         <div>
-            <label for="birth_of_date">Birthdate</label>
+            <label for="birth_of_date">Day of birth</label>
             <div>
                 <x-inputs.date wire:model.live="data.birth_of_date" id="birth_of_date" name="birth_of_date" />
                 @error('data.birth_of_date') <span class="validation-error">{{ $message }}</span> @enderror
@@ -63,7 +63,7 @@
 
         <div class="col-span-full">
             <label for="allergies">Allergies</label>
-            <x-inputs.tags :options="$allergies" wire-model="data.allergies" />
+            <x-inputs.tags :options="$allergies" placeholder="Search and select allergies that apply" wire-model="data.allergies" />
             @error('data.allergies') <span class="validation-error">{{ $message }}</span> @enderror
         </div>
 

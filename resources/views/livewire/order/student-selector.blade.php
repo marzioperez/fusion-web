@@ -1,6 +1,6 @@
 <div class="space-y-6">
     @if($students->count() > 0)
-        <h4 class="text-primary text-center">Select an Student</h4>
+        <h4 class="text-primary text-center">Select a Student</h4>
         <div class="grid xl:grid-cols-3 grid-cols-2 md:gap-6 gap-3">
             @foreach($students as $student)
                 <a href="{{route('order.start-shopping', ['code' => $student['code']])}}" wire:navigate class="flex flex-col space-x-2 space-y-3">

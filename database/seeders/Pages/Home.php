@@ -178,8 +178,8 @@ class Home extends Seeder {
                                 'color' => '#FE9E14'
                             ],
                             [
-                                'value' => '400+',
-                                'title' => 'Daily deliveries',
+                                'value' => 'Over 1500',
+                                'title' => 'Meals delivered every week',
                                 'color' => '#000000'
                             ]
                         ],
@@ -288,9 +288,9 @@ class Home extends Seeder {
                     'data' => [
                         'id' => null,
                         'before_title' => null,
-                        'title' => '¿Have you already chosen your menu?',
+                        'title' => 'Have you chosen your menu yet?',
                         'sub_title' => null,
-                        'content' => 'We are committed to the balanced diet of your children, we work hand in hand with nutrition experts to bring them the best and without stress',
+                        'content' => 'We are committed to providing balanced meals for your children. We work hand-in-hand with nutrition experts to bring them the best, stress-free meals.',
                         'visible' => true,
                         'bg_type' => 'image',
                         'bg_color' => null,

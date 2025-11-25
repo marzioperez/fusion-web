@@ -1,11 +1,11 @@
 <div class="space-y-4">
-    <h5 class="text-xl font-semibold">Forma de pago</h5>
+    <h5 class="text-xl font-semibold">Payment method</h5>
 
     <div class="bg-white shadow rounded-lg p-4 space-y-4">
         <div class="flex items-center justify-between">
             <div class="space-y-2">
                 <div class="font-medium">Available credits</div>
-                <div class="text-gray-500">You can use them to reduce the total amount of your purchase.</div>
+                <div class="text-gray-500">You use credits to reduce the total of your purchase.</div>
             </div>
 
             <div x-data="{

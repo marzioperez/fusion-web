@@ -74,7 +74,7 @@ class ItemsRelationManager extends RelationManager
                     ->modalHeading('Cancel item')
                     ->modalDescription('When you cancel this item, credits will be added to the user account.')
                     ->color('danger')->action(function ($record) {
-                        if ($record->status === Status::PENDING->value) {
+                        if ($record->status === Status::CONFIRMED->value) {
                             $order = Order::find($record->order_id);
                             if ($order) {
                                 $user = User::find($order->user_id);

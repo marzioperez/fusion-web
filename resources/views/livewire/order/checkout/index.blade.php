@@ -44,9 +44,9 @@
                 @if ($use_credits && $credits_applied == $sub_total && $credits_remaining > 0)
                     <div class="p-3 bg-amber-100 rounded-2xl">
                         <p class="text-amber-900 text-sm">
-                            De tus créditos disponibles <b>(${{ number_format($credits, 2) }})</b>,
-                            solo se descontarán <b>${{ number_format($credits_applied, 2) }}</b> para cubrir este pedido.
-                            El saldo restante de <b>${{ number_format($credits_remaining, 2) }}</b> permanecerá en tu cuenta.
+                            Of your available credits <b>(${{ number_format($credits, 2) }})</b>,
+                            only <b>${{ number_format($credits_applied, 2) }}</b> will be deducted to cover this order.
+                            The remaining balance of <b>${{ number_format($credits_remaining, 2) }}</b> will remain in your account.
                         </p>
                     </div>
                 @endif
@@ -65,13 +65,13 @@
 
                     @if($credits > 0)
                         <div class="flex justify-between items-center">
-                            <span>Apply credits:</span>
+                            <span>Applied credits:</span>
                             <span class="text-lg text-primary-dark">-${{ number_format($credits, 2) }}</span>
                         </div>
                     @endif
 
                     <div class="flex justify-between items-center">
-                        <span>Processing Fee/Delivery:</span>
+                        <span>Processing/Delivery Fee:</span>
                         <span class="text-lg">${{ number_format($processing_fee, 2) }}</span>
                     </div>
 

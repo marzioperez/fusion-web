@@ -19,7 +19,8 @@ class Contact extends Seeder {
 
         $form = Form::create([
             'name' => 'Contact form',
-            'text_button' => 'Send'
+            'text_button' => 'Send',
+            'send_emails' => ['contact@fusionportland.com']
         ]);
 
         FormField::create([

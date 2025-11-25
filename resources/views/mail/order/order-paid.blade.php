@@ -52,7 +52,7 @@
                         </tr>
                     @endif
                     <tr>
-                        <td colspan="2" style="color: #5d5c5c; text-align: right; border: 1px solid #5d5c5c; padding-top: 3px; padding-bottom: 3px; padding-right: 5px; padding-left: 5px; font-family:'Raleway', Arial,sans-serif; font-size:14px; line-height: 15px;"><b>Processing fee / Delivery</b></td>
+                        <td colspan="2" style="color: #5d5c5c; text-align: right; border: 1px solid #5d5c5c; padding-top: 3px; padding-bottom: 3px; padding-right: 5px; padding-left: 5px; font-family:'Raleway', Arial,sans-serif; font-size:14px; line-height: 15px;"><b>Processing/Delivery Fee</b></td>
                         <td style="color: #5d5c5c; border: 1px solid #5d5c5c; text-align: right; padding-right: 5px; padding-left: 5px; font-family:'Raleway', Arial,sans-serif; font-size:14px; line-height: 15px;">${{number_format($order["processing_fee"], 2)}}</td>
                     </tr>
                     <tr>

@@ -87,6 +87,7 @@ class ManageGeneral extends SettingsPage {
                         '2xl' => 12
                     ])->schema([
                         TagsInput::make('units')->label('Unidades de medida')->columnSpanFull(),
+                        TextInput::make('processing_fee')->suffix('%')->label('Processing Fee')->numeric()->columnSpan(3),
                     ])
                 ])->collapsible()->columnSpanFull(),
             ]);

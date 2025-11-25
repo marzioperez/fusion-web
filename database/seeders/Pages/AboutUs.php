@@ -43,40 +43,6 @@ class AboutUs extends Seeder {
                 [
                     'data' => [
                         'id' => null,
-                        'image_id' => $about_us->id,
-                        'before_title' => 'About Us',
-                        'title' => 'Fusion School Lunches',
-                        'sub_title' => null,
-                        'content' => 'School lunches made easy!<br>Our sustainable, nutritious, and delicious lunch program is now available. Register for a hassle-free way to provide healthy lunches for your kids',
-                        'metrics' => [
-                            [
-                                'value' => '50+',
-                                'title' => 'Different options',
-                                'color' => '#FE9E14'
-                            ],
-                            [
-                                'value' => '400+',
-                                'title' => 'Daily deliveries',
-                                'color' => '#000000'
-                            ]
-                        ],
-                        'button_text' => null,
-                        'button_url' => null,
-                        'open_in_new_tab' => false,
-                        'visible' => true,
-                        'bg_type' => 'image',
-                        'bg_color' => null,
-                        'bg_image_id' => $bg_section->id,
-                        'padding_top_mobile' => 6,
-                        'padding_top_desktop' => 7,
-                        'padding_bottom_mobile' => 6,
-                        'padding_bottom_desktop' => 7
-                    ],
-                    'type' => 'image-text-and-metrics'
-                ],
-                [
-                    'data' => [
-                        'id' => null,
                         'image_id' => $our_vision->id,
                         'before_title' => 'History',
                         'title' => 'Our Vision',

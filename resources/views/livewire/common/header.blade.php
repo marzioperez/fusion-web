@@ -24,7 +24,7 @@
                     <div class="flex justify-end items-center space-x-3">
                         @if($logged_in)
                             <div class="space-x-3 flex items-center justify-end">
-                                <button type="button" class="btn btn-md btn-secondary" x-on:click.prevent="$dispatch('open-modal', {name: 'modal-student-selector'})">¡Start shopping!</button>
+                                <button type="button" class="btn btn-md btn-secondary" x-on:click.prevent="$dispatch('open-modal', {name: 'modal-student-selector'})">¡Buy lunches!</button>
 
                                 <div x-data="Components.menu({ open: false })" x-init="init()" @keydown.escape.stop="open = false; focusButton()" @click.away="onClickAway($event)" class="relative cursor-pointer">
                                     <div x-on:click.prevent="onButtonClick()" @keyup.space.prevent="onButtonEnter()" @keydown.enter.prevent="onButtonEnter()" aria-expanded="false" aria-haspopup="true" x-bind:aria-expanded="open.toString()" @keydown.arrow-up.prevent="onArrowUp()" @keydown.arrow-down.prevent="onArrowDown()">

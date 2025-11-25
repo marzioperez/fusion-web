@@ -1,5 +1,5 @@
 <div class="space-y-4">
-    <h5 class="text-center text-primary">Personal data</h5>
+    <h5 class="text-center text-primary">Parent information</h5>
     <form wire:submit.prevent="process" class="md:grid grid-cols-2 gap-3 md:space-y-0 space-y-6">
         <div>
             <label for="first_name">First name</label>

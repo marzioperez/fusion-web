@@ -31,6 +31,9 @@ class ProcessMenuEntry implements ShouldQueue{
             if ($this->data['no_considerar_4']) {
                 $exclude_school_names[] = $this->data['no_considerar_4'];
             }
+            if ($this->data['no_considerar_5']) {
+                $exclude_school_names[] = $this->data['no_considerar_5'];
+            }
 
             if ($this->data['colegio'] !== 'Todos') {
                 $school_model->where('name', $this->data['colegio']);

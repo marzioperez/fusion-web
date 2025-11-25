@@ -1,5 +1,5 @@
 <div class="space-y-4">
-    <h5 class="text-center text-primary">Students data</h5>
+    <h5 class="text-center text-primary">Students information</h5>
     <div class="border-t border-gray-300 pt-6 space-y-6">
         <div class="flex items-center justify-end mb-3">
             <button type="button" x-on:click.prevent="$dispatch('open-modal', {name: 'modal-add-student'});" class="btn btn-md btn-secondary">+ Add student</button>
@@ -26,7 +26,7 @@
                 @endforeach
             </ul>
         @else
-            <p class="text-sm text-gray-500 text-center">You haven't added any students yet.</p>
+            <p class="text-sm text-gray-500 text-center">You have not added any students yet.</p>
         @endif
 
         @error('students')

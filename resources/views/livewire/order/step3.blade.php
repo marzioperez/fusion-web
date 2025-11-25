@@ -40,7 +40,7 @@
                 <div class="space-y-2">
                     <h6 class="text-sm font-medium text-primary">Payment successful</h6>
                     <h3>Thanks for ordering</h3>
-                    <p>We appreciate your order, we’re currently processing it. So hang tight and we’ll send you confirmation very soon!</p>
+                    <p>Thank you for your order! We're processing it now. We'll send you a confirmation soon.</p>
                 </div>
 
                 <dl class="mt-16">
@@ -77,7 +77,7 @@
                     @endif
 
                     <div class="flex justify-between">
-                        <dt>Processing fee / Delivery</dt>
+                        <dt>Processing/Delivery Fee</dt>
                         <dd class="text-gray-900">${{$model['processing_fee']}}</dd>
                     </div>
 
