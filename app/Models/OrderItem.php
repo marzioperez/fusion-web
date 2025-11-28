@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderItem extends Model {
@@ -31,5 +32,9 @@ class OrderItem extends Model {
         'data' => 'json',
         'date' => 'date'
     ];
+
+    public function order(): HasOne {
+        return $this->hasOne(Order::class, 'id', 'order_id');
+    }
 
 }

@@ -15,7 +15,6 @@ Route::middleware('web')->group(function () {
 
     Route::get('test-export-1', function () {
         $model = \App\Models\ScheduleEntryMenu::query();
-        // $model->with('school');
         $school_ids = [];
         if ($school_ids) {
             $model->whereIn('school_id', $school_ids);
@@ -26,7 +25,7 @@ Route::middleware('web')->group(function () {
         // Detectar combinaciones repetidas (student_id + date)
         $duplicatedKeys = $records
             ->groupBy(function ($item) {
-                return $item->student_id.'|'.$item->date->format('Y-m-d');
+                return $item->student_id.'|'.$item->date->format('d/m/Y');
             })
             ->filter(function ($group) {
                 return $group->count() > 1; // solo las que se repiten
@@ -42,11 +41,19 @@ Route::middleware('web')->group(function () {
         ->flatMap(function ($school_group, $school_name) use ($duplicatedKeys) {
             return $school_group->flatMap(function ($grade_group, $grade_name) use ($school_name, $duplicatedKeys) {
                 return $grade_group->map(function ($item) use ($school_name, $grade_name, $duplicatedKeys) {
-                    $dateFormatted = $item->date->format('Y-m-d');
-                    $key = $item->student_id.'|'.$dateFormatted;
+                    $dateFormatted = $item->date->format('d/m/Y');
+                    $key = $item->student_id . '|' . $dateFormatted;
+
+                    $detail = \App\Models\OrderItem::find($item->order_item_id);
+                    $order_code = null;
+                    if ($detail) {
+                        $order_code = $detail->order->code;
+                    }
 
                     // true si el alumno tiene más de un item ese mismo día
                     $isDuplicated = $duplicatedKeys->contains($key);
+                    $isVegetarian = $item->allergies && in_array('Vegetarian', $item->allergies);
+                    $isGlutenFree = $item->allergies && in_array('Gluten Free', $item->allergies);
 
                     return [
                         'school' => $school_name,
@@ -56,15 +63,17 @@ Route::middleware('web')->group(function () {
                         'product' => $item->product,
                         'color' => $item->color,
                         'student_id' => $item->student_id,
-                        'date' => $item->date->format('Y-m-d'),
-                        'highlight' => $isDuplicated,
+                        'date' => $item->date->format('d/m/Y'),
+                        'is_duplicate' => $isDuplicated,
+                        'is_vegetarian' => $isVegetarian,
+                        'order_code' => $order_code,
+                        'allergies' => $item->allergies
                     ];
                 });
             });
         })->values();
-        dd($records->toArray());
 
-        return view('exports.schedule-entry-menu', ['records' => $records]);
+        return view('exports.schedule-entry-menu', ['records' => $records->toArray()]);
     });
 
     Route::get('test-email-2', function () {
