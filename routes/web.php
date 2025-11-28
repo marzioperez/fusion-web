@@ -23,21 +23,41 @@ Route::middleware('web')->group(function () {
         $model->whereBetween('date', ['2025-12-01 00:00', '2025-12-01 23:59']);
         $records = $model->get();
 
+        // Detectar combinaciones repetidas (student_id + date)
+        $duplicatedKeys = $records
+            ->groupBy(function ($item) {
+                return $item->student_id.'|'.$item->date->format('Y-m-d');
+            })
+            ->filter(function ($group) {
+                return $group->count() > 1; // solo las que se repiten
+            })
+            ->keys(); // colección de strings "student_id|YYYY-MM-DD"
+
+        // Se ordenan y mapean agregando el indicador de duplicidad
         $records = $records->sortBy([
             ['school', 'asc'],
             ['first_name', 'asc'],
             ['last_name', 'asc']
         ])->groupBy(['school', 'grade'])
-        ->flatMap(function ($school_group, $school_name) {
-            return $school_group->flatMap(function ($grade_group, $grade_name) use ($school_name) {
-                return $grade_group->map(function ($item) use ($school_name, $grade_name) {
+        ->flatMap(function ($school_group, $school_name) use ($duplicatedKeys) {
+            return $school_group->flatMap(function ($grade_group, $grade_name) use ($school_name, $duplicatedKeys) {
+                return $grade_group->map(function ($item) use ($school_name, $grade_name, $duplicatedKeys) {
+                    $dateFormatted = $item->date->format('Y-m-d');
+                    $key = $item->student_id.'|'.$dateFormatted;
+
+                    // true si el alumno tiene más de un item ese mismo día
+                    $isDuplicated = $duplicatedKeys->contains($key);
+
                     return [
                         'school' => $school_name,
                         'grade' => $grade_name,
                         'first_name' => $item->first_name,
                         'last_name' => $item->last_name,
                         'product' => $item->product,
-                        'color' => $item->color
+                        'color' => $item->color,
+                        'student_id' => $item->student_id,
+                        'date' => $item->date->format('Y-m-d'),
+                        'highlight' => $isDuplicated,
                     ];
                 });
             });
