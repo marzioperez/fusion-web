@@ -13,6 +13,40 @@ Route::post('stripe/webhook', [\App\Http\Controllers\Stripe\WebhookController::c
 
 Route::middleware('web')->group(function () {
 
+    Route::get('test-export-1', function () {
+        $model = \App\Models\ScheduleEntryMenu::query();
+        // $model->with('school');
+        $school_ids = [];
+        if ($school_ids) {
+            $model->whereIn('school_id', $school_ids);
+        }
+        $model->whereBetween('date', ['2025-12-01 00:00', '2025-12-01 23:59']);
+        $records = $model->get();
+
+        $records = $records->sortBy([
+            ['school', 'asc'],
+            ['first_name', 'asc'],
+            ['last_name', 'asc']
+        ])->groupBy(['school', 'grade'])
+        ->flatMap(function ($school_group, $school_name) {
+            return $school_group->flatMap(function ($grade_group, $grade_name) use ($school_name) {
+                return $grade_group->map(function ($item) use ($school_name, $grade_name) {
+                    return [
+                        'school' => $school_name,
+                        'grade' => $grade_name,
+                        'first_name' => $item->first_name,
+                        'last_name' => $item->last_name,
+                        'product' => $item->product,
+                        'color' => $item->color
+                    ];
+                });
+            });
+        })->values();
+        dd($records->toArray());
+
+        return view('exports.schedule-entry-menu', ['records' => $records]);
+    });
+
     Route::get('test-email-2', function () {
         $user = \App\Models\User::where('email', 'marzioperez@gmail.com')->first();
         $order = \App\Models\Order::where('user_id', $user->id)->get()->last();

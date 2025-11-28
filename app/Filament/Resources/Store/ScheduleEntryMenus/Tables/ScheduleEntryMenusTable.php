@@ -20,6 +20,7 @@ class ScheduleEntryMenusTable {
                 TextColumn::make('first_name'),
                 TextColumn::make('last_name'),
                 TextColumn::make('date')->label('Date')->date('d/m/Y'),
+                TextColumn::make('allergies')->label('Allergies'),
             ])
             ->filters([
                 SelectFilter::make('school')->relationship('school', 'name')->multiple(),

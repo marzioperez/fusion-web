@@ -3,7 +3,6 @@
 namespace App\Exports;
 
 use Illuminate\View\View;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 
 class ScheduleEntryMenu implements FromView {
@@ -20,6 +19,7 @@ class ScheduleEntryMenu implements FromView {
         if ($this->params['school_id']) {
             $model->where('school_id', $this->params['school_id']);
         }
-        $model->whereBetween('date', [$this->params['start_date'] . ' 00:00', $this->params['end_date'] . '23:59']);
+        $model->whereBetween('date', [$this->params['start_date'] . ' 00:00', $this->params['end_date'] . ' 23:59']);
+        return view('exports.schedule-entry-menu', ['records' => $model->get()]);
     }
 }
