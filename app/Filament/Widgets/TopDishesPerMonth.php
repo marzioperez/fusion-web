@@ -30,15 +30,16 @@ class TopDishesPerMonth extends Widget {
 
     protected function loadData(): void {
         $this->rows = ScheduleEntryMenu::query()
-            ->select('product_id', DB::raw('COUNT(*) as total_qty'))
-            ->with('product:id,name')
+            ->select('product', 'date', DB::raw('COUNT(*) as total_qty'))
             ->whereMonth('date', $this->month)
             ->whereYear('date', $this->year)
-            ->groupBy('product_id')
-            ->orderByDesc('total_qty')
+            ->groupBy('product', 'date')
+            ->orderBy('date')
+            ->orderBy('product')
             ->get()
             ->map(fn ($row) => [
-                'product_name' => $row->product->name ?? 'Producto eliminado',
+                'date' => $row->date?->format('d/m/Y'),
+                'product' => $row->product,
                 'total_qty'    => (int) $row->total_qty,
             ])
             ->toArray();

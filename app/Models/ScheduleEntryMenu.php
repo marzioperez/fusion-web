@@ -37,8 +37,8 @@ class ScheduleEntryMenu extends Model {
         return $this->hasOne(Student::class, 'id', 'student_id');
     }
 
-    public function product(): BelongsTo {
-        return $this->belongsTo(Product::class);
-    }
+//    public function product(): BelongsTo {
+//        return $this->belongsTo(Product::class);
+//    }
 
 }

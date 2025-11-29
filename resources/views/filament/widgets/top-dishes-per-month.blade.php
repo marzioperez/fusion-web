@@ -18,6 +18,7 @@
                 <table class="fi-ta-table">
                     <thead>
                         <tr>
+                            <th class="fi-ta-header-cell fi-ta-header-cell-name">Date</th>
                             <th class="fi-ta-header-cell fi-ta-header-cell-name">Product</th>
                             <th class="fi-ta-header-cell fi-ta-header-cell-name">Quantity</th>
                         </tr>
@@ -27,7 +28,10 @@
                         @foreach($rows as $row)
                             <tr class="fi-ta-row">
                                 <td class="fi-ta-cell">
-                                    <div class="fi-size-sm  fi-ta-text-item  fi-ta-text">{{$row['product_name']}}</div>
+                                    <div class="fi-size-sm  fi-ta-text-item  fi-ta-text">{{$row['date']}}</div>
+                                </td>
+                                <td class="fi-ta-cell">
+                                    <div class="fi-size-sm  fi-ta-text-item  fi-ta-text">{{$row['product']}}</div>
                                 </td>
                                 <td class="fi-ta-cell">
                                     <div class="fi-size-sm  fi-ta-text-item  fi-ta-text">{{$row['total_qty'] }}</div>
