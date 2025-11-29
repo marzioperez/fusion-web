@@ -27,6 +27,7 @@ class ListOrders extends ListRecords {
             Status::PENDING->value => Tab::make('Pending')->query(fn($query) => $query->where('status', Status::PENDING->value)),
             Status::FINISHED->value => Tab::make('Finished')->query(fn($query) => $query->where('status', Status::FINISHED->value)),
             Status::CANCELED->value => Tab::make('Canceled')->query(fn($query) => $query->where('status', Status::CANCELED->value)),
+            Status::ERROR->value => Tab::make('Error')->query(fn($query) => $query->where('status', Status::ERROR->value)),
         ];
     }
 }

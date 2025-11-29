@@ -3,14 +3,18 @@
 namespace App\Filament\Resources\Store\Orders\Tables;
 
 use App\Enums\Status;
+use App\Jobs\ProcessOrder;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Stripe\StripeClient;
 
 class OrdersTable {
 
@@ -32,6 +36,26 @@ class OrdersTable {
                 TrashedFilter::make(),
             ])
             ->recordActions([
+                Action::make('reprocess')->label('Stripe validate')
+                    ->visible(fn ($record): bool => $record->status == Status::PENDING->value)
+                    ->color('success')->action(function ($record) {
+                        $stripe = new StripeClient(config('services.stripe.secret'));
+                        $payment_intent = $stripe->paymentIntents->retrieve($record->stripe_payment_intent_id, []);
+                        if ($payment_intent->status === 'succeeded') {
+                            ProcessOrder::dispatch($record->code);
+                            Notification::make()
+                                ->title('Payment completed')
+                                ->body("The order {$record->code} has been processed successfully. Please wait for the confirmation email.")
+                                ->success()
+                                ->send();
+                        } else {
+                            Notification::make()
+                                ->title('Payment not completed')
+                                ->body("Current Stripe status: {$payment_intent->status}")
+                                ->warning()
+                                ->send();
+                        }
+                    }),
                 EditAction::make(),
             ])
             ->toolbarActions([
