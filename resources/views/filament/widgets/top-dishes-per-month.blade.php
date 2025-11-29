@@ -23,6 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php $total = 0; @endphp
                         @foreach($rows as $row)
                             <tr class="fi-ta-row">
                                 <td class="fi-ta-cell">
@@ -32,7 +33,15 @@
                                     <div class="fi-size-sm  fi-ta-text-item  fi-ta-text">{{$row['total_qty'] }}</div>
                                 </td>
                             </tr>
+                            @php $total += $row['total_qty']; @endphp
                         @endforeach
+                        @if($total !== 0)
+                            <tr class="fi-ta-row">
+                                <td class="fi-ta-cell" colspan="2">
+                                    <div class="fi-size-sm fi-ta-text-item  fi-ta-text"><b>Total: {{$total}}</b></div>
+                                </td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
