@@ -77,6 +77,7 @@ class ProcessOrder implements ShouldQueue {
                     if ($item['type'] === ProductTypes::FOOD->value) {
                         ScheduleEntryMenu::create([
                             'order_item_id' => $item['id'],
+                            'product_id' => $item['product_id'],
                             'school_id' => $student['school_id'],
                             'grade_id' => $student['grade_id'],
                             'student_id' => $student['id'],
@@ -97,6 +98,7 @@ class ProcessOrder implements ShouldQueue {
                                 $date = Carbon::parse($food['date'])->toDateString();
                                 ScheduleEntryMenu::create([
                                     'order_item_id' => $item['id'],
+                                    'product_id' => $food['product_id'],
                                     'school_id' => $student['school_id'],
                                     'grade_id' => $student['grade_id'],
                                     'student_id' => $student['id'],
