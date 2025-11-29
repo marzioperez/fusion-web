@@ -47,15 +47,39 @@ class ProcessMenuEntry implements ShouldQueue{
             $schools = $school_model->get();
             if (!$schools->isEmpty()) {
                 foreach ($schools as $school) {
-                    $grades = $school->grades;
+                    $gradesInput = $this->data['grados'] ?? null;
+
+                    if ($gradesInput && strtolower(trim($gradesInput)) !== 'todos') {
+                        // Convert "nombre1, nombre2, nombre3" into an array [nombre1, nombre2, nombre3]
+                        $gradeNames = collect(explode(',', $gradesInput))
+                            ->map(fn ($name) => trim($name))
+                            ->filter()
+                            ->unique()
+                            ->values();
+
+                        if ($gradeNames->isNotEmpty()) {
+                            // Filter grades of this school by the provided names
+                            $grades = $school->grades()->whereIn('name', $gradeNames->all())->get();
+                        } else {
+                            // If after cleaning there are no valid names, use all grades
+                            $grades = $school->grades;
+                        }
+                    } else {
+                        // If "grados" is empty or "Todos", use all grades
+                        $grades = $school->grades;
+                    }
+
                     if ($grades->isNotEmpty()) {
                         foreach ($grades as $grade) {
+                            $customPrice = $this->data['precio_personalizado'] ?? null;
+                            $price = is_numeric($customPrice) ? (float) $customPrice : $product->price;
+
                             MenuEntry::create([
                                 'school_id' => $school->id,
                                 'grade_id' => $grade->id,
                                 'date' => $this->data['fecha_yyyy_mm_dd'],
                                 'product_id' => $product->id,
-                                'price' => $product->price
+                                'price' => $price
                             ]);
                         }
                     }

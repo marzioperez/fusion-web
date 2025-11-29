@@ -15,11 +15,11 @@ Route::middleware('web')->group(function () {
 
     Route::get('test-export-1', function () {
         $model = \App\Models\ScheduleEntryMenu::query();
-        $school_ids = [1];
+        $school_ids = [6];
         if ($school_ids) {
             $model->whereIn('school_id', $school_ids);
         }
-        $model->whereBetween('date', ['2025-12-01 00:00', '2025-12-01 23:59']);
+        // $model->whereBetween('date', ['2025-12-01 00:00', '2025-12-01 23:59']);
         $records = $model->get();
 
         // Detectar combinaciones repetidas (student_id + date)

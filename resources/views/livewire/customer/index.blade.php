@@ -11,7 +11,7 @@
                     <nav>
                         <ul class="space-y-1">
                             <li>
-                                <a href="{{route('customer.account', ['item' => 'user-data'])}}" wire:navigate class="group btn-option {{($item === 'user-data' ? 'active' : '')}}">User data</a>
+                                <a href="{{route('customer.account', ['item' => 'user-data'])}}" wire:navigate class="group btn-option {{($item === 'user-data' ? 'active' : '')}}">Parent data</a>
                             </li>
                             <li>
                                 <a href="{{route('customer.account', ['item' => 'students'])}}" wire:navigate class="group btn-option {{($item === 'students' ? 'active' : '')}}">Students</a>

@@ -84,7 +84,7 @@ class StartShopping extends Component {
 
             // Calcular precio total del mes (suma de todos los productos de todos los MenuEntries del mes)
             $totalPrice = $items->sum(function ($entry) {
-                return (float) ($entry->product->price ?? 0);
+                return (float) ($entry->price ?? 0);
             });
 
             $image_url = null;
