@@ -15,7 +15,7 @@ Route::middleware('web')->group(function () {
 
     Route::get('test-export-1', function () {
         $model = \App\Models\ScheduleEntryMenu::query();
-        $school_ids = [];
+        $school_ids = [1];
         if ($school_ids) {
             $model->whereIn('school_id', $school_ids);
         }
@@ -52,8 +52,6 @@ Route::middleware('web')->group(function () {
 
                     // true si el alumno tiene más de un item ese mismo día
                     $isDuplicated = $duplicatedKeys->contains($key);
-                    $isVegetarian = $item->allergies && in_array('Vegetarian', $item->allergies);
-                    $isGlutenFree = $item->allergies && in_array('Gluten Free', $item->allergies);
 
                     return [
                         'school' => $school_name,
@@ -65,7 +63,6 @@ Route::middleware('web')->group(function () {
                         'student_id' => $item->student_id,
                         'date' => $item->date->format('d/m/Y'),
                         'is_duplicate' => $isDuplicated,
-                        'is_vegetarian' => $isVegetarian,
                         'order_code' => $order_code,
                         'allergies' => $item->allergies
                     ];

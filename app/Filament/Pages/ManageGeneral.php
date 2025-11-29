@@ -88,6 +88,7 @@ class ManageGeneral extends SettingsPage {
                     ])->schema([
                         TagsInput::make('units')->label('Unidades de medida')->columnSpanFull(),
                         TextInput::make('processing_fee')->suffix('%')->label('Processing Fee')->numeric()->columnSpan(3),
+                        TagsInput::make('send_admin_reports')->placeholder('Email sended')->label('Send reports emails')->columnSpanFull(),
                     ])
                 ])->collapsible()->columnSpanFull(),
             ]);

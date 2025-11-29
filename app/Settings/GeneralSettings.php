@@ -26,6 +26,7 @@ class GeneralSettings extends Settings {
     public ?float $processing_fee;
     public ?int $limit_product_per_student;
     public ?array $units;
+    public ?array $send_admin_reports;
 
     public static function group(): string {
         return 'general';

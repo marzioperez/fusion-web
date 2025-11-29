@@ -17,7 +17,7 @@ class ListMenuEntries extends ListRecords {
 
     protected function getHeaderActions(): array {
         return [
-            Action::make('import')->label('Import products')->color('success')
+            Action::make('import')->label('Import menus')->color('success')
                 ->form([
                     FileUpload::make('file')->label('File')->disk('local')->required(),
                 ])->action(function (array $data) {
