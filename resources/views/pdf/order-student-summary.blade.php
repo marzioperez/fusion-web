@@ -13,18 +13,6 @@
         </style>
     </head>
     <body>
-        @php
-            use \Spatie\MediaLibrary\MediaCollections\Models\Media;
-            $general_setting = new \App\Settings\GeneralSettings();
-            $logo_mail = $general_setting->logo_mail;
-            $logo = null;
-            if ($logo_mail) {
-                $image = Media::find($logo_mail);
-                if ($image) {
-                    $logo = ($image->hasGeneratedConversion('webp') ? $image->getFullUrl('webp') : $image->getUrl());
-                }
-            }
-        @endphp
         <div style="text-align: center; margin-bottom: 50px;">
             <img src="https://fusion-web-2025-bucket.s3.us-east-2.amazonaws.com/media-manager/1/logo-horizontal.png" style="height: 80px;" border="0" alt="{{config('app.name')}}" />
         </div>
@@ -37,7 +25,6 @@
         <table>
             <thead>
                 <tr>
-                    <th>Product image</th>
                     <th>Product</th>
                     <th>Date</th>
                     <th>Quantity</th>
@@ -46,11 +33,6 @@
             <tbody>
                 @foreach ($items as $item)
                     <tr>
-                        <td>
-                            @if($item->image_url)
-                                <img src="{{$item->image_url}}" alt="" style="width: 100px; height: auto;">
-                            @endif
-                        </td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->label }}</td>
                         <td>{{ $item->quantity }}</td>
