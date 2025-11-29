@@ -16,10 +16,11 @@
             return this.options.filter(o => o.name.toLowerCase().includes(q) && !this.selected.map(s => (typeof s === 'string' ? s : s.name)).includes(o.name));
         },
         add(tag){
-            const name = (typeof tag === 'string') ? tag : tag.name;
+            if (!tag || typeof tag !== 'object') return;
+            const name = tag.name;
             if(!name) return;
             const exists = this.selected.map(s => (typeof s === 'string' ? s : s.name)).includes(name);
-            if(!exists){ this.selected = [...(this.selected || []), name]; }
+            if(!exists){ this.selected = [...(this.selected || []), tag]; }
             this.query = '';
             this.open = false;
         },
@@ -31,7 +32,13 @@
         onKeydown(e){
             if(e.key === 'Enter' || e.key === ','){
                 e.preventDefault();
-                if(this.query.trim()){ this.add(this.query.trim()); }
+                const q = this.query.trim().toLowerCase();
+                if(!q) return;
+                // Buscar coincidencia exacta en las opciones
+                const match = this.options.find(o => o.name.toLowerCase() === q);
+                if(match){
+                    this.add(match);
+                }
             } else if(e.key === 'Backspace' && !this.query && (this.selected||[]).length){
                 this.remove((this.selected||[]).length-1);
             }
