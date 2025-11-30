@@ -70,6 +70,15 @@ class ScheduleEntryMenu implements FromView {
                 });
             })->values();
 
-        return view('exports.schedule-entry-menu', ['records' => $records->toArray()]);
+        // Contar alumnos únicos (por student_id)
+        $uniqueStudentsCount = $records
+            ->pluck('student_id')
+            ->unique()
+            ->count();
+
+        return view('exports.schedule-entry-menu', [
+            'records' => $records->toArray(),
+            'unique_students' => $uniqueStudentsCount,
+        ]);
     }
 }

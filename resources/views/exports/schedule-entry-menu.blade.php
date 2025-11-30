@@ -44,5 +44,10 @@
                 <td @if($record['is_duplicate']) style="background-color: #ffff5e; padding: 5px;" @else style="padding: 5px;" @endif>{{$record['product']}}</td>
             </tr>
         @endforeach
+        <tr>
+            <td colspan="7" style="padding: 5px;">
+                <b>Total: {{$unique_students}}</b>
+            </td>
+        </tr>
     </tbody>
 </table>
