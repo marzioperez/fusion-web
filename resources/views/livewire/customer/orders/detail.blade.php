@@ -27,13 +27,13 @@
                 </aside>
             </div>
 
-            <div class="col-span-9">
+            <div class="col-span-9 space-y-6">
                 <dl>
                     <dt>Order code</dt>
                     <dd class="font-medium text-primary-dark text-xl">#{{$order['code']}}</dd>
                 </dl>
 
-                <ul role="list" class="mt-6 divide-y divide-gray-200 border-t border-gray-200">
+                <ul role="list" class="divide-y divide-gray-200 border-t border-gray-200">
                     @foreach($order->items as $item)
                         <li class="flex space-x-6 py-6">
                             <img src="{{$item['image_url']}}" alt="{{$item['name']}}" class="size-24 flex-none rounded-md bg-gray-100 object-cover" />
@@ -48,7 +48,7 @@
                     @endforeach
                 </ul>
 
-                <dl class="space-y-6 border-t border-gray-200 pt-6 font-medium">
+                <dl class="space-y-6 border-t border-gray-200 font-medium">
                     <div class="flex justify-between">
                         <dt>Subtotal</dt>
                         <dd class="text-gray-900">${{$order['sub_total']}}</dd>
@@ -71,6 +71,10 @@
                         <dd class="text-base">${{$order['total']}}</dd>
                     </div>
                 </dl>
+
+                @if($order['status'] === \App\Enums\Status::ERROR->value && $order['payment_error_message'])
+                    <div class="w-full p-3 rounded bg-red-100 border border-red-400 text-red-600">{{$order['payment_error_message']}}</div>
+                @endif
             </div>
         </div>
     </div>
