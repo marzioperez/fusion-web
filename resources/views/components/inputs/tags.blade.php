@@ -16,11 +16,10 @@
             return this.options.filter(o => o.name.toLowerCase().includes(q) && !this.selected.map(s => (typeof s === 'string' ? s : s.name)).includes(o.name));
         },
         add(tag){
-            if (!tag || typeof tag !== 'object') return;
-            const name = tag.name;
+            const name = (typeof tag === 'string') ? tag : tag.name;
             if(!name) return;
-            const exists = this.selected.map(s => (typeof s === 'string' ? s : s.name)).includes(name);
-            if(!exists){ this.selected = [...(this.selected || []), tag]; }
+            const exists = (this.selected || []).map(s => (typeof s === 'string' ? s : s.name)).includes(name);
+            if(!exists){ this.selected = [...(this.selected || []), name]; }
             this.query = '';
             this.open = false;
         },
