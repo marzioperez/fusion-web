@@ -10,7 +10,7 @@ class StudentsPerSchool extends ChartWidget {
     protected ?string $heading = 'Students per school';
     protected static ?int $sort = 3;
     protected int | string | array $columnSpan = 'full';
-    protected ?string $maxHeight = '450px';
+    protected ?string $maxHeight = '600px';
 
     protected function getData(): array {
         $rows = Student::query()
