@@ -11,6 +11,7 @@ class MenuEntriesPerMonthChart extends ChartWidget {
     protected ?string $heading = 'Menu sales per month';
     protected int | string | array $columnSpan = 'full';
     protected ?string $maxHeight = '450px';
+    protected static ?int $sort = 2;
 
     protected function getData(): array
     {
@@ -35,7 +36,7 @@ class MenuEntriesPerMonthChart extends ChartWidget {
         return [
             'datasets' => [
                 [
-                    'label' => 'Platos atendidos por mes',
+                    'label' => 'Menu sales per month',
                     'data' => $data,
                 ],
             ],

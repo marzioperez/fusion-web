@@ -10,6 +10,7 @@ class TopDishesPerMonth extends Widget {
 
     protected string $view = 'filament.widgets.top-dishes-per-month';
     protected int | string | array $columnSpan = 'full';
+    protected static ?int $sort = 1;
 
     public string $month;
     public string $year;
