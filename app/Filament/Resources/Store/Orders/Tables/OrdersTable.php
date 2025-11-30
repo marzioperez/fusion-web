@@ -27,7 +27,7 @@ class OrdersTable {
                 TextColumn::make('status')->label('Status')->badge()->color(fn (string $state): string => match ($state) {
                     Status::FINISHED->value => 'success',
                     Status::PENDING->value, Status::SCHEDULED->value => 'warning',
-                    Status::ERROR->value => 'danger',
+                    Status::ERROR->value, Status::CANCELED->value => 'danger',
                     default => 'primary'
                 }),
                 TextColumn::make('created_at')->label('Date')->date('d/m/Y')->searchable()->sortable(),
@@ -55,6 +55,17 @@ class OrdersTable {
                                 ->warning()
                                 ->send();
                         }
+                    }),
+                Action::make('cancel')->label('Cancel')
+                    ->visible(fn ($record): bool => $record->status == Status::PENDING->value)
+                    ->requiresConfirmation()
+                    ->color('danger')->action(function ($record) {
+                        $record->update(['status' => Status::CANCELED->value]);
+                        Notification::make()
+                            ->title('Order canceled')
+                            ->body("The order : {$record->code} has been canceled.")
+                            ->danger()
+                            ->send();
                     }),
                 EditAction::make(),
             ])
