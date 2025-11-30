@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Stripe;
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessOrder;
+use App\Mail\Order\OrderError;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Stripe\Webhook;
 
 class WebhookController extends Controller {
@@ -66,6 +68,8 @@ class WebhookController extends Controller {
                         $payment_intent_id,
                         $failureMessage
                     ));
+                    $user = $order->user;
+                    Mail::to($user['email'])->queue(new OrderError($order, $user));
                 }
                 break;
         }
