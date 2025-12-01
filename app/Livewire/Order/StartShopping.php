@@ -48,7 +48,18 @@ class StartShopping extends Component {
         }
 
         $now = now();
-        $from = $now->copy()->addDay()->startOfDay(); // día siguiente en adelante
+        $cutoff = $now->copy()->setTime(19, 0, 0);
+
+        // Por defecto, desde mañana
+        $fromDay = $now->copy()->addDay();
+
+        // Pasada las 7PM, desde pasado mañana
+        if ($now->gt($cutoff)) {
+            $fromDay->addDay();
+        }
+
+        $from = $fromDay->startOfDay();
+        
         // Fin del siguiente mes calendario
         $endOfNextMonth = $now->copy()->addMonthNoOverflow(1)->endOfMonth();
 
