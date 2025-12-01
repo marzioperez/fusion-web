@@ -59,7 +59,7 @@ class StartShopping extends Component {
         }
 
         $from = $fromDay->startOfDay();
-        
+
         // Fin del siguiente mes calendario
         $endOfNextMonth = $now->copy()->addMonthNoOverflow(1)->endOfMonth();
 
