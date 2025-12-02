@@ -13,16 +13,16 @@ class UserForm {
         return $schema
             ->components([
                 Section::make()->schema([
-                    TextInput::make('first_name')->label('Nombre')->required()->columnSpan(6),
-                    TextInput::make('last_name')->label('Apellidos')->required()->columnSpan(6),
-                    TextInput::make('phone')->label('Teléfono')->required()->columnSpan(4),
+                    TextInput::make('first_name')->label('Firstname')->required()->columnSpan(6),
+                    TextInput::make('last_name')->label('Lastname')->required()->columnSpan(6),
+                    TextInput::make('phone')->label('Phone')->required()->columnSpan(4),
                     TextInput::make('email')->label('Email')->unique('users', 'email', ignoreRecord: true)->required()->columnSpan(4),
-                    TextInput::make('password')->password()->label('Contraseña')
+                    TextInput::make('password')->password()->label('Password')
                         ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                         ->dehydrated(fn ($state) => filled($state))
                         ->required(fn ($context) => $context === 'create')
                         ->columnSpan(4),
-                    TextInput::make('credits')->label('Créditos')->numeric()->default(0)->columnSpan(3),
+                    TextInput::make('credits')->label('Credits')->numeric()->default(0)->columnSpan(3),
                 ])->columns([
                     'default' => 1,
                     'sm' => 3,

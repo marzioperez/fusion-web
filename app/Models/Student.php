@@ -108,6 +108,10 @@ class Student extends Model implements HasMedia {
         return $this->belongsTo(Grade::class);
     }
 
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+
     public function avatarMedia() : BelongsTo {
         return $this->belongsTo(Media::class, 'avatar_media_id');
     }
