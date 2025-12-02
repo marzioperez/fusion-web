@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -35,6 +36,10 @@ class OrderItem extends Model {
 
     public function order(): HasOne {
         return $this->hasOne(Order::class, 'id', 'order_id');
+    }
+
+    public function schedule_entries(): HasMany {
+        return $this->hasMany(ScheduleEntryMenu::class, 'order_item_id', 'id');
     }
 
 }

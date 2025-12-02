@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ScheduleEntryMenu extends Model {
@@ -15,6 +14,7 @@ class ScheduleEntryMenu extends Model {
         'grade_id',
         'student_id',
         'date',
+        'price',
         'first_name',
         'last_name',
         'product',
@@ -36,9 +36,5 @@ class ScheduleEntryMenu extends Model {
     public function student(): HasOne {
         return $this->hasOne(Student::class, 'id', 'student_id');
     }
-
-//    public function product(): BelongsTo {
-//        return $this->belongsTo(Product::class);
-//    }
 
 }
