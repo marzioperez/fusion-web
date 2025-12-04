@@ -11,46 +11,109 @@
             <td style="background: #000000; color: #FFFFFF; text-align: center;" width="15">Quantity</td>
         </tr>
         @foreach($records as $record)
-            <tr>
-                <td style="padding: 5px;">{{$record['order_code']}}</td>
-                <td style="padding: 5px;">{{$record['date']}}</td>
-                <td style="padding: 5px; color: #000000; background-color: {{$record['color']}}">{{$record['school']}}</td>
-                <td style="padding: 5px;">
-                    <b>{{$record['first_name']}} {{$record['last_name']}}</b>
-                </td>
-                <td style="padding: 5px;">{{$record['grade']}}</td>
-                <td style="padding: 5px;">
-                    @if($record['allergies'])
-                        @foreach($record['allergies'] as $allergy)
-                            @php
-                                $color = '#f49cba';
-                                if ($allergy === 'Vegetarian') {
-                                    $color = "#61b361";
-                                }
+            @php
+                $allergies = $record['allergies'] ?? [];
+                $rowspan = max(1, count($allergies));
+            @endphp
 
-                                if ($allergy === 'Gluten Free') {
-                                    $color = "#ffa521";
-                                }
+            @if($rowspan === 1)
+                @php
+                    $allergy = $allergies[0] ?? '-';
+                    $color = '#f49cba';
 
-                                if ($allergy === 'Dairy Free') {
-                                    $color = "#3cc2ff";
-                                }
-                            @endphp
-                            <table width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 2px;">
-                                <tr>
-                                    <td style="background: {{$color}}; text-align:center; padding: 4px; font-size: 12px;">
-                                        {{$allergy}}
-                                    </td>
-                                </tr>
-                            </table>
-                        @endforeach
-                    @else
-                        -
-                    @endif
-                </td>
-                <td style="padding: 5px;">{{$record['product']}}</td>
-                <td @if($record['quantity'] > 1) style="background-color: #ffff5e; padding: 5px;" @else style="padding: 5px;" @endif>{{$record['quantity']}}</td>
-            </tr>
+                    if ($allergy === 'Vegetarian') {
+                        $color = '#61b361';
+                    }
+
+                    if ($allergy === 'Gluten Free') {
+                        $color = '#ffa521';
+                    }
+
+                    if ($allergy === 'Dairy Free') {
+                        $color = '#3cc2ff';
+                    }
+                @endphp
+                <tr>
+                    <td style="padding: 5px;">{{$record['order_code']}}</td>
+                    <td style="padding: 5px;">{{$record['date']}}</td>
+                    <td style="padding: 5px; color: #000000; background-color: {{$record['color']}}">{{$record['school']}}</td>
+                    <td style="padding: 5px;">
+                        <b>{{$record['first_name']}} {{$record['last_name']}}</b>
+                    </td>
+                    <td style="padding: 5px;">{{$record['grade']}}</td>
+                    <td style="padding: 5px; @if($allergy !== '-') background-color: {{$color}}; color:#000000; text-align:center; @endif">
+                        {{$allergy}}
+                    </td>
+                    <td style="padding: 5px;">{{$record['product']}}</td>
+                    <td @if($record['quantity'] > 1) style="background-color: #ffff5e; padding: 5px;" @else style="padding: 5px;" @endif>
+                        {{$record['quantity']}}
+                    </td>
+                </tr>
+            @else
+                @php
+                    // Primera alergia
+                    $firstAllergy = $allergies[0];
+                    $color = '#f49cba';
+
+                    if ($firstAllergy === 'Vegetarian') {
+                        $color = '#61b361';
+                    }
+
+                    if ($firstAllergy === 'Gluten Free') {
+                        $color = '#ffa521';
+                    }
+
+                    if ($firstAllergy === 'Dairy Free') {
+                        $color = '#3cc2ff';
+                    }
+                @endphp
+                <tr>
+                    <td rowspan="{{$rowspan}}" style="padding: 5px;">{{$record['order_code']}}</td>
+                    <td rowspan="{{$rowspan}}" style="padding: 5px;">{{$record['date']}}</td>
+                    <td rowspan="{{$rowspan}}" style="padding: 5px; color: #000000; background-color: {{$record['color']}}">{{$record['school']}}</td>
+                    <td rowspan="{{$rowspan}}" style="padding: 5px;">
+                        <b>{{$record['first_name']}} {{$record['last_name']}}</b>
+                    </td>
+                    <td rowspan="{{$rowspan}}" style="padding: 5px;">{{$record['grade']}}</td>
+                    <td style="padding: 5px; background-color: {{$color}}; color:#000000; text-align:center;">
+                        {{$firstAllergy}}
+                    </td>
+                    <td rowspan="{{$rowspan}}" style="padding: 5px;">{{$record['product']}}</td>
+                    <td rowspan="{{$rowspan}}"
+                        @if($record['quantity'] > 1)
+                            style="background-color: #ffff5e; padding: 5px;"
+                        @else
+                            style="padding: 5px;"
+                        @endif
+                    >
+                        {{$record['quantity']}}
+                    </td>
+                </tr>
+
+                @for($i = 1; $i < $rowspan; $i++)
+                    @php
+                        $allergy = $allergies[$i];
+                        $color = '#f49cba';
+
+                        if ($allergy === 'Vegetarian') {
+                            $color = '#61b361';
+                        }
+
+                        if ($allergy === 'Gluten Free') {
+                            $color = '#ffa521';
+                        }
+
+                        if ($allergy === 'Dairy Free') {
+                            $color = '#3cc2ff';
+                        }
+                    @endphp
+                    <tr>
+                        <td style="padding: 5px; background-color: {{$color}}; color:#000000; text-align:center;">
+                            {{$allergy}}
+                        </td>
+                    </tr>
+                @endfor
+            @endif
         @endforeach
         <tr>
             <td colspan="7" style="padding: 5px;"></td>
