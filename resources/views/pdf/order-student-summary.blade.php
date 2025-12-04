@@ -32,11 +32,22 @@
             </thead>
             <tbody>
                 @foreach ($items as $item)
-                    <tr>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->label }}</td>
-                        <td>{{ $item->quantity }}</td>
-                    </tr>
+                    @if($item['type'] === \App\Enums\ProductTypes::ALL_DAYS->value)
+                        @foreach($item->schedule_entries as $schedule_entry)
+                            <tr>
+                                <td>{{ $schedule_entry->product }}</td>
+                                <td>{{ $schedule_entry->date->format('d/m/Y') }}</td>
+                                <td>1</td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    @if($item['type'] === \App\Enums\ProductTypes::FOOD->value)
+                        <tr>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->date->format('d/m/Y') }}</td>
+                            <td>{{ $item->quantity }}</td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
