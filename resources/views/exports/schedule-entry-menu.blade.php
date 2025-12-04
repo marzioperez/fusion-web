@@ -47,7 +47,7 @@
                     @endif
                 </td>
                 <td style="padding: 5px;">{{$record['product']}}</td>
-                <td style="padding: 5px;">{{$record['quantity']}}</td>
+                <td @if($record['quantity'] > 1) style="background-color: #ffff5e; padding: 5px;" @else style="padding: 5px;" @endif>{{$record['quantity']}}</td>
             </tr>
         @endforeach
         <tr>
