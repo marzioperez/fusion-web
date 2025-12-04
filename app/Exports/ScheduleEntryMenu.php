@@ -22,63 +22,62 @@ class ScheduleEntryMenu implements FromView {
 
         $records = $model->whereBetween('date', [$this->from . ' 00:00', $this->to . ' 23:59'])->get();
 
-        // Detectar combinaciones repetidas (student_id + date)
-        $duplicatedKeys = $records
+        // 1) Mapeamos a un array base por cada registro
+        $records = $records->map(function ($item) {
+            $dateFormatted = $item->date->format('d/m/Y');
+
+            $detail = \App\Models\OrderItem::find($item->order_item_id);
+            $order_code = null;
+            if ($detail) {
+                $order_code = $detail->order->code;
+            }
+
+            return [
+                'school'      => $item->school,
+                'grade'       => $item->grade,
+                'first_name'  => $item->first_name,
+                'last_name'   => $item->last_name,
+                'product'     => $item->product,
+                'color'       => $item->color,
+                'student_id'  => $item->student_id,
+                'date'        => $dateFormatted,
+                'order_code'  => $order_code,
+                'allergies'   => $item->allergies,
+                'quantity'    => 1, // valor base
+            ];
+        });
+
+        // 2) Agrupamos por alumno + fecha + producto + orden
+        $records = $records
             ->groupBy(function ($item) {
-                return $item->student_id.'|'.$item->date->format('d/m/Y');
+                return implode('|', [
+                    $item['student_id'],
+                    $item['date'],
+                    $item['product'],
+                    $item['order_code'],
+                ]);
             })
-            ->filter(function ($group) {
-                return $group->count() > 1; // solo las que se repiten
+            ->map(function ($group) {
+                $first = $group->first();
+                // quantity = cantidad de registros en el grupo
+                $first['quantity'] = $group->count();
+
+                return $first;
             })
-            ->keys(); // colección de strings "student_id|YYYY-MM-DD"
+            // 3) Ordenamos por colegio y nombre como antes
+            ->sortBy([
+                ['school', 'asc'],
+                ['first_name', 'asc'],
+                ['last_name', 'asc'],
+            ])
+            ->values();
 
-        // Se ordenan y mapean agregando el indicador de duplicidad
-        $records = $records->sortBy([
-            ['school', 'asc'],
-            ['first_name', 'asc'],
-            ['last_name', 'asc']
-        ])->groupBy(['school', 'grade'])
-            ->flatMap(function ($school_group, $school_name) use ($duplicatedKeys) {
-                return $school_group->flatMap(function ($grade_group, $grade_name) use ($school_name, $duplicatedKeys) {
-                    return $grade_group->map(function ($item) use ($school_name, $grade_name, $duplicatedKeys) {
-                        $dateFormatted = $item->date->format('d/m/Y');
-                        $key = $item->student_id . '|' . $dateFormatted;
-
-                        $detail = \App\Models\OrderItem::find($item->order_item_id);
-                        $order_code = null;
-                        if ($detail) {
-                            $order_code = $detail->order->code;
-                        }
-
-                        // true si el alumno tiene más de un item ese mismo día
-                        $isDuplicated = $duplicatedKeys->contains($key);
-
-                        return [
-                            'school' => $school_name,
-                            'grade' => $grade_name,
-                            'first_name' => $item->first_name,
-                            'last_name' => $item->last_name,
-                            'product' => $item->product,
-                            'color' => $item->color,
-                            'student_id' => $item->student_id,
-                            'date' => $item->date->format('d/m/Y'),
-                            'is_duplicate' => $isDuplicated,
-                            'order_code' => $order_code,
-                            'allergies' => $item->allergies
-                        ];
-                    });
-                });
-            })->values();
-
-        // Contar alumnos únicos (por student_id)
-        $uniqueStudentsCount = $records
-            ->pluck('student_id')
-            ->unique()
-            ->count();
+        // 4) Total de quantity (todos los almuerzos sumados)
+        $total_quantity = $records->sum('quantity');
 
         return view('exports.schedule-entry-menu', [
             'records' => $records->toArray(),
-            'unique_students' => $uniqueStudentsCount,
+            'total_quantity' => $total_quantity,
         ]);
     }
 }
