@@ -36,13 +36,9 @@
                                     $color = "#3cc2ff";
                                 }
                             @endphp
-                            <table width="100%" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;">
-                                <tbody>
-                                    <tr>
-                                        <td style="padding-top: 5px; margin-bottom: 2px; font-size: 14px; padding-bottom: 5px; width: 100%; text-align: center; background-color: {{$color}};">{{$allergy}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin-bottom: 2px; font-size: 14px; width: 100%; text-align: center; background-color: {{$color}};">
+                                {{$allergy}}
+                            </div>
                         @endforeach
                     @else
                         -
