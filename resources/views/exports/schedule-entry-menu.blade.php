@@ -1,14 +1,14 @@
 <table cellspacing="0" cellpadding="0" border="1" width="100%" style="font-family: Arial, Helvetica, sans-serif;">
     <tbody>
         <tr>
-            <td style="background: #000000; color: #FFFFFF; text-align: center; padding-top: 5px; padding-bottom: 5px;" width="15">Order ID</td>
-            <td style="background: #000000; color: #FFFFFF; text-align: center;" width="15">Date</td>
-            <td style="background: #000000; color: #FFFFFF; text-align: center;" width="15">School</td>
-            <td style="background: #000000; color: #FFFFFF; text-align: center;" width="15">Student</td>
-            <td style="background: #000000; color: #FFFFFF; text-align: center;" width="15">Grade</td>
-            <td style="background: #000000; color: #FFFFFF; text-align: center;" width="15">Allergies</td>
-            <td style="background: #000000; color: #FFFFFF; text-align: center;" width="15">Product</td>
-            <td style="background: #000000; color: #FFFFFF; text-align: center;" width="15">Quantity</td>
+            <td style="background: #FE9E14; color: #000000; text-align: center; padding-top: 5px; padding-bottom: 5px;" width="15">Order ID</td>
+            <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Date</td>
+            <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">School</td>
+            <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Student</td>
+            <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Grade</td>
+            <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Allergies</td>
+            <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Product</td>
+            <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Quantity</td>
         </tr>
         @foreach($records as $record)
             @php
