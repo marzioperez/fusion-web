@@ -21,27 +21,7 @@
                 <td style="padding: 5px;">{{$record['grade']}}</td>
                 <td style="padding: 5px;">
                     @if($record['allergies'])
-                        <table width="100%" border="0">
-                            @foreach($record['allergies'] as $allergy)
-                                <tr>
-                                @php
-                                    $color = '#f49cba';
-                                    if ($allergy === 'Vegetarian') {
-                                        $color = "#61b361";
-                                    }
-
-                                    if ($allergy === 'Gluten Free') {
-                                        $color = "#ffa521";
-                                    }
-
-                                    if ($allergy === 'Dairy Free') {
-                                        $color = "#3cc2ff";
-                                    }
-                                @endphp
-                                    <td style="padding-top: 5px; margin-bottom: 2px; font-size: 14px; padding-bottom: 5px; width: 100%; text-align: center; background-color: {{$color}};">{{$allergy}}</td>
-                                </tr>
-                            @endforeach
-                        </table>
+                        -
                     @else
                         -
                     @endif
