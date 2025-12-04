@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Queue\SerializesModels;
 
 class UserMail extends Mailable {
@@ -33,13 +34,17 @@ class UserMail extends Mailable {
         );
     }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+    public function attachments(): array {
+        return $this->communication
+            ->getMedia('attachments')
+            ->map(function ($media) {
+                return Attachment::fromStorageDisk(
+                    $media->disk,
+                    $media->getPathRelativeToRoot(),
+                )
+                    ->as($media->file_name)
+                    ->withMime($media->mime_type);
+            })
+            ->all();
     }
 }

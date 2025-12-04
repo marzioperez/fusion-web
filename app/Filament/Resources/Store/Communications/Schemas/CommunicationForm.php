@@ -6,6 +6,7 @@ use App\Filament\Forms\Components\MediaGallery;
 use App\Models\School;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
@@ -24,7 +25,23 @@ class CommunicationForm {
                         ->visible(fn($get) => $get('send_all') == false)
                         ->required()->multiple()->reactive()->columnSpanFull(),
                     RichEditor::make('message')->label('Message')->columnSpanFull(),
-
+                    SpatieMediaLibraryFileUpload::make('attachments')->label('Attachments')
+                        ->collection('attachments')
+                        ->multiple()
+                        ->preserveFilenames()
+                        ->openable()
+                        ->downloadable()
+                        ->maxFiles(5)
+                        ->acceptedFileTypes([
+                            'application/pdf',
+                            'image/*',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                            'application/vnd.ms-excel',
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                        ])
+                        ->maxSize(2048) // 2MB
+                        ->columnSpanFull(),
                 ])->columns([
                     'default' => 1,
                     'sm' => 3,
