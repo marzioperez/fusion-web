@@ -88,6 +88,11 @@
                 .column-empty2 { padding-bottom: 30px !important; }
 
                 .content-spacing { width: 15px !important; }
+
+                td.text img {
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
             }
         </style>
     </head>

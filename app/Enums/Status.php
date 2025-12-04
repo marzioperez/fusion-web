@@ -12,5 +12,6 @@ enum Status: string {
     case ERROR = 'Error';
     case CONFIRMED = 'Confirmed';
     case CANCELED = 'Canceled';
+    case QUEUED = 'Queued';
 
 }
