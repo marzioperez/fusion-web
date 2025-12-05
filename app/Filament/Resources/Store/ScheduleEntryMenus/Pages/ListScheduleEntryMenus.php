@@ -24,7 +24,7 @@ class ListScheduleEntryMenus extends ListRecords {
                 ->form([
                     DateRangePicker::make('date_range')->label('Date range')->columnSpanFull()->required(),
                     Toggle::make('all_schools')->label('All schools')->default(true)->live(true)->columnSpan(6),
-                    Toggle::make('send_to_schools')->label('Send email to schools')->default(false)->live(true)->columnSpan(6),
+                    Toggle::make('send_to_schools')->label('Send email to school')->default(false)->live(true)->columnSpan(6),
                     Select::make('school_ids')->label('Schools')
                         ->multiple()->options(School::all()->pluck('name', 'id'))
                         ->required(fn(Get $get) => $get('all_schools') == false)

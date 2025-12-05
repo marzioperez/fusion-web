@@ -21,10 +21,11 @@
                             <th class="fi-ta-header-cell fi-ta-header-cell-name">Date</th>
                             <th class="fi-ta-header-cell fi-ta-header-cell-name">Product</th>
                             <th class="fi-ta-header-cell fi-ta-header-cell-name">Quantity</th>
+                            <th class="fi-ta-header-cell fi-ta-header-cell-name">Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php $total = 0; @endphp
+                        @php $total_quantities = 0; $total_prices = 0; @endphp
                         @foreach($rows as $row)
                             <tr class="fi-ta-row">
                                 <td class="fi-ta-cell">
@@ -36,13 +37,22 @@
                                 <td class="fi-ta-cell">
                                     <div class="fi-size-sm  fi-ta-text-item  fi-ta-text">{{$row['total_qty'] }}</div>
                                 </td>
+                                <td class="fi-ta-cell">
+                                    <div class="fi-size-sm  fi-ta-text-item  fi-ta-text">${{$row['total_price'] }}</div>
+                                </td>
                             </tr>
-                            @php $total += $row['total_qty']; @endphp
+                            @php $total_quantities += $row['total_qty']; @endphp
+                            @php $total_prices += $row['total_price']; @endphp
                         @endforeach
-                        @if($total !== 0)
+                        @if($total_quantities !== 0)
                             <tr class="fi-ta-row">
-                                <td class="fi-ta-cell" colspan="2">
-                                    <div class="fi-size-sm fi-ta-text-item  fi-ta-text"><b>Total: {{$total}}</b></div>
+                                <td></td>
+                                <td></td>
+                                <td class="fi-ta-cell">
+                                    <div class="fi-size-sm fi-ta-text-item  fi-ta-text"><b>{{$total_quantities}}</b></div>
+                                </td>
+                                <td class="fi-ta-cell">
+                                    <div class="fi-size-sm fi-ta-text-item  fi-ta-text"><b>${{$total_prices}}</b></div>
                                 </td>
                             </tr>
                         @endif

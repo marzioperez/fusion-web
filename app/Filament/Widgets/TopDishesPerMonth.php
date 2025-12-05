@@ -31,7 +31,7 @@ class TopDishesPerMonth extends Widget {
 
     protected function loadData(): void {
         $this->rows = ScheduleEntryMenu::query()
-            ->select('product', 'date', DB::raw('COUNT(*) as total_qty'))
+            ->select('product', 'date', DB::raw('COUNT(*) as total_qty'), DB::raw('SUM(price) as total_price'))
             ->whereMonth('date', $this->month)
             ->whereYear('date', $this->year)
             ->groupBy('product', 'date')
@@ -41,7 +41,8 @@ class TopDishesPerMonth extends Widget {
             ->map(fn ($row) => [
                 'date' => $row->date?->format('d/m/Y'),
                 'product' => $row->product,
-                'total_qty'    => (int) $row->total_qty,
+                'total_qty'  => (int) $row->total_qty,
+                'total_price' => (float) $row->total_price,
             ])
             ->toArray();
     }
