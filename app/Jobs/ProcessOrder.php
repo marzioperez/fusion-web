@@ -73,23 +73,30 @@ class ProcessOrder implements ShouldQueue {
             try {
                 $detail = $order->items;
                 foreach ($detail as $item) {
+                    $quantity = (int) ($item['quantity'] ?? $item['qty'] ?? 1);
+                    if ($quantity < 1) {
+                        $quantity = 1;
+                    }
+
                     $student = Student::find($item['student_id']);
                     if ($item['type'] === ProductTypes::FOOD->value) {
-                        ScheduleEntryMenu::create([
-                            'order_item_id' => $item['id'],
-                            'product_id' => $item['product_id'],
-                            'school_id' => $student['school_id'],
-                            'grade_id' => $student['grade_id'],
-                            'student_id' => $student['id'],
-                            'date' => $item['date'],
-                            'first_name' => $student['first_name'],
-                            'last_name' => $student['last_name'],
-                            'product' => $item['name'],
-                            'school' => ($student['school'] ? $student['school']['name'] : null),
-                            'grade' => ($student['grade'] ? $student['grade']['name'] : null),
-                            'color' => ($student['school'] ? $student['school']['color'] : null),
-                            'allergies' => $student['allergies'],
-                        ]);
+                        for ($i = 0; $i < $quantity; $i++) {
+                            ScheduleEntryMenu::create([
+                                'order_item_id' => $item['id'],
+                                'product_id' => $item['product_id'],
+                                'school_id' => $student['school_id'],
+                                'grade_id' => $student['grade_id'],
+                                'student_id' => $student['id'],
+                                'date' => $item['date'],
+                                'first_name' => $student['first_name'],
+                                'last_name' => $student['last_name'],
+                                'product' => $item['name'],
+                                'school' => ($student['school'] ? $student['school']['name'] : null),
+                                'grade' => ($student['grade'] ? $student['grade']['name'] : null),
+                                'color' => ($student['school'] ? $student['school']['color'] : null),
+                                'allergies' => $student['allergies'],
+                            ]);
+                        }
                     }
                     if ($item['type'] === ProductTypes::ALL_DAYS->value) {
                         if ($item['data']) {
