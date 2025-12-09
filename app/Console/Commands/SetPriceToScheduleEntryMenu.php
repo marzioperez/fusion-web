@@ -30,8 +30,12 @@ class SetPriceToScheduleEntryMenu extends Command
         $progress_bar = $this->output->createProgressBar($schedule_entries->count());
         foreach ($schedule_entries as $schedule_entry) {
             $product = Product::find($schedule_entry['product_id']);
+            $price = $product->price;
+            if ($schedule_entry['school'] === "Cedarwood Waldorf School") {
+                $price = 9;
+            }
             if ($product) {
-                $schedule_entry->update(['price' => $product->price]);
+                $schedule_entry->update(['price' => $price]);
             }
             $progress_bar->advance();
         }

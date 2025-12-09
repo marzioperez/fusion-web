@@ -88,6 +88,7 @@ class ProcessOrder implements ShouldQueue {
                                 'grade_id' => $student['grade_id'],
                                 'student_id' => $student['id'],
                                 'date' => $item['date'],
+                                'price' => $item['price'],
                                 'first_name' => $student['first_name'],
                                 'last_name' => $student['last_name'],
                                 'product' => $item['name'],
