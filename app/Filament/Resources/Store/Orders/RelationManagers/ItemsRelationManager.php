@@ -95,7 +95,7 @@ class ItemsRelationManager extends RelationManager
                 // AssociateAction::make(),
             ])
             ->recordActions([
-                EditAction::make()->visible(fn ($record): bool => $record->type === ProductTypes::ALL_DAYS->value),
+                EditAction::make()->modalSubmitAction(false)->visible(fn ($record): bool => $record->type === ProductTypes::ALL_DAYS->value),
                 Action::make('cancel')->label('Cancel')
                     ->requiresConfirmation()->button()
                     ->modalHeading('Cancel item')
