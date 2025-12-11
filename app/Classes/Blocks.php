@@ -3,6 +3,8 @@
 namespace App\Classes;
 
 use App\Filament\Forms\Components\MediaPicker;
+use App\Models\Form;
+use App\Models\Media;
 use App\Models\Slider;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Builder\Block;
@@ -360,6 +362,135 @@ class Blocks {
                             'bottom_mobile' => 9,
                         ]))
                     ])
+                ])
+            ]),
+            Block::make('section-title')->label('Título principal')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema([
+                            TextInput::make('title')->label('Título')->columnSpanFull()
+                        ])
+                    ]),
+                    Tab::make('Imagen de fondo')->schema([
+                        MediaPicker::make('inner_image_id')->label('Imagen de fondo')->columnSpanFull(),
+                    ]),
+                    Tab::make('Ajustes')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema($this->block_default_settings([
+                            'top_desktop' => 14,
+                            'bottom_desktop' => 14,
+                            'top_mobile' => 9,
+                            'bottom_mobile' => 9,
+                        ]))
+                    ])
+                ])
+            ]),
+            Block::make('time-line')->label('Línea de tiempo')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema([
+                            TextInput::make('before_title')->label('Título inicial')->columnSpan(4),
+                            TextInput::make('title')->label('Título')->columnSpan(8),
+                            TextInput::make('sub_title')->label('Subtítulo')->columnSpanFull(),
+                            RichEditor::make('content')->label('Contenido')->columnSpanFull(),
+                        ])
+                    ]),
+                    Tab::make('Línea de tiempo')->schema([
+                        TextInput::make('time_line_title')->label('Título')->columnSpanFull(),
+                        Repeater::make('items')->label('Ítems')->schema([
+                            TextInput::make('year')->label('Año')->columnSpanFull(),
+                            Textarea::make('content')->label('Contenido')->columnSpanFull(),
+                        ])->columns()->collapsible()->collapsed()->cloneable()->columnSpanFull(),
+                    ]),
+                    Tab::make('Imagen')->schema([
+                        MediaPicker::make('image_id')->label('Imagen')->columnSpanFull(),
+                    ]),
+                    Tab::make('Ajustes')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema($this->block_default_settings([
+                            'top_desktop' => 14,
+                            'bottom_desktop' => 14,
+                            'top_mobile' => 9,
+                            'bottom_mobile' => 9,
+                        ]))
+                    ])
+                ])
+            ]),
+            Block::make('text-content')->label('Contenido de texto')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        RichEditor::make('content')->label('Contenido')->columnSpanFull(),
+                    ]),
+                    Tab::make('Ajustes')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema($this->block_default_settings([
+                            'top_desktop' => 14,
+                            'bottom_desktop' => 14,
+                            'top_mobile' => 9,
+                            'bottom_mobile' => 9,
+                        ]))
+                    ])
+                ])
+            ]),
+            Block::make('form-with-map')->label('Formulario con mapa')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        Select::make('form_id')->label('Formulario')->options(Form::all()->pluck('name', 'id'))->columnSpanFull(),
+                        Textarea::make('map')->label('Mapa')->hint('Ingresa el iframe del mapa, cambia el parámetro width al 100%')->columnSpanFull(),
+                    ]),
+                    Tab::make('Ajustes')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema($this->block_default_settings([
+                            'top_desktop' => 14,
+                            'bottom_desktop' => 14,
+                            'top_mobile' => 9,
+                            'bottom_mobile' => 9,
+                        ]))
+                    ])
+                ])
+            ]),
+            Block::make('register')->label('Registro')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        TextInput::make('title')->label('Título')->columnSpanFull(),
+                        TextInput::make('login_url')->label('URL de login')->columnSpanFull(),
+                        MediaPicker::make('bg_image_id')->label('Imagen')->columnSpanFull(),
+                    ]),
+                ])
+            ]),
+            Block::make('login')->label('Login')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        TextInput::make('reset_password_url')->label('URL de recuperación de contraseña')->columnSpanFull(),
+                        TextInput::make('register_url')->label('URL de registro')->columnSpanFull(),
+                        MediaPicker::make('bg_image_id')->label('Imagen')->columnSpanFull(),
+                    ]),
                 ])
             ]),
         ]);

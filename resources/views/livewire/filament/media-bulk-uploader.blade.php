@@ -9,7 +9,8 @@
         $refs.file.files = dt.files;
         $refs.file.dispatchEvent(new Event('change', { bubbles: true }));
     "
-    class="rounded-xl border dark:border-gray-500 dark:bg-gray-800 bg-white border-dashed p-6 flex items-center justify-center h-36"
+    style="height: 120px;"
+    class="rounded-xl border dark:border-gray-500 dark:bg-gray-800 bg-white border-dashed p-6 flex items-center justify-center"
 >
     <input x-ref="file" type="file" wire:model="files" multiple style="display: none;" />
 

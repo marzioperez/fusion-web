@@ -1,5 +1,5 @@
 <x-filament-panels::page>
-    <div x-data="{ showUpload: true, selCount:0 }" x-on:selection-count-changed.window="selCount = $event.detail.count">
+    <div x-data="{ showUpload: false, selCount:0 }" x-on:selection-count-changed.window="selCount = $event.detail.count">
 
         <main class="space-y-4">
             <x-filament::section>
