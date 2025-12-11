@@ -11,12 +11,14 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Get;
 
 class Blocks {
 
@@ -26,7 +28,7 @@ class Blocks {
         $this->model = $model;
     }
 
-    public function padding_settings(array $default_values = [
+    public function block_default_settings(array $default_values = [
         'top_desktop' => 7,
         'bottom_desktop' => 7,
         'top_mobile' => 6,
@@ -41,7 +43,12 @@ class Blocks {
             ])->schema([
                 Section::make('Visualización')->schema([
                     Toggle::make('visible')->label('Mostrar')->default(true)->columnSpanFull(),
-                    ColorPicker::make('bg_color')->label('Color de fondo')->default('#FFFFFF')->columnSpanFull(),
+                    Select::make('bg_type')->label('Tipo de fondo')->options([
+                        'image' => 'Imagen',
+                        'color' => 'Color'
+                    ])->live(),
+                    ColorPicker::make('bg_color')->label('Color de fondo')->default('#FFFFFF')->columnSpanFull()->visible(fn(Get $get) => $get('bg_type') === 'color'),
+                    MediaPicker::make('bg_image_id')->label('Imagen de fondo')->columnSpanFull()->visible(fn(Get $get) => $get('bg_type') === 'image'),
                     TextInput::make('id')->label('Identificador')->columnSpanFull(),
                 ])->columnSpanFull(),
                 Section::make('Espaciado interno Desktop')->schema([
@@ -134,6 +141,226 @@ class Blocks {
                 Select::make('slider')->label('Slider')->options(Slider::all()->pluck('name', 'id'))->columnSpanFull(),
                 Toggle::make('arrows')->label('Mostrar flechas')->default(false)->columnSpanFull(),
                 Toggle::make('pagination')->label('Mostrar paginación')->default(false)->columnSpanFull(),
+            ]),
+            Block::make('card-list')->label('Lista de tarjetas')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema([
+                            TextInput::make('title')->label('Título')->columnSpanFull(),
+                            RichEditor::make('sub_title')->label('Subtítulo')->columnSpanFull(),
+                        ])
+                    ]),
+                    Tab::make('Tarjetas')->schema([
+                        Repeater::make('cards')->label('Tarjetas')->schema([
+                            TextInput::make('title')->label('Título')->columnSpanFull(),
+                            TextInput::make('sub_title')->label('Título')->columnSpanFull(),
+                            ColorPicker::make('bg_color')->label('Color de fondo'),
+                            ColorPicker::make('text_color')->label('Color de texto'),
+                            MediaPicker::make('icon_id')->label('Icono')->columnSpanFull(),
+                        ])->columns()
+                    ]),
+                    Tab::make('Ajustes')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema($this->block_default_settings([
+                            'top_desktop' => 14,
+                            'bottom_desktop' => 14,
+                            'top_mobile' => 9,
+                            'bottom_mobile' => 9,
+                        ]))
+                    ])
+                ])
+            ]),
+            Block::make('image-text-and-metrics')->label('Imagen y métricas')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema([
+                            TextInput::make('before_title')->label('Título inicial')->columnSpan(4),
+                            TextInput::make('title')->label('Título')->columnSpan(8),
+                            TextInput::make('sub_title')->label('Subtítulo')->columnSpanFull(),
+                            RichEditor::make('content')->label('Contenido')->columnSpanFull(),
+                            TextInput::make('button_text')->label('Texto en botón')->columnSpan(4),
+                            TextInput::make('button_url')->label('URL en botón')->columnSpan(8),
+                            Toggle::make('open_in_new_tab')->label('Abrir en una nueva pestaña')->columnSpanFull()
+                        ])
+                    ]),
+                    Tab::make('Métricas')->schema([
+                        Repeater::make('metrics')->label('Métricas')->schema([
+                            TextInput::make('value')->label('Valor')->columnSpanFull(),
+                            TextInput::make('title')->label('Título')->columnSpanFull(),
+                            ColorPicker::make('color')->label('Color')
+                        ])->columns()->collapsible()->collapsed()->cloneable()->columnSpanFull(),
+                    ]),
+                    Tab::make('Imagen')->schema([
+                        MediaPicker::make('image_id')->label('Imagen')->columnSpanFull(),
+                    ]),
+                    Tab::make('Ajustes')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema($this->block_default_settings([
+                            'top_desktop' => 14,
+                            'bottom_desktop' => 14,
+                            'top_mobile' => 9,
+                            'bottom_mobile' => 9,
+                        ]))
+                    ])
+                ])
+            ]),
+            Block::make('school-carousel')->label('Carrusel de colegios')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema([
+                            TextInput::make('before_title')->label('Título inicial')->columnSpan(4),
+                            TextInput::make('title')->label('Título')->columnSpan(8),
+                            TextInput::make('sub_title')->label('Subtítulo')->columnSpanFull(),
+                            TextInput::make('button_text')->label('Texto en botón')->columnSpan(4),
+                            TextInput::make('button_url')->label('URL en botón')->columnSpan(8),
+                            Toggle::make('open_in_new_tab')->label('Abrir en una nueva pestaña')->columnSpanFull()
+                        ])
+                    ]),
+                    Tab::make('Ajustes')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema($this->block_default_settings([
+                            'top_desktop' => 14,
+                            'bottom_desktop' => 14,
+                            'top_mobile' => 9,
+                            'bottom_mobile' => 9,
+                        ]))
+                    ])
+                ])
+            ]),
+            Block::make('text-and-video')->label('Texto y video')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema([
+                            TextInput::make('before_title')->label('Título inicial')->columnSpan(4),
+                            TextInput::make('title')->label('Título')->columnSpan(8),
+                            TextInput::make('sub_title')->label('Subtítulo')->columnSpanFull(),
+                            RichEditor::make('content')->label('Contenido')->columnSpanFull(),
+                            Repeater::make('lists')->label('Listas')->schema([
+                                RichEditor::make('content')->label('Contenido')->columnSpanFull(),
+                            ])->columnSpanFull()->collapsible()->collapsed()->cloneable(),
+                        ])
+                    ]),
+                    Tab::make('Video')->schema([
+                        TextInput::make('video_title')->label('Título')->columnSpanFull(),
+                        Textarea::make('video_iframe')->label('Iframe')->columnSpanFull()->hint('Ingresa el iframe del video, cambia el parámetro width al 100%'),
+                    ]),
+                    Tab::make('Ajustes')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema($this->block_default_settings([
+                            'top_desktop' => 14,
+                            'bottom_desktop' => 14,
+                            'top_mobile' => 9,
+                            'bottom_mobile' => 9,
+                        ]))
+                    ])
+                ])
+            ]),
+            Block::make('logos-carousel')->label('Carrusel de logos')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema([
+                            TextInput::make('before_title')->label('Título inicial')->columnSpan(4),
+                            TextInput::make('title')->label('Título')->columnSpan(8),
+                            TextInput::make('sub_title')->label('Subtítulo')->columnSpanFull()
+                        ])
+                    ]),
+                    Tab::make('Logos')->schema([
+                        Repeater::make('logos')->label('Logos')->schema([
+                            MediaPicker::make('logo')->label('Logo')->columnSpanFull(),
+                        ])->grid()->collapsible()->collapsed()->cloneable()
+                    ]),
+                    Tab::make('Ajustes')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema($this->block_default_settings([
+                            'top_desktop' => 14,
+                            'bottom_desktop' => 14,
+                            'top_mobile' => 9,
+                            'bottom_mobile' => 9,
+                        ]))
+                    ])
+                ])
+            ]),
+            Block::make('text-with-bg-image')->label('Texto en imagen de fondo')->schema([
+                Tabs::make()->tabs([
+                    Tab::make('Contenido')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema([
+                            TextInput::make('before_title')->label('Título inicial')->columnSpan(4),
+                            TextInput::make('title')->label('Título')->columnSpan(8),
+                            TextInput::make('sub_title')->label('Subtítulo')->columnSpanFull(),
+                            RichEditor::make('content')->label('Contenido')->columnSpanFull(),
+                            TextInput::make('button_text')->label('Texto en botón')->columnSpan(4),
+                            TextInput::make('button_url')->label('URL en botón')->columnSpan(8),
+                            Toggle::make('open_in_new_tab')->label('Abrir en una nueva pestaña')->columnSpanFull()
+                        ])
+                    ]),
+                    Tab::make('Imagen de fondo')->schema([
+                        MediaPicker::make('image_id')->label('Imagen de fondo')->columnSpanFull(),
+                        MediaPicker::make('inner_image_id')->label('Imagen por encima')->columnSpanFull(),
+                    ]),
+                    Tab::make('Ajustes')->schema([
+                        Grid::make([
+                            'default' => 1,
+                            'sm' => 3,
+                            'xl' => 12,
+                            '2xl' => 12
+                        ])->schema($this->block_default_settings([
+                            'top_desktop' => 14,
+                            'bottom_desktop' => 14,
+                            'top_mobile' => 9,
+                            'bottom_mobile' => 9,
+                        ]))
+                    ])
+                ])
             ]),
         ]);
 

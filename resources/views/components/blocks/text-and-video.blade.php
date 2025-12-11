@@ -21,31 +21,33 @@
         }
     }
 @endphp
-<div style="{{$bg_data}}" class="{{$padding_classes}}">
-    <div class="container space-y-6">
-        <div class="md:grid grid-cols-2 gap-6">
-            <div class="space-y-3">
-                @if($data['before_title'])
-                    <h6 class="text-secondary font-semibold">{{$data['before_title']}}</h6>
-                @endif
-                @if($data['title'])
-                    <h2>{{$data['title']}}</h2>
-                @endif
-                <div class="html-content">{!! $data['content'] !!}</div>
-                @if(count($data['lists']) > 0)
-                    <div class="md:grid grid-cols-2 gap-6">
-                        @foreach($data['lists'] as $list)
-                            <div class="html-content">{!! $list['content'] !!}</div>
-                        @endforeach
-                    </div>
-                @endif
-            </div>
-            <div class="space-y-3">
-                @if($data['video_title'])
-                    <h2>{{$data['video_title']}}</h2>
-                @endif
-                <div class="html-content">{!! $data['video_iframe'] !!}</div>
+@if($data['visible'])
+    <div style="{{$bg_data}}" class="{{$padding_classes}}">
+        <div class="container space-y-6">
+            <div class="md:grid grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    @if($data['before_title'])
+                        <h6 class="text-secondary font-semibold">{{$data['before_title']}}</h6>
+                    @endif
+                    @if($data['title'])
+                        <h2>{{$data['title']}}</h2>
+                    @endif
+                    <div class="html-content">{!! $data['content'] !!}</div>
+                    @if(count($data['lists']) > 0)
+                        <div class="md:grid grid-cols-2 gap-6">
+                            @foreach($data['lists'] as $list)
+                                <div class="html-content">{!! $list['content'] !!}</div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                <div class="space-y-3">
+                    @if($data['video_title'])
+                        <h2>{{$data['video_title']}}</h2>
+                    @endif
+                    <div class="html-content">{!! $data['video_iframe'] !!}</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+@endif

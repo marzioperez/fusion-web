@@ -21,38 +21,40 @@
         }
     }
 @endphp
-<div style="{{$bg_data}}" class="{{$padding_classes}}">
-    <div class="container space-y-6">
-        <div class="grid md:grid-cols-4 grid-cols-2 shadow-md rounded-lg">
-            @foreach($data['cards'] as $i => $item)
-                @php
-                    $class = '';
-                    if ($i === 0) {
-                        $class = 'rounded-l-lg';
-                    }
-                    if ($i == array_key_last($data['cards'])) {
-                        $class = 'rounded-r-lg';
-                    }
-                @endphp
-                <div style="background-color: {{$item['bg_color']}}" class="p-3 {{$class}}">
-                    <div class="md:grid grid-cols-12 gap-6 px-3 py-2">
-                        <div class="col-span-4">
-                            @if($item['icon_id'])
-                                @php $icon = Media::find($item['icon_id']); @endphp
-                                @if($icon)
-                                    <img src="{{($icon->hasGeneratedConversion('webp') ? $icon->getFullUrl('webp') : $icon->getUrl())}}" alt="">
+@if($data['visible'])
+    <div style="{{$bg_data}}" class="{{$padding_classes}}">
+        <div class="container space-y-6">
+            <div class="grid md:grid-cols-4 grid-cols-2 shadow-md rounded-lg">
+                @foreach($data['cards'] as $i => $item)
+                    @php
+                        $class = '';
+                        if ($i === 0) {
+                            $class = 'rounded-l-lg';
+                        }
+                        if ($i == array_key_last($data['cards'])) {
+                            $class = 'rounded-r-lg';
+                        }
+                    @endphp
+                    <div style="background-color: {{$item['bg_color']}}" class="p-3 {{$class}}">
+                        <div class="md:grid grid-cols-12 gap-6 px-3 py-2">
+                            <div class="col-span-4">
+                                @if($item['icon_id'])
+                                    @php $icon = Media::find($item['icon_id']); @endphp
+                                    @if($icon)
+                                        <img src="{{($icon->hasGeneratedConversion('webp') ? $icon->getFullUrl('webp') : $icon->getUrl())}}" alt="">
+                                    @endif
                                 @endif
-                            @endif
-                        </div>
-                        <div class="col-span-8 flex items-center">
-                            <div style="color: {{$item['text_color']}}">
-                                <h5>{{$item['title']}}</h5>
-                                <p>{{$item['sub_title']}}</p>
+                            </div>
+                            <div class="col-span-8 flex items-center">
+                                <div style="color: {{$item['text_color']}}">
+                                    <h5>{{$item['title']}}</h5>
+                                    <p>{{$item['sub_title']}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
     </div>
-</div>
+@endif

@@ -37,23 +37,25 @@
         }
     }
 @endphp
-<div style="{{$bg_data}}" class="{{$padding_classes}}">
-    <div class="container space-y-6">
-        <div class="overflow-hidden relative rounded-2xl md:py-12 py-8 md:px-8 px-4 bg-fixed bg-top" style="background-image: url({{$bg_block}})">
-            <div class="absolute top-0 left-0 w-full h-full z-10 bg-cover bg-bottom opacity-50 bg-black/80" style="background-image: url({{$bg_inner_block}})"></div>
-            <div class="text-center text-white space-y-6 relative z-20">
-                @if($data['title'])
-                    <h2>{{$data['title']}}</h2>
-                @endif
-                @if($data['content'])
-                    <div class="html-content mx-auto md:w-[500px] w-full">{!! $data['content'] !!}</div>
-                @endif
-                @if($data['button_url'] && $data['button_text'])
-                    <div class="flex justify-center">
-                        <a href="{{$data['button_url']}}" wire:navigate class="btn btn-lg btn-primary">{{$data['button_text']}}</a>
-                    </div>
-                @endif
+@if($data['visible'])
+    <div style="{{$bg_data}}" class="{{$padding_classes}}">
+        <div class="container space-y-6">
+            <div class="overflow-hidden relative rounded-2xl md:py-12 py-8 md:px-8 px-4 bg-fixed bg-top" style="background-image: url({{$bg_block}})">
+                <div class="absolute top-0 left-0 w-full h-full z-10 bg-cover bg-bottom opacity-50 bg-black/80" style="background-image: url({{$bg_inner_block}})"></div>
+                <div class="text-center text-white space-y-6 relative z-20">
+                    @if($data['title'])
+                        <h2>{{$data['title']}}</h2>
+                    @endif
+                    @if($data['content'])
+                        <div class="html-content mx-auto md:w-[500px] w-full">{!! $data['content'] !!}</div>
+                    @endif
+                    @if($data['button_url'] && $data['button_text'])
+                        <div class="flex justify-center">
+                            <a href="{{$data['button_url']}}" wire:navigate class="btn btn-lg btn-primary">{{$data['button_text']}}</a>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
-</div>
+@endif
