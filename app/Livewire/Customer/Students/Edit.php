@@ -6,6 +6,7 @@ use App\Models\Allergy;
 use App\Models\Grade;
 use App\Models\School;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Settings\GeneralSettings;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -18,6 +19,7 @@ class Edit extends Component {
         'last_name' => '',
         'school_id' => '',
         'grade_id' => '',
+        'teacher_id' => null,
         'allergies' => [],
         'birth_of_date' => '',
         'avatar_media_id' => ''
@@ -41,6 +43,7 @@ class Edit extends Component {
     ];
 
     public array $schools, $grades, $avatars, $allergies;
+    public array $teachers = [];
     public bool $prefilling = false;
 
     public function mount() {
@@ -66,6 +69,7 @@ class Edit extends Component {
     public function onStudentEdited($student): void {
         $this->prefilling = true;
         $this->grades = Grade::where('school_id', $student['school_id'])->get()->toArray();
+        $this->teachers = Teacher::where('grade_id', $student['grade_id'])->get()->toArray();
         $this->data = $student;
         $this->prefilling = false;
         $this->dispatch('open-modal', name: 'modal-edit-student');
@@ -74,6 +78,11 @@ class Edit extends Component {
     public function updatedDataSchoolId($value):void {
         $this->grades = Grade::where('school_id', $value)->get()->toArray();
         $this->data['grade_id'] = '';
+    }
+
+    public function updatedDataGradeId($value):void {
+        $this->teachers = Teacher::where('grade_id', $value)->get()->toArray();
+        $this->data['teacher_id'] = null;
     }
 
     public function process() {

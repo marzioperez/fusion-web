@@ -24,6 +24,7 @@ class Student extends Model implements HasMedia {
         'last_name',
         'school_id',
         'grade_id',
+        'teacher_id',
         'allergies',
         'birth_of_date',
         'avatar_media_id',
@@ -102,6 +103,10 @@ class Student extends Model implements HasMedia {
 
     public function school(): BelongsTo {
         return $this->belongsTo(School::class);
+    }
+
+    public function teacher(): BelongsTo {
+        return $this->belongsTo(Teacher::class);
     }
 
     public function grade(): BelongsTo {

@@ -5,6 +5,7 @@ namespace App\Livewire\Customer\Students;
 use App\Models\Allergy;
 use App\Models\Grade;
 use App\Models\School;
+use App\Models\Teacher;
 use App\Settings\GeneralSettings;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -17,6 +18,7 @@ class Add extends Component {
         'last_name' => '',
         'school_id' => '',
         'grade_id' => '',
+        'teacher_id' => null,
         'allergies' => [],
         'birth_of_date' => '',
         'avatar_media_id' => null
@@ -40,6 +42,7 @@ class Add extends Component {
     ];
 
     public array $schools, $grades, $avatars, $allergies;
+    public array $teachers = [];
 
     public function mount() {
         $this->schools = School::query()->select(['id', 'name'])->orderBy('name')->get()->toArray();
@@ -65,8 +68,19 @@ class Add extends Component {
         $this->data['grade_id'] = '';
     }
 
+    public function updatedDataGradeId($value):void {
+        $this->teachers = Teacher::where('grade_id', $value)->get()->toArray();
+        $this->data['teacher_id'] = null;
+    }
+
     public function process() {
-        $this->validate();
+        $rules = $this->rules;
+
+        if (!empty($this->teachers)) {
+            $rules['data.teacher_id'] = 'required';
+        }
+
+        $this->validate($rules);
 
         $user = auth()->user();
         $data = $this->data;

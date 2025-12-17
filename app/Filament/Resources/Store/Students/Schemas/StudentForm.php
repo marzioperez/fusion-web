@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Store\Students\Schemas;
 use App\Filament\Forms\Components\MediaPicker;
 use App\Models\Allergy;
 use App\Models\Grade;
+use App\Models\Teacher;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -36,13 +37,20 @@ class StudentForm {
                     TextInput::make('last_name')->label('Apellidos')->required()->columnSpan(6),
                     DatePicker::make('birth_of_date')->label('Fecha de nacimiento')->required()->columnSpan(4),
                     Select::make('school_id')->label('Colegio')->relationship('school', 'name')->required()->reactive()->columnSpan(4),
-                    Select::make('grade_id')->label('Grado')->required()->options(function (callable $get) {
+                    Select::make('grade_id')->label('Grado')->reactive()->required()->options(function (callable $get) {
                         $school = $get('school_id');
                         if (!$school) {
                             return [];
                         }
                         return Grade::where('school_id', $school)->pluck('name', 'id')->toArray();
                     })->columnSpan(4),
+                    Select::make('teacher_id')->label('Teacher')->options(function (callable $get) {
+                        $grade = $get('grade_id');
+                        if (!$grade) {
+                            return [];
+                        }
+                        return Teacher::where('grade_id', $grade)->pluck('name', 'id')->toArray();
+                    })->columnSpanFull(),
                     TagsInput::make('allergies')->label('Alergias')->suggestions(Allergy::all()->pluck('name')->toArray())->columnSpanFull(),
                 ])->columns([
                     'default' => 1,

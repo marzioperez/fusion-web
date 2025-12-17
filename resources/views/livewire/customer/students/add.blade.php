@@ -61,6 +61,21 @@
             </div>
         </div>
 
+        @if(count($teachers) > 0)
+            <div class="col-span-full">
+                <label for="grade_id">Teacher</label>
+                <div>
+                    <select name="teacher_id" wire:model.live="data.teacher_id" id="teacher_id">
+                        <option value="">Select Teacher</option>
+                        @foreach($teachers as $teacher)
+                            <option value="{{$teacher['id']}}">{{$teacher['name']}}</option>
+                        @endforeach
+                    </select>
+                    @error('data.teacher_id') <span class="validation-error">{{ $message }}</span> @enderror
+                </div>
+            </div>
+        @endif
+
         <div class="col-span-full">
             <label for="allergies">Allergies</label>
             <x-inputs.tags :options="$allergies" wire-model="data.allergies" />

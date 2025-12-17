@@ -14,6 +14,7 @@ use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
@@ -32,6 +33,9 @@ class GradesRelationManager extends RelationManager {
         return $schema
             ->components([
                 TextInput::make('name')->label('Nombre')->required()->maxLength(255)->columnSpanFull(),
+                Repeater::make('teachers')->relationship('teachers')->schema([
+                    TextInput::make('name')->label('Nombre')->required(),
+                ])->grid()->columnSpanFull()
             ]);
     }
 

@@ -51,7 +51,8 @@ class Index extends Component
             'birth_of_date',
             'avatar_media_id',
             'allergies',
-            'grade_id'
+            'grade_id',
+            'teacher_id'
         ]);
 
         return array_merge($student, [
