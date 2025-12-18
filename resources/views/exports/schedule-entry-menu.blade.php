@@ -6,6 +6,7 @@
             <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">School</td>
             <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Student</td>
             <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Grade</td>
+            <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Teacher</td>
             <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Allergies</td>
             <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Product</td>
             <td style="background: #FE9E14; color: #000000; text-align: center;" width="15">Quantity</td>
@@ -41,6 +42,7 @@
                         <b>{{$record['first_name']}} {{$record['last_name']}}</b>
                     </td>
                     <td style="padding: 5px;">{{$record['grade']}}</td>
+                    <td style="padding: 5px;">{{$record['teacher_name']}}</td>
                     <td style="padding: 5px; @if($allergy !== '-') background-color: {{$color}}; color:#000000; text-align:center; @endif">
                         {{$allergy}}
                     </td>
@@ -75,6 +77,7 @@
                         <b>{{$record['first_name']}} {{$record['last_name']}}</b>
                     </td>
                     <td rowspan="{{$rowspan}}" style="padding: 5px;">{{$record['grade']}}</td>
+                    <td rowspan="{{$rowspan}}" style="padding: 5px;">{{$record['teacher_name']}}</td>
                     <td style="padding: 5px; background-color: {{$color}}; color:#000000; text-align:center;">
                         {{$firstAllergy}}
                     </td>
@@ -116,7 +119,7 @@
             @endif
         @endforeach
         <tr>
-            <td colspan="7" style="padding: 5px;"></td>
+            <td colspan="8" style="padding: 5px;"></td>
             <td style="padding: 5px;">{{$total_quantity}}</td>
         </tr>
     </tbody>

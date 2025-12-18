@@ -19,7 +19,7 @@ Route::middleware('web')->group(function () {
         if ($school_ids) {
             $model->whereIn('school_id', $school_ids);
         }
-        $model->whereBetween('date', ['2025-12-04 00:00', '2025-12-04 23:59']);
+        $model->whereBetween('date', ['2025-12-18 00:00', '2025-12-18 23:59']);
         $records = $model->get();
 
         // 1) Mapeamos a un array base por cada registro
@@ -35,6 +35,7 @@ Route::middleware('web')->group(function () {
             return [
                 'school'      => $item->school,
                 'grade'       => $item->grade,
+                'teacher_name'       => $item->teacher_name,
                 'first_name'  => $item->first_name,
                 'last_name'   => $item->last_name,
                 'product'     => $item->product,

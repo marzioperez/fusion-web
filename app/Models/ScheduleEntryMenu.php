@@ -12,6 +12,7 @@ class ScheduleEntryMenu extends Model {
         'product_id',
         'school_id',
         'grade_id',
+        'teacher_id',
         'student_id',
         'date',
         'price',
@@ -20,6 +21,7 @@ class ScheduleEntryMenu extends Model {
         'product',
         'school',
         'grade',
+        'teacher_name',
         'color',
         'allergies'
     ];

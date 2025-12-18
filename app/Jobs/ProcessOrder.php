@@ -79,6 +79,7 @@ class ProcessOrder implements ShouldQueue {
                     }
 
                     $student = Student::find($item['student_id']);
+                    $teacher_name = $student->teacher?->name;
                     if ($item['type'] === ProductTypes::FOOD->value) {
                         for ($i = 0; $i < $quantity; $i++) {
                             ScheduleEntryMenu::create([
@@ -86,6 +87,7 @@ class ProcessOrder implements ShouldQueue {
                                 'product_id' => $item['product_id'],
                                 'school_id' => $student['school_id'],
                                 'grade_id' => $student['grade_id'],
+                                'teacher_id' => $student['teacher_id'],
                                 'student_id' => $student['id'],
                                 'date' => $item['date'],
                                 'price' => $item['price'],
@@ -94,6 +96,7 @@ class ProcessOrder implements ShouldQueue {
                                 'product' => $item['name'],
                                 'school' => ($student['school'] ? $student['school']['name'] : null),
                                 'grade' => ($student['grade'] ? $student['grade']['name'] : null),
+                                'teacher_name' => $teacher_name,
                                 'color' => ($student['school'] ? $student['school']['color'] : null),
                                 'allergies' => $student['allergies'],
                             ]);
@@ -109,6 +112,7 @@ class ProcessOrder implements ShouldQueue {
                                     'product_id' => $food['product_id'],
                                     'school_id' => $student['school_id'],
                                     'grade_id' => $student['grade_id'],
+                                    'teacher_id' => $student['teacher_id'],
                                     'student_id' => $student['id'],
                                     'date' => $date,
                                     'price' => $food['price'],
@@ -117,6 +121,7 @@ class ProcessOrder implements ShouldQueue {
                                     'product' => ($menu_entry['product'] ? $menu_entry['product']['name'] : null),
                                     'school' => ($student['school'] ? $student['school']['name'] : null),
                                     'grade' => ($student['grade'] ? $student['grade']['name'] : null),
+                                    'teacher_name' => $teacher_name,
                                     'color' => ($student['school'] ? $student['school']['color'] : null),
                                     'allergies' => $student['allergies'],
                                 ]);
