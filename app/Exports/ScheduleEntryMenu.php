@@ -33,17 +33,18 @@ class ScheduleEntryMenu implements FromView {
             }
 
             return [
-                'school'      => $item->school,
-                'grade'       => $item->grade,
-                'first_name'  => $item->first_name,
-                'last_name'   => $item->last_name,
-                'product'     => $item->product,
-                'color'       => $item->color,
-                'student_id'  => $item->student_id,
-                'date'        => $dateFormatted,
-                'order_code'  => $order_code,
-                'allergies'   => $item->allergies,
-                'quantity'    => 1, // valor base
+                'school' => $item->school,
+                'grade' => $item->grade,
+                'teacher_name' => $item->teacher_name,
+                'first_name' => $item->first_name,
+                'last_name' => $item->last_name,
+                'product' => $item->product,
+                'color' => $item->color,
+                'student_id' => $item->student_id,
+                'date' => $dateFormatted,
+                'order_code' => $order_code,
+                'allergies' => $item->allergies,
+                'quantity' => 1, // valor base
             ];
         });
 
